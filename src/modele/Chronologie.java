@@ -1,8 +1,9 @@
 package modele;
 
+import java.io.Serializable;
 import java.util.TreeSet;
 
-public class Chronologie {
+public class Chronologie implements Serializable {
 
     private String intitule;
     private TreeSet <Evenement> listeEvt;
@@ -13,6 +14,10 @@ public class Chronologie {
 
     public Chronologie(){
 
+    }
+
+    public void ajout(Evenement evt){
+        listeEvt.add(evt);
     }
 
     public String getIntitule() {
