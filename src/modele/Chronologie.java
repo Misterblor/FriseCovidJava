@@ -1,8 +1,11 @@
 package modele;
 
+import java.util.TreeSet;
+
 public class Chronologie {
 
     private String intitule;
+    private TreeSet <Evenement> listeEvt;
     private Date dateDebut;
     private Date dateFin;
     private int periode;
@@ -22,6 +25,14 @@ public class Chronologie {
 
     public Date getDateDebut() {
         return dateDebut;
+    }
+
+    public TreeSet<Evenement> getListeEvt() {
+        return listeEvt;
+    }
+
+    public void setListeEvt(TreeSet<Evenement> listeEvt) {
+        this.listeEvt = listeEvt;
     }
 
     public void setDateDebut(Date dateDebut) {
