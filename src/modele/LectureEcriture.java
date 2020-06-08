@@ -1,7 +1,6 @@
 package modele;
 
 import java.io.*;
-test
 
 /**
  * <b>Classe qui vas permettre de sauvegarder et de charger des objets dans ou depuis des fichiers.<br>
