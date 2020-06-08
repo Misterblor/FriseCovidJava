@@ -1,6 +1,6 @@
 package vue;
 
-import javax.swing.*;
+import javax.swing.JPanel;
 
 public class PanelFormulaireChronologie extends JPanel {
 
