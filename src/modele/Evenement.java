@@ -30,6 +30,10 @@ public class Evenement {
         return resultat;
     }
 
+    public String toString(){
+        return "Evenement du " + date.toString() + " : " + titre + "\nDe poids : " + poids + "\n" + texteDescriptif;
+    }
+
     public Date getDate() {
         return date;
     }
