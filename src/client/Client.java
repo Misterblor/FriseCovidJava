@@ -1,9 +1,9 @@
 package client;
 
-import vue.Fenetre;
+import vue.FenetreAccueil;
 
 public class Client {
     public static void main(String[] args) {
-    new Fenetre();
+    new FenetreAccueil();
     }
 }
