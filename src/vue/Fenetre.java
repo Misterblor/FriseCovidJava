@@ -1,7 +1,7 @@
 package vue;
 
-import javax.swing.*;
-import java.awt.*;
+import javax.swing.JFrame;
+import java.awt.Color;
 
 public class Fenetre extends JFrame {
 
