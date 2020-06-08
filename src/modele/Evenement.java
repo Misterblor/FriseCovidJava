@@ -13,6 +13,23 @@ public class Evenement {
         texteDescriptif = parTexteDescriptif;
     }
 
+    public int compareTo(Evenement event){
+        int resultat = date.compareTo(event.getDate());
+        if(resultat==0)
+            return resultat;
+
+        resultat=titre.compareTo(event.getTitre());
+        if(resultat==0)
+            return resultat;
+
+        resultat=poids-event.getPoids();
+        if(resultat==0)
+            return resultat;
+
+        resultat=texteDescriptif.compareTo(event.getTexteDescriptif());
+        return resultat;
+    }
+
     public Date getDate() {
         return date;
     }
