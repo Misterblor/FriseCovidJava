@@ -1,6 +1,8 @@
 package modele;
 
-public class Evenement {
+import java.io.Serializable;
+
+public class Evenement implements Comparable<Evenement>, Serializable {
     private Date date;
     private String titre;
     private int poids;
