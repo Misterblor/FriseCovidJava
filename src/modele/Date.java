@@ -160,8 +160,13 @@ public class Date implements Comparable<Date>, Serializable {
 			 case 4 : 	 case 6 : 	 case 9 : 	 case 11 : return 30 ;
 			 default : return 31 ;
 			}  // switch
-	  } 
-  
+	  }
+
+	public Date anneeSuivante(){
+  		if(getJour()==29 && getMois()==2)
+  			return new Date(28,2,getAnnee()+1);
+		return new Date(getJour(), getMois(), getAnnee()+1);
+	}
 	/**
 	 * Vérifie si l'année de l'objet appellant est bisextile.
 	 * 
