@@ -24,8 +24,12 @@ public class Chronologie implements Serializable {
         image = new ImageIcon(imageChemin);
     }
 
-    public void ajout(Evenement evt){
-        listeEvt.add(evt);
+    public boolean ajout(Evenement evt){
+        if(evt.getDate().compareTo(dateDebut)>0 && evt.getDate().compareTo(dateFin)<0){
+            listeEvt.add(evt);
+            return true;
+        }
+        return false;
     }
 
     public void supprimer(Evenement evt){
