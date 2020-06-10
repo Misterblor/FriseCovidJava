@@ -25,7 +25,7 @@ public class Chronologie implements Serializable {
     }
 
     public boolean ajout(Evenement evt){
-        if(evt.getDate().compareTo(dateDebut)>0 && evt.getDate().compareTo(dateFin)<0){
+        if(evt.getDate().compareTo(dateDebut)>=0 && evt.getDate().compareTo(dateFin)<=0){
             listeEvt.add(evt);
             return true;
         }
