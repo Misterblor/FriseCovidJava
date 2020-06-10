@@ -2,6 +2,7 @@ package modele;
 
 import javax.swing.*;
 import java.io.Serializable;
+import java.util.Iterator;
 import java.util.TreeSet;
 
 public class Chronologie implements Serializable {
@@ -14,6 +15,8 @@ public class Chronologie implements Serializable {
     private String adresseFichierSauvegarde;
     private ImageIcon image;
 
+    private int nbEvent;
+
     public Chronologie(String parIntitule,  Date parDebut, Date parFin, int parPeriode, String sauvegarde, String imageChemin){
         intitule = parIntitule;
         listeEvt = new TreeSet<Evenement>();
@@ -22,14 +25,27 @@ public class Chronologie implements Serializable {
         periode=parPeriode;
         adresseFichierSauvegarde=sauvegarde;
         image = new ImageIcon(imageChemin);
+        nbEvent=0;
     }
 
     public boolean ajout(Evenement evt){
         if(evt.getDate().compareTo(dateDebut)>=0 && evt.getDate().compareTo(dateFin)<=0){
             listeEvt.add(evt);
+            nbEvent++;
             return true;
         }
         return false;
+    }
+
+    public Evenement get(int indice){
+        Iterator<Evenement> iterateur = listeEvt.iterator();
+
+        while(indice!=0 && iterateur.hasNext()){
+            indice--;
+            iterateur.next();
+        }
+
+        return iterateur.next();
     }
 
     public void supprimer(Evenement evt){
@@ -86,5 +102,13 @@ public class Chronologie implements Serializable {
 
     public void setAdresseFichierSauvegarde(String adresseFichierSauvegarde) {
         this.adresseFichierSauvegarde = adresseFichierSauvegarde;
+    }
+
+    public int getNbEvent() {
+        return nbEvent;
+    }
+
+    public void setNbEvent(int nbEvent) {
+        this.nbEvent = nbEvent;
     }
 }
