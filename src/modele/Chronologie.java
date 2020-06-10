@@ -1,5 +1,6 @@
 package modele;
 
+import javax.swing.*;
 import java.io.Serializable;
 import java.util.TreeSet;
 
@@ -11,13 +12,28 @@ public class Chronologie implements Serializable {
     private Date dateFin;
     private int periode;
     private String adresseFichierSauvegarde;
+    private ImageIcon image;
 
-    public Chronologie(){
-
+    public Chronologie(String parIntitule,  Date parDebut, Date parFin, int parPeriode, String sauvegarde, String imageChemin){
+        intitule = parIntitule;
+        listeEvt = new TreeSet<Evenement>();
+        dateDebut=parDebut;
+        dateFin=parFin;
+        periode=parPeriode;
+        adresseFichierSauvegarde=sauvegarde;
+        image = new ImageIcon(imageChemin);
     }
 
     public void ajout(Evenement evt){
         listeEvt.add(evt);
+    }
+
+    public void supprimer(Evenement evt){
+        listeEvt.remove(evt);
+    }
+
+    public ImageIcon getImage() {
+        return image;
     }
 
     public String getIntitule() {
