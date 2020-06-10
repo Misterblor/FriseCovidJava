@@ -10,7 +10,9 @@ public class PanelAffichage extends JPanel {
     public PanelAffichage(Chronologie frise) {
         setLayout(new BorderLayout());
 
-        add((new JLabel(frise.getIntitule())), BorderLayout.NORTH);
+        JLabel labelIntitule = new JLabel(frise.getIntitule(), JLabel.CENTER);
+        labelIntitule.setFont(new Font("Calibri", Font.BOLD, 20));
+        add(labelIntitule, BorderLayout.NORTH);
 
         PanelAffichageEvenement affichageEvent = new PanelAffichageEvenement(frise);
         add(affichageEvent, BorderLayout.CENTER);
