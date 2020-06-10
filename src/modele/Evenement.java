@@ -1,5 +1,6 @@
 package modele;
 
+import javax.swing.*;
 import java.io.Serializable;
 
 public class Evenement implements Comparable<Evenement>, Serializable {
@@ -7,12 +8,14 @@ public class Evenement implements Comparable<Evenement>, Serializable {
     private String titre;
     private int poids;
     private String texteDescriptif;
+    private ImageIcon image;
 
-    public Evenement(Date parDate, String parTitre, int parPoids, String parTexteDescriptif){
+    public Evenement(Date parDate, String parTitre, int parPoids, String parTexteDescriptif, String imageChemin){
         date = parDate;
         titre = parTitre;
         poids = parPoids;
         texteDescriptif = parTexteDescriptif;
+        image = new ImageIcon(imageChemin);
     }
 
     public int compareTo(Evenement event){
@@ -38,6 +41,14 @@ public class Evenement implements Comparable<Evenement>, Serializable {
 
     public Date getDate() {
         return date;
+    }
+
+    public ImageIcon getImage() {
+        return image;
+    }
+
+    public void setImage(ImageIcon image) {
+        this.image = image;
     }
 
     public void setDate(Date date) {
