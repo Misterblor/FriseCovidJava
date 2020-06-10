@@ -21,7 +21,6 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         setLayout(new FlowLayout());
 
         frise = parFrise;
-        System.out.print(frise.getListeEvt());
         Iterator<Evenement> iterateur = frise.getListeEvt().iterator();
 
         labelImage = new JLabel();
@@ -40,9 +39,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         add(suivant);
     }
 
-    @Override
     public void actionPerformed(ActionEvent event) {
-        System.out.print(indiceEventUtil);
         if(event.getSource()==precedent) {
             if (indiceEventUtil == 0) {
                 reinitEvent(frise.getNbEvent()-1);
@@ -51,10 +48,9 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
             }
         } else if(event.getSource()==suivant)
             reinitEvent((indiceEventUtil+1)%frise.getNbEvent());
-        System.out.println("--->" + indiceEventUtil);
     }
 
-    private void reinitEvent(int indice){
+    public void reinitEvent(int indice){
         indiceEventUtil=indice;
         Evenement event = frise.get(indice);
 
