@@ -12,7 +12,7 @@ import java.util.Iterator;
 public class PanelAffichageEvenement extends JPanel implements ActionListener {
     private JButton precedent;
     private JButton suivant;
-    private Evenement eventEnCours;
+    private int indiceEventUtil;
     private Chronologie frise;
     private JLabel labelDesc;
     private JLabel labelImage;
@@ -21,12 +21,12 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         setLayout(new FlowLayout());
 
         frise = parFrise;
-
+        System.out.print(frise.getListeEvt());
         Iterator<Evenement> iterateur = frise.getListeEvt().iterator();
 
         labelImage = new JLabel();
         labelDesc = new JLabel();
-        reinitEvent(iterateur.next());
+        reinitEvent(0);
 
         precedent = new JButton("<");
         suivant = new JButton(">");
@@ -42,35 +42,30 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
 
     @Override
     public void actionPerformed(ActionEvent event) {
-        if(event.getSource()==precedent){
-            Iterator<Evenement> iterateurCourant = frise.getListeEvt().iterator();
-
-            for(Iterator<Evenement> iterateurPrevision = frise.getListeEvt().iterator(); iterateurPrevision.hasNext() && iterateurPrevision.next()!=eventEnCours;)
-                iterateurCourant=iterateurPrevision;
-
-            reinitEvent((Evenement) iterateurCourant);
-        }
-
-        else if(event.getSource()==suivant){
-            Iterator<Evenement> iterateur = frise.getListeEvt().iterator();
-            while(iterateur.hasNext() && iterateur!=eventEnCours){
-                iterateur.next();
+        System.out.print(indiceEventUtil);
+        if(event.getSource()==precedent) {
+            if (indiceEventUtil == 0) {
+                reinitEvent(frise.getNbEvent()-1);
+            } else {
+                reinitEvent(indiceEventUtil - 1);
             }
-            reinitEvent(iterateur.next());
-        }
+        } else if(event.getSource()==suivant)
+            reinitEvent((indiceEventUtil+1)%frise.getNbEvent());
+        System.out.println("--->" + indiceEventUtil);
     }
 
-    private void reinitEvent(Evenement event){
-        eventEnCours=event;
+    private void reinitEvent(int indice){
+        indiceEventUtil=indice;
+        Evenement event = frise.get(indice);
 
         labelImage.setIcon(event.getImage());
 
         String description;
+        description = "<html>" + event.getDate().toString() + "<br><br>";
         if(event.getTexteDescriptif().split("\n").length > 1) {
-            description = "<html>";
             String[] temp = event.getTexteDescriptif().split("\n");
-            for (int indice = 0; indice < temp.length - 1; indice++)
-                description += temp[indice] + "<br>";
+            for (int i = 0; i < temp.length - 1; i++)
+                description += temp[i] + "<br>";
             description += temp[temp.length - 1] + "</html>";
         }
 
