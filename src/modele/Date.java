@@ -183,9 +183,6 @@ public class Date implements Comparable<Date>, Serializable {
 			}
 		}
 
-
-
-		int moisSup;
 		if(date.getMois()!=mois){
 			nbJour+=dernierJourDuMois(dateTemp.getMois(),dateTemp.getAnnee())-dateTemp.getJour()+1;
 			dateTemp.setJour(dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
@@ -193,11 +190,10 @@ public class Date implements Comparable<Date>, Serializable {
 
 			while(dateTemp.getMois()<date.getMois() && !(date.getMois()==dateTemp.getMois()+1 && date.getJour()<dateTemp.getJour())){
 				if(dateTemp.getMois()+1>12)
-					moisSup=(dateTemp.getMois()+1)%12+1;
+					nbJour+=dernierJourDuMois(((dateTemp.getMois()+1)%13)+1, dateTemp.getAnnee()+(dateTemp.getMois()+((dateTemp.getMois()+1)%13)+1)/13);
 				else
-					moisSup=dateTemp.getMois()+1;
+					nbJour+=dernierJourDuMois((dateTemp.getMois()+1)%13, dateTemp.getAnnee()+(dateTemp.getMois()+(dateTemp.getMois()+1)%13)/13);
 
-				nbJour+=dernierJourDuMois(moisSup, dateTemp.getAnnee()+(dateTemp.getMois()+moisSup)/12);
 				dateTemp.setJour(dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
 				dateTemp = dateTemp.dateDuLendemain();
 			}
