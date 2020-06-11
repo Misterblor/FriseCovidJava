@@ -1,6 +1,7 @@
 package modele;
 
 import java.io.Serializable;
+import java.time.DateTimeException;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 
@@ -167,6 +168,79 @@ public class Date implements Comparable<Date>, Serializable {
   			return new Date(28,2,getAnnee()+1);
 		return new Date(getJour(), getMois(), getAnnee()+1);
 	}
+
+	public int nbJourEntre(Date date){
+		int nbJour=0;
+		Date dateTemp = new Date(jour,mois,annee);
+
+		if(date.getAnnee()!=dateTemp.getAnnee() && !((date.getMois()<dateTemp.getMois() || (date.getMois()==dateTemp.getMois() && date.getJour()<dateTemp.getJour())) && date.getAnnee()!=dateTemp.getAnnee()+1)){
+			for(int anneeSup=0; anneeSup+annee<date.getAnnee() && !((date.getMois()<dateTemp.getMois() || (date.getMois()==dateTemp.getMois() && date.getJour()<dateTemp.getJour())) && date.getAnnee()!=dateTemp.getAnnee()+1); anneeSup++){
+				if(estBissextile(annee+anneeSup))
+					nbJour+=366;
+				else
+					nbJour+=365;
+				dateTemp = dateTemp.anneeSuivante();
+			}
+		}
+
+
+
+		int moisSup;
+		if(date.getMois()!=mois){
+			nbJour+=dernierJourDuMois(dateTemp.getMois(),dateTemp.getAnnee())-dateTemp.getJour()+1;
+			dateTemp.setJour(dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
+			dateTemp = dateTemp.dateDuLendemain();
+
+			while(dateTemp.getMois()<date.getMois() && !(date.getMois()==dateTemp.getMois()+1 && date.getJour()<dateTemp.getJour())){
+				if(dateTemp.getMois()+1>12)
+					moisSup=(dateTemp.getMois()+1)%12+1;
+				else
+					moisSup=dateTemp.getMois()+1;
+
+				nbJour+=dernierJourDuMois(moisSup, dateTemp.getAnnee()+(dateTemp.getMois()+moisSup)/12);
+				dateTemp.setJour(dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
+				dateTemp = dateTemp.dateDuLendemain();
+			}
+		}
+
+		if(date.getJour()>dateTemp.getJour()){
+			while(dateTemp.getJour()<date.getJour()){
+				dateTemp = dateTemp.dateDuLendemain();
+				nbJour++;
+			}
+		}
+		return nbJour;
+	}
+
+	public static Date faireAvancerDate(Date dateTemp, int periode){
+		if(periode==0)
+			dateTemp = dateTemp.dateDuLendemain();
+		else if(periode==1) {
+			for (int decompte = 0; decompte < 7; decompte++)
+				dateTemp = dateTemp.dateDuLendemain();
+		}
+		else if(periode==2){
+			dateTemp.setJour(Date.dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
+			dateTemp=dateTemp.dateDuLendemain();
+		}
+		else if(periode==3){
+			dateTemp = dateTemp.anneeSuivante();
+		}
+		else if(periode==4){
+			for(int decompte=0; decompte<5; decompte++)
+				dateTemp = dateTemp.anneeSuivante();
+		}
+		else if(periode==5){
+			for(int decompte=0; decompte<10; decompte++)
+				dateTemp = dateTemp.anneeSuivante();
+		}
+		else{
+			for(int decompte=0; decompte<100; decompte++)
+				dateTemp = dateTemp.anneeSuivante();
+		}
+		return dateTemp;
+	}
+
 	/**
 	 * Vérifie si l'année de l'objet appellant est bisextile.
 	 * 
