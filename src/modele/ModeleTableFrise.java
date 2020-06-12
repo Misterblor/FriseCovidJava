@@ -43,19 +43,19 @@ public class ModeleTableFrise extends DefaultTableModel {
         int nbJourEcart=debut.nbJourEntre(fin);
 
         if(periode==0)
-            return nbJourEcart+1;
+            return debut.nbJourEntre(fin);
         else if(periode==1)
-            return nbJourEcart%7==0 ? nbJourEcart/7 : (nbJourEcart/7)+1;
+            return debut.nbJourEntre(fin)%7==0 ? debut.nbJourEntre(fin)/7 : (debut.nbJourEntre(fin)/7)+1;
         else if(periode==2)
-            return nbJourEcart%30==0 ? nbJourEcart/30 : (nbJourEcart/30)+1;
+            return debut.nbMoisEntre(fin);
         else if(periode==3)
-            return nbJourEcart%365==0 ? nbJourEcart/365 : (nbJourEcart/365)+1;
+            return debut.nbAnneeEntre(fin);
         else if(periode==4)
-            return nbJourEcart%1826==0 ? nbJourEcart/1826 : (nbJourEcart/1826)+1;
+            return debut.nbAnneeEntre(fin)%5==0 ? debut.nbAnneeEntre(fin)/5 : (debut.nbAnneeEntre(fin)/5)+1;
         else if(periode==5)
-            return nbJourEcart%3653==0 ? nbJourEcart/3653 : (nbJourEcart/3653)+1;
+            return debut.nbAnneeEntre(fin)%10==0 ? debut.nbAnneeEntre(fin)/10 : (debut.nbAnneeEntre(fin)/10)+1;
         else if(periode==6)
-            return nbJourEcart%3653==0 ? nbJourEcart/3653 : (nbJourEcart/3653)+1;
+            return debut.nbAnneeEntre(fin)%100==0 ? debut.nbAnneeEntre(fin)/100 : (debut.nbAnneeEntre(fin)/100)+1;
 
         return 0;
     }
