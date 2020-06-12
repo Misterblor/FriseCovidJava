@@ -169,43 +169,33 @@ public class Date implements Comparable<Date>, Serializable {
 		return new Date(getJour(), getMois(), getAnnee()+1);
 	}
 
-	public int nbJourEntre(Date date){
-		int nbJour=0;
-		Date dateTemp = new Date(jour,mois,annee);
+	public int nbJourEntre(Date date) {
+		int nbJour = 0;
+		int[] nbJourMois = new int[12];
 
-		if(date.getAnnee()!=dateTemp.getAnnee() && !((date.getMois()<dateTemp.getMois() || (date.getMois()==dateTemp.getMois() && date.getJour()<dateTemp.getJour())) && date.getAnnee()!=dateTemp.getAnnee()+1)){
-			for(int anneeSup=0; anneeSup+annee<date.getAnnee() && !((date.getMois()<dateTemp.getMois() || (date.getMois()==dateTemp.getMois() && date.getJour()<dateTemp.getJour())) && date.getAnnee()!=dateTemp.getAnnee()+1); anneeSup++){
-				if(estBissextile(annee+anneeSup))
-					nbJour+=366;
-				else
-					nbJour+=365;
-				dateTemp = dateTemp.anneeSuivante();
+		for (int indice = 0; indice < 12; indice++)
+			nbJourMois[indice] = dernierJourDuMois(indice + 1, 2019);
+
+		int indiceMax = nbMoisEntre(date);
+		int i = 0;
+		for (int indice = 0; indice<=indiceMax; indice++) {
+			if (indice + mois > 12){
+				i=(indice+mois)%12;
+				//System.out.print(i);
 			}
-		}
-
-		if(date.getMois()!=mois){
-			nbJour+=dernierJourDuMois(dateTemp.getMois(),dateTemp.getAnnee())-dateTemp.getJour()+1;
-			dateTemp.setJour(dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
-			dateTemp = dateTemp.dateDuLendemain();
-
-			while(dateTemp.getMois()<date.getMois() && !(date.getMois()==dateTemp.getMois()+1 && date.getJour()<dateTemp.getJour())){
-				if(dateTemp.getMois()+1>12)
-					nbJour+=dernierJourDuMois(((dateTemp.getMois()+1)%13)+1, dateTemp.getAnnee()+(dateTemp.getMois()+((dateTemp.getMois()+1)%13)+1)/13);
-				else
-					nbJour+=dernierJourDuMois((dateTemp.getMois()+1)%13, dateTemp.getAnnee()+(dateTemp.getMois()+(dateTemp.getMois()+1)%13)/13);
-
-				dateTemp.setJour(dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
-				dateTemp = dateTemp.dateDuLendemain();
-			}
-		}
-
-		if(date.getJour()>dateTemp.getJour()){
-			while(dateTemp.getJour()<date.getJour()){
-				dateTemp = dateTemp.dateDuLendemain();
-				nbJour++;
-			}
+			else
+				i = indice + mois - 1;
+			nbJour += nbJourMois[i];
 		}
 		return nbJour;
+	}
+
+	public int nbMoisEntre(Date date){
+  	return ((nbAnneeEntre(date)-1)*12) + (date.getMois()-mois) + 1;
+  }
+
+	public int nbAnneeEntre(Date date){
+  		return date.getAnnee()-annee+1;
 	}
 
 	public static Date faireAvancerDate(Date dateTemp, int periode){
