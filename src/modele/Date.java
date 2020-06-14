@@ -163,12 +163,6 @@ public class Date implements Comparable<Date>, Serializable {
 			}  // switch
 	  }
 
-	public Date anneeSuivante(){
-  		if(getJour()==29 && getMois()==2)
-  			return new Date(28,2,getAnnee()+1);
-		return new Date(getJour(), getMois(), getAnnee()+1);
-	}
-
 	public int nbJourEntre(Date date) {
 		int nbJour = 0;
 		int[] nbJourMois = new int[12];
@@ -181,7 +175,6 @@ public class Date implements Comparable<Date>, Serializable {
 		for (int indice = 0; indice<=indiceMax; indice++) {
 			if (indice + mois > 12){
 				i=(indice+mois)%12;
-				//System.out.print(i);
 			}
 			else
 				i = indice + mois - 1;
@@ -196,35 +189,6 @@ public class Date implements Comparable<Date>, Serializable {
 
 	public int nbAnneeEntre(Date date){
   		return date.getAnnee()-annee+1;
-	}
-
-	public static Date faireAvancerDate(Date dateTemp, int periode){
-		if(periode==0)
-			dateTemp = dateTemp.dateDuLendemain();
-		else if(periode==1) {
-			for (int decompte = 0; decompte < 7; decompte++)
-				dateTemp = dateTemp.dateDuLendemain();
-		}
-		else if(periode==2){
-			dateTemp.setJour(Date.dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
-			dateTemp=dateTemp.dateDuLendemain();
-		}
-		else if(periode==3){
-			dateTemp = dateTemp.anneeSuivante();
-		}
-		else if(periode==4){
-			for(int decompte=0; decompte<5; decompte++)
-				dateTemp = dateTemp.anneeSuivante();
-		}
-		else if(periode==5){
-			for(int decompte=0; decompte<10; decompte++)
-				dateTemp = dateTemp.anneeSuivante();
-		}
-		else{
-			for(int decompte=0; decompte<100; decompte++)
-				dateTemp = dateTemp.anneeSuivante();
-		}
-		return dateTemp;
 	}
 
 	/**
