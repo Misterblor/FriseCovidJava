@@ -47,7 +47,7 @@ public class PanelChoixFrise extends javax.swing.JPanel {
             if (tableauFrise.length-1 != indice) {
                 tableauFrise[indice].setText("");
                 Chronologie frise = (Chronologie) LectureEcriture.lecture(files.get(indice));
-                tableauFrise[indice].setIcon(new ImageIcon(frise.getImage().toString()));
+                tableauFrise[indice].setIcon(new ImageIcon(new ImageIcon(frise.getImage().toString()).getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
                 tableauFrise[indice].setActionCommand("Charger'" + files.get(indice));
             } else {
                 tableauFrise[indice].setText("<html>Nouvelle<br>frise</html>");
