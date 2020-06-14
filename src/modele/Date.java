@@ -170,8 +170,13 @@ public class Date implements Comparable<Date>, Serializable {
 		for (int indice = 0; indice < 12; indice++)
 			nbJourMois[indice] = dernierJourDuMois(indice + 1, 2019);
 
+		while((jour+nbJour)%dernierJourDuMois(mois,annee)!=date.getJour()){
+			nbJour++;
+		}
+
 		int indiceMax = nbMoisEntre(date);
 		int i = 0;
+
 		for (int indice = 0; indice<=indiceMax; indice++) {
 			if (indice + mois > 12){
 				i=(indice+mois)%12;
@@ -184,11 +189,11 @@ public class Date implements Comparable<Date>, Serializable {
 	}
 
 	public int nbMoisEntre(Date date){
-  	return ((nbAnneeEntre(date)-1)*12) + (date.getMois()-mois) + 1;
+  	return ((nbAnneeEntre(date)-1)*12) + (date.getMois()-mois);
   }
 
 	public int nbAnneeEntre(Date date){
-  		return date.getAnnee()-annee+1;
+  		return date.getAnnee()-annee;
 	}
 
 	/**
