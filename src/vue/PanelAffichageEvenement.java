@@ -10,15 +10,13 @@ import java.awt.event.ActionListener;
 import java.util.Iterator;
 
 public class PanelAffichageEvenement extends JPanel implements ActionListener {
-    private JButton precedent;
-    private JButton suivant;
     private int indiceEventUtil;
     private Chronologie frise;
     private JLabel labelDesc;
     private JLabel labelImage;
 
     public PanelAffichageEvenement(Chronologie parFrise) {
-        setLayout(new FlowLayout());
+        setLayout(new GridBagLayout());
 
         frise = parFrise;
         Iterator<Evenement> iterateur = frise.getListeEvt().iterator();
@@ -27,26 +25,46 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         labelDesc = new JLabel();
         reinitEvent(0);
 
-        precedent = new JButton("<");
-        suivant = new JButton(">");
+        JButton precedent = new JButton("<");
+        JButton suivant = new JButton(">");
 
         precedent.addActionListener(this);
         suivant.addActionListener(this);
 
-        add(precedent);
-        add(labelImage);
-        add(labelDesc);
-        add(suivant);
+        precedent.setPreferredSize(new Dimension(20,115));
+        suivant.setPreferredSize(new Dimension(20,115));
+
+        precedent.setActionCommand("precedent");
+        suivant.setActionCommand("suivant");
+
+        GridBagConstraints contrainte = new GridBagConstraints();
+        contrainte.insets = new Insets(6,6,6,6);
+
+        contrainte.gridx=0;
+        contrainte.anchor=GridBagConstraints.WEST;
+        add(precedent, contrainte);
+
+        contrainte.anchor=GridBagConstraints.CENTER;
+        contrainte.gridx=1;
+        add(labelImage, contrainte);
+
+        contrainte.anchor=GridBagConstraints.CENTER;
+        contrainte.gridx=2;
+        add(labelDesc, contrainte);
+
+        contrainte.gridx=3;
+        contrainte.anchor=GridBagConstraints.FIRST_LINE_END;
+        add(suivant, contrainte);
     }
 
     public void actionPerformed(ActionEvent event) {
-        if(event.getSource()==precedent) {
+        if(event.getActionCommand()=="precedent") {
             if (indiceEventUtil == 0) {
                 reinitEvent(frise.getNbEvent()-1);
             } else {
                 reinitEvent(indiceEventUtil - 1);
             }
-        } else if(event.getSource()==suivant)
+        } else if(event.getActionCommand()=="suivant")
             reinitEvent((indiceEventUtil+1)%frise.getNbEvent());
     }
 
