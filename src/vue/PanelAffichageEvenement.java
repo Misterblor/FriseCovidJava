@@ -72,7 +72,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         indiceEventUtil=indice;
         Evenement event = frise.get(indice);
 
-        labelImage.setIcon(event.getImage());
+        labelImage.setIcon(new ImageIcon(event.getImage().getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 
         String description;
         description = "<html>" + event.getDate().toString() + "<br><br>";
