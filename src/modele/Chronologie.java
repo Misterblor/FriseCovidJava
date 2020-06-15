@@ -38,7 +38,7 @@ public class Chronologie implements Serializable {
     }
 
     public Evenement get(int indice){
-        if(indice<0 || indice>nbEvent)
+        if(indice<0 || indice>=nbEvent)
             return null;
 
         Iterator<Evenement> iterateur = listeEvt.iterator();
