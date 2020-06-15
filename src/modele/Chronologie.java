@@ -114,4 +114,14 @@ public class Chronologie implements Serializable {
     public void setNbEvent(int nbEvent) {
         this.nbEvent = nbEvent;
     }
+
+    public int getIndice(Evenement event) {
+        int i;
+        for(i=0; i<nbEvent && get(i)!=event; i++){}
+
+        if(get(i)==event)
+            return i;
+        else
+            return -1;
+    }
 }

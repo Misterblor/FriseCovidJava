@@ -7,7 +7,6 @@ public class ModeleTableFrise extends DefaultTableModel {
         setRowCount(4);
         int nbColonne = nbCol(frise.getDateDebut(), frise.getDateFin(), frise.getPeriode());
         setColumnCount(nbColonne);
-        System.out.println(nbColonne);
 
         int indiceEvent = 0, i=0;
 
@@ -144,5 +143,18 @@ public class ModeleTableFrise extends DefaultTableModel {
             }
         }
         return id;
+    }
+
+    /**
+     * Vérifie et retourne le type de donnée dans une colonne.
+     *
+     * @param col Entier qui indique le numéro de colonne dont il vas falloir vérifier le type.
+     *
+     * @return Retourne la classe de la colonne sélectionnée.
+     *
+     * @author Antoine Limerutti - Pablo Rican
+     */
+    public Class<Evenement> getColumnClass(int col) {
+        return Evenement.class;
     }
 }

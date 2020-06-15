@@ -30,7 +30,6 @@ public class PanelChoixFrise extends javax.swing.JPanel {
 
         for(int indice=0; indice<all_files.length; indice++){
             String[] extension = all_files[indice].toString().split("\\.");
-            System.out.print(all_files[indice]);
             if(extension[extension.length-1].compareTo("ser")==0)
                 files.add(all_files[indice]);
         }

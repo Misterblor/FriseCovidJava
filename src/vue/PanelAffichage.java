@@ -17,7 +17,7 @@ public class PanelAffichage extends JPanel {
         PanelAffichageEvenement affichageEvent = new PanelAffichageEvenement(frise);
         add(affichageEvent, BorderLayout.CENTER);
 
-        PanelAffichageTable affichageTable = new PanelAffichageTable(frise);
+        PanelAffichageTable affichageTable = new PanelAffichageTable(frise, affichageEvent);
         add(affichageTable, BorderLayout.SOUTH);
     }
 }
