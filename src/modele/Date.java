@@ -36,6 +36,8 @@ public class Date implements Comparable<Date>, Serializable {
 	 * Numéro du jour de la semaine.
 	 */
   private int jourSemaine ;
+
+  public static final String[] MOIS_DE_L_ANNEE = {"Janvier", "Fevrier", "Mars", "Avril", "Mai", "Juin", "Juillet", "Aout", "Septembre", "Octobre", "Novembre", "Decembre"};
   
 	/**
 	 * Crée un objet Date à la date courante.
@@ -188,6 +190,34 @@ public class Date implements Comparable<Date>, Serializable {
 		return nbJour;
 	}
 
+	public Date moisPrecedent(){
+		int j = 1;
+		int m = mois;
+		int a = annee;
+
+		if (mois > 1){
+			m--;
+			return new Date(j,m,a);
+		}
+		m = 12;
+		a--;
+		return new Date(j,m,a);
+	}
+
+	public Date moisSuivant(){
+		int j = 1;
+		int m = mois;
+		int a = annee;
+
+		if (mois < 12){
+			m++;
+			return new Date(j,m,a);
+		}
+		m = 1;
+		a++;
+		return  new Date(j,m,a);
+	}
+
 	public int nbMoisEntre(Date date){
   	return ((nbAnneeEntre(date)-1)*12) + (date.getMois()-mois);
   }
@@ -238,7 +268,19 @@ public class Date implements Comparable<Date>, Serializable {
 		 default: chaine = "erreurMois"; break;
 	}
 	return chaine + " " + annee;
-  }  
+  }
+
+  public String toStringJourMoisAnnee(){
+  	return jour + " " + MOIS_DE_L_ANNEE[mois-1] + " " + annee;
+  }
+
+  public String toStringMoisAnnee(){
+  	return MOIS_DE_L_ANNEE[mois-1] + " " + annee;
+  }
+
+  public String toStringJour(){
+  	return Integer.toString(jour);
+  }
   
 	/**
 	 * Vérifie si l'objet appellant correspond à la date du jour.
