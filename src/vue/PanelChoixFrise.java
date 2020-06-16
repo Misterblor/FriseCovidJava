@@ -8,10 +8,12 @@ package vue;
 import controleur.Controleur;
 import modele.Chronologie;
 import modele.LectureEcriture;
+import modele.SavesChronologie;
 
 import java.awt.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import javax.swing.*;
 
 
@@ -25,29 +27,34 @@ public class PanelChoixFrise extends javax.swing.JPanel {
      * Creates new form PanelChoixFrise
      */
     public PanelChoixFrise(Controleur controleur) {
-        File all_files[] = (new File("saves")).listFiles();
-        ArrayList<File> files = new ArrayList<File>();
-
-        for(int indice=0; indice<all_files.length; indice++){
-            String[] extension = all_files[indice].toString().split("\\.");
-            if(extension[extension.length-1].compareTo("ser")==0)
-                files.add(all_files[indice]);
-        }
-
         setLayout(new GridLayout(7, 7, 20, 20));
 
-        JButton[] tableauFrise = new JButton[files.size() + 1];
+        SavesChronologie listeSave;
+        if(SavesChronologie.FILE.exists()) {
+            listeSave = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+            listeSave.verification();
+        }
+        else {
+            listeSave = new SavesChronologie();
+            LectureEcriture.ecriture(SavesChronologie.FILE, listeSave);
+        }
+
+        JButton[] tableauFrise = new JButton[listeSave.size() + 1];
+        Iterator<String> iterateur = listeSave.iterator();
         int indice;
+        File fichier;
 
         for(indice=0; indice<tableauFrise.length; indice++) {
             tableauFrise[indice] = new JButton();
             tableauFrise[indice].setPreferredSize(new Dimension(80, 80));
 
-            if (tableauFrise.length-1 != indice) {
-                tableauFrise[indice].setText("");
-                Chronologie frise = (Chronologie) LectureEcriture.lecture(files.get(indice));
+            if (iterateur.hasNext()) {
+                fichier = new File(iterateur.next());
+
+                Chronologie frise = (Chronologie) LectureEcriture.lecture(fichier);
+
                 tableauFrise[indice].setIcon(new ImageIcon(new ImageIcon(frise.getImage().toString()).getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
-                tableauFrise[indice].setActionCommand("Charger'" + files.get(indice));
+                tableauFrise[indice].setActionCommand("Charger'" + fichier);
             } else {
                 tableauFrise[indice].setText("<html>Nouvelle<br>frise</html>");
                 tableauFrise[indice].setFont(new Font("Calibri", Font.PLAIN, 10));
