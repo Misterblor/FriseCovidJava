@@ -8,6 +8,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Iterator;
+import java.util.StringTokenizer;
 
 public class PanelAffichageEvenement extends JPanel implements ActionListener {
     private int indiceEventUtil;
@@ -76,15 +77,30 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
 
             labelImage.setIcon(new ImageIcon(event.getImage().getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
 
-            String description;
-            description = "<html>" + event.getDate().toString() + "<br><br>";
-            if (event.getTexteDescriptif().split("\n").length > 1) {
-                String[] temp = event.getTexteDescriptif().split("\n");
-                for (int i = 0; i < temp.length - 1; i++)
-                    description += temp[i] + "<br>";
-                description += temp[temp.length - 1] + "</html>";
-            } else
-                description = event.getTexteDescriptif();
+            String description = "<html><h2>" + event.getTitre() + "</h2><h4>" + event.getDate().toString() + "</h4>";
+
+            StringTokenizer stSpace = new StringTokenizer(event.getTexteDescriptif(), " ");
+            StringTokenizer stRetourChariot;
+            String token;
+
+            for(int i=0; stSpace.hasMoreTokens(); i++){
+                token = stSpace.nextToken();
+
+                if(i%11==0 && i!=0)
+                    description+=token + "<br>";
+
+                else if(token.contains("\n")){
+                    stRetourChariot = new StringTokenizer(token, "\n");
+                    description+=stRetourChariot.nextToken() + "<br>" + stRetourChariot.nextToken() + " ";
+                    i=0;
+                }
+
+                else
+                    description+=token + " ";
+            }
+
+            description += "</html>";
+            System.out.println(description);
 
             labelDesc.setText(description);
 
