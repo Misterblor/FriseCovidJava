@@ -15,7 +15,12 @@ public class ModeleTableFrise extends DefaultTableModel {
 
         while(i<nbColonne && event!=null){
 
-            if((frise.getPeriode()==0 || frise.getPeriode()==1) && dateTemp.compareTo(event.getDate())==0 || frise.getPeriode()==2 && event.getDate().getAnnee()==dateTemp.getAnnee() && event.getDate().getMois()==dateTemp.getMois() || frise.getPeriode()==3 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+i) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(i+1))-1 || frise.getPeriode()==4 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(5*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(5*(i+1)))-1 || frise.getPeriode()==5 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(10*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(10*(i+1)))-1 || frise.getPeriode()==6 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(100*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(100*(i+1)))-1){
+            if((frise.getPeriode()==0 || frise.getPeriode()==1) && dateTemp.compareTo(event.getDate())==0
+                    || frise.getPeriode()==2 && event.getDate().getAnnee()==dateTemp.getAnnee() && event.getDate().getMois()==dateTemp.getMois()
+                    || frise.getPeriode()==3 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+i) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(i+1))-1
+                    || frise.getPeriode()==4 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(5*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(5*(i+1)))-1
+                    || frise.getPeriode()==5 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(10*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(10*(i+1)))-1
+                    || frise.getPeriode()==6 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(100*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(100*(i+1)))-1){
                 setValueAt(event, event.getPoids(), i);
                 indiceEvent++;
                 event = frise.get(indiceEvent);
