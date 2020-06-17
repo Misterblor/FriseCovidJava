@@ -15,11 +15,13 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
     private Chronologie frise;
     private JLabel labelDesc;
     private JLabel labelImage;
+    private PanelAffichageTable affichageTable;
 
     public PanelAffichageEvenement(Chronologie parFrise) {
         setLayout(new GridBagLayout());
 
         frise = parFrise;
+
         Iterator<Evenement> iterateur = frise.getListeEvt().iterator();
 
         labelImage = new JLabel();
@@ -42,7 +44,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         contrainte.insets = new Insets(6,6,6,6);
 
         contrainte.gridx=0;
-        contrainte.anchor=GridBagConstraints.WEST;
+        contrainte.anchor=GridBagConstraints.FIRST_LINE_START;
         add(precedent, contrainte);
 
         contrainte.anchor=GridBagConstraints.CENTER;
@@ -67,10 +69,10 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
             }
         } else if(event.getActionCommand()=="suivant")
             reinitEvent((indiceEventUtil+1)%frise.getNbEvent());
+        affichageTable.setRow(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode());
     }
 
     public void reinitEvent(int indice){
-        System.out.println(indice);
         if(indice != -1) {
             indiceEventUtil = indice;
             Evenement event = frise.get(indice);
@@ -88,24 +90,26 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
 
                 if(i%11==0 && i!=0)
                     description+=token + "<br>";
-
                 else if(token.contains("\n")){
                     stRetourChariot = new StringTokenizer(token, "\n");
                     description+=stRetourChariot.nextToken() + "<br>" + stRetourChariot.nextToken() + " ";
                     i=0;
                 }
-
                 else
                     description+=token + " ";
             }
 
             description += "</html>";
-            System.out.println(description);
 
             labelDesc.setText(description);
 
             validate();
             repaint();
         }
+    }
+
+
+    public void setAffichageTable(PanelAffichageTable affichageTable) {
+        this.affichageTable = affichageTable;
     }
 }

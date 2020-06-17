@@ -19,5 +19,7 @@ public class PanelAffichage extends JPanel {
 
         PanelAffichageTable affichageTable = new PanelAffichageTable(frise, affichageEvent);
         add(affichageTable, BorderLayout.SOUTH);
+
+        affichageEvent.setAffichageTable(affichageTable);
     }
 }

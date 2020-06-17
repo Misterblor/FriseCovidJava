@@ -46,7 +46,7 @@ public class ModeleTableFrise extends DefaultTableModel {
         setColumnIdentifiers(getIdentifieur(frise.getPeriode(), nbColonne, frise.getDateDebut()));
     }
 
-    private int nbCol(Date debut, Date fin, int periode){
+    public int nbCol(Date debut, Date fin, int periode){
         int nbJourEcart=debut.nbJourEntre(fin);
 
         if(periode==0)

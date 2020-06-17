@@ -1,9 +1,6 @@
 package vue;
 
-import modele.Chronologie;
-import modele.Evenement;
-import modele.ModeleTableFrise;
-import modele.RendererTableFrise;
+import modele.*;
 
 import javax.swing.*;
 import java.awt.*;
@@ -11,11 +8,15 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class PanelAffichageTable extends JPanel {
+    JTable tableFrise;
+    ModeleTableFrise modele;
+
     public PanelAffichageTable(Chronologie frise, PanelAffichageEvenement affichageEvent) {
-        JTable tableFrise = new JTable();
+        tableFrise = new JTable();
+        modele = new ModeleTableFrise(frise);
 
         tableFrise.setDefaultRenderer(Evenement.class, new RendererTableFrise());
-        tableFrise.setModel(new ModeleTableFrise(frise));
+        tableFrise.setModel(modele);
 
         tableFrise.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tableFrise.getTableHeader().setReorderingAllowed(false);
@@ -38,5 +39,9 @@ public class PanelAffichageTable extends JPanel {
         JScrollPane scrollPane = new JScrollPane(tableFrise,ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         scrollPane.setPreferredSize(new Dimension(650,440));
         add(scrollPane);
+    }
+
+    public void setRow(Date dateDebut, Date dateEvent, int periode){
+        tableFrise.scrollRectToVisible(tableFrise.getCellRect(1, modele.nbCol(dateDebut, dateEvent, periode)-1,false));
     }
 }

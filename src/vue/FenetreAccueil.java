@@ -2,7 +2,7 @@ package vue;
 
 import controleur.Controleur;
 
-import javax.swing.JFrame;
+import javax.swing.*;
 import java.awt.Color;
 
 public class FenetreAccueil extends JFrame {
@@ -12,10 +12,8 @@ public class FenetreAccueil extends JFrame {
 
         com.formdev.flatlaf.FlatLightLaf.install();
 
-        Controleur controleur = new Controleur(this);
-
-        PanelChoixFrise panelFils = new PanelChoixFrise(controleur);
-        panelFils.setBackground (Color.WHITE);
+        PanelFrise panelFils = new PanelFrise(this);
+        panelFils.setBackground(Color.WHITE);
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
@@ -24,6 +22,20 @@ public class FenetreAccueil extends JFrame {
         setLocation(100,100);
         setBackground (Color.WHITE);
 
+        JMenuItem[] itemsMenu = new JMenuItem[]{new JMenuItem("Choix Frise", 'C'), new JMenuItem("Affichage Frise", 'I'), new JMenuItem("Création", 'r') , new JMenuItem("Fermer",'F'), new JMenuItem("?",'A')};
+        JMenuBar menu = new JMenuBar();
+
+        for(int i=0; i<itemsMenu.length; i++) {
+            itemsMenu[i].setAccelerator(KeyStroke.getKeyStroke(itemsMenu[i].getMnemonic(),java.awt.Event.CTRL_MASK));
+            itemsMenu[i].addActionListener(panelFils);
+            itemsMenu[i].setActionCommand(itemsMenu[i].getText());
+            menu.add(itemsMenu[i]);
+        }
+
+        setJMenuBar(menu);
         setContentPane(panelFils);
+
+        validate();
+        repaint();
     }
 }
