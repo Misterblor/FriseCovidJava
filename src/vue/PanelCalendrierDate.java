@@ -5,11 +5,11 @@
  */
 package vue;
 
-import controleur.ControleurPanelFormulaire;
+import controleur.ControleurPanelFormulaireChronologie;
 import java.awt.Color;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import javax.swing.JButton;
+
+import controleur.ControleurPanelFormulaireEvenement;
 import modele.BoutonDate;
 import modele.Date;
 
@@ -162,9 +162,15 @@ public class PanelCalendrierDate extends javax.swing.JPanel {
         }
     }
 
-    public void enregistreEcouteur(ControleurPanelFormulaire controleurPanelFormulaire){
+    public void enregistreEcouteurChronologie(ControleurPanelFormulaireChronologie controleurPanelFormulaireChronologie){
         for (int i = 0; i < listeBoutonDate.length; i++){
-            listeBoutonDate[i].addActionListener(controleurPanelFormulaire);
+            listeBoutonDate[i].addActionListener(controleurPanelFormulaireChronologie);
+        }
+    }
+
+    public void enregistreEcouteurEvenement(ControleurPanelFormulaireEvenement controleurPanelFormulaireEvenement){
+        for (int i = 0; i < listeBoutonDate.length; i++){
+            listeBoutonDate[i].addActionListener(controleurPanelFormulaireEvenement);
         }
     }
 

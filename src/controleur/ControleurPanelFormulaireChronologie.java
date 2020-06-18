@@ -13,14 +13,14 @@ import modele.*;
  *
  * @author miste
  */
-public class ControleurPanelFormulaire implements ActionListener{
+public class ControleurPanelFormulaireChronologie implements ActionListener{
 
     private PanelFormulaireChronologie panelFormulaireChronologie;
 
-    public ControleurPanelFormulaire(PanelFormulaireChronologie panelFormulaireChronologie){
+    public ControleurPanelFormulaireChronologie(PanelFormulaireChronologie panelFormulaireChronologie){
         this.panelFormulaireChronologie = panelFormulaireChronologie;
-        this.panelFormulaireChronologie.getPanelCalendrierDateDebut().enregistreEcouteur(this);
-        this.panelFormulaireChronologie.getPanelCalendrierDateFin().enregistreEcouteur(this);
+        this.panelFormulaireChronologie.getPanelCalendrierDateDebut().enregistreEcouteurChronologie(this);
+        this.panelFormulaireChronologie.getPanelCalendrierDateFin().enregistreEcouteurChronologie(this);
     }
 
     @Override

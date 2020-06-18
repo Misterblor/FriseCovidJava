@@ -5,12 +5,9 @@
  */
 package vue;
 
-import controleur.ControleurPanelFormulaire;
+import controleur.ControleurPanelFormulaireChronologie;
 import modele.Date;
 import java.awt.Color;
-import java.awt.Point;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.*;
 
 /**
@@ -23,8 +20,9 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
      * Creates new form PanelFormulaireChronologie
      */
     public PanelFormulaireChronologie() {
+        com.formdev.flatlaf.FlatLightLaf.install();
         initComponents();
-        new ControleurPanelFormulaire(this);
+        new ControleurPanelFormulaireChronologie(this);
         requestFocus();
     }
 
@@ -38,24 +36,31 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     private void initComponents() {
 
         fileChooserDossier = new javax.swing.JFileChooser();
+        fileChooserImage = new javax.swing.JFileChooser();
         labelIntitule = new javax.swing.JLabel();
         textFieldIntitule = new javax.swing.JTextField();
         styleSaisieIntitule = new javax.swing.JProgressBar();
         labelDateDebut = new javax.swing.JLabel();
         textFieldDateDebut = new javax.swing.JTextField();
         styleSaisieDateDebut = new javax.swing.JProgressBar();
+        panelCalendrierDateDebut = new vue.PanelCalendrierDate();
         labelDateFin = new javax.swing.JLabel();
         textFieldDateFin = new javax.swing.JTextField();
         styleSaisieDateFin = new javax.swing.JProgressBar();
-        panelCalendrierDateDebut = new PanelCalendrierDate();
-        panelCalendrierDateFin = new PanelCalendrierDate();
+        panelCalendrierDateFin = new vue.PanelCalendrierDate();
         labelPeriode = new javax.swing.JLabel();
         comboBoxPeriode = new javax.swing.JComboBox<>();
         styleSaisiePeriode = new javax.swing.JProgressBar();
         labelDossier = new javax.swing.JLabel();
         textFieldDossier = new javax.swing.JTextField();
-        boutonParcourir = new javax.swing.JButton();
+        boutonParcourirDossier = new javax.swing.JButton();
         styleSaisieDossier = new javax.swing.JProgressBar();
+        labelImage = new javax.swing.JLabel();
+        textFieldImage = new javax.swing.JTextField();
+        styleSaisieImage = new javax.swing.JProgressBar();
+        boutonParcourirImage = new javax.swing.JButton();
+        labelImageAffiche = new javax.swing.JLabel();
+        buttonAjouter = new javax.swing.JButton();
 
         setBackground(java.awt.Color.white);
         setPreferredSize(new java.awt.Dimension(1280, 720));
@@ -88,6 +93,8 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             }
         });
 
+        styleSaisieIntitule.setBackground(java.awt.Color.lightGray);
+
         labelDateDebut.setFont(new java.awt.Font("Open Sans", 1, 24)); // NOI18N
         labelDateDebut.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
         labelDateDebut.setIcon(new javax.swing.ImageIcon("ressources\\iconLabelSaisieDate.png")); // NOI18N
@@ -114,6 +121,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
                 textFieldDateDebutKeyTyped(evt);
             }
         });
+
+        styleSaisieDateDebut.setBackground(java.awt.Color.lightGray);
+
+        panelCalendrierDateDebut.setPreferredSize(new java.awt.Dimension(275, 175));
+        panelCalendrierDateDebut.setVisible(false);
 
         labelDateFin.setFont(new java.awt.Font("Open Sans", 1, 24)); // NOI18N
         labelDateFin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -143,9 +155,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             }
         });
 
-        panelCalendrierDateDebut.setPreferredSize(new java.awt.Dimension(275, 175));
+        styleSaisieDateFin.setBackground(java.awt.Color.lightGray);
 
         panelCalendrierDateFin.setPreferredSize(new java.awt.Dimension(275, 175));
+        panelCalendrierDateFin.setVisible(false);
 
         labelPeriode.setIcon(new javax.swing.ImageIcon("ressources\\iconLabelPeriode.png")); // NOI18N
 
@@ -159,6 +172,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             }
         });
 
+        styleSaisiePeriode.setBackground(java.awt.Color.lightGray);
         styleSaisiePeriode.setOrientation(1);
 
         labelDossier.setIcon(new javax.swing.ImageIcon("ressources\\iconLabelDossier.jpg")); // NOI18N
@@ -189,14 +203,60 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             }
         });
 
-        boutonParcourir.setFont(new java.awt.Font("Open Sans", 0, 24)); // NOI18N
-        boutonParcourir.setText("Parcourir");
-        boutonParcourir.setFocusPainted(false);
-        boutonParcourir.addActionListener(new java.awt.event.ActionListener() {
+        boutonParcourirDossier.setFont(new java.awt.Font("Open Sans", 0, 24)); // NOI18N
+        boutonParcourirDossier.setText("Parcourir");
+        boutonParcourirDossier.setFocusPainted(false);
+        boutonParcourirDossier.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonParcourirActionPerformed(evt);
+                boutonParcourirDossierActionPerformed(evt);
             }
         });
+
+        styleSaisieDossier.setBackground(java.awt.Color.lightGray);
+
+        labelImage.setIcon(new javax.swing.ImageIcon("ressources\\iconImage.png")); // NOI18N
+
+        textFieldImage.setFont(new java.awt.Font("Open Sans", 0, 24)); // NOI18N
+        textFieldImage.setForeground(java.awt.Color.lightGray);
+        textFieldImage.setText("Saisir le chemin de l'image");
+        textFieldImage.setBorder(null);
+        textFieldImage.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                textFieldImageFocusGained(evt);
+            }
+            public void focusLost(java.awt.event.FocusEvent evt) {
+                textFieldImageFocusLost(evt);
+            }
+        });
+        textFieldImage.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                textFieldImageMousePressed(evt);
+            }
+            public void mouseReleased(java.awt.event.MouseEvent evt) {
+                textFieldImageMouseReleased(evt);
+            }
+        });
+        textFieldImage.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                textFieldImageKeyTyped(evt);
+            }
+        });
+
+        styleSaisieImage.setBackground(java.awt.Color.lightGray);
+
+        boutonParcourirImage.setFont(new java.awt.Font("Open Sans", 0, 24)); // NOI18N
+        boutonParcourirImage.setText("Parcourir");
+        boutonParcourirImage.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                boutonParcourirImageActionPerformed(evt);
+            }
+        });
+
+        labelImageAffiche.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        labelImageAffiche.setIcon(new javax.swing.ImageIcon("ressources\\iconImageAffiche.png")); // NOI18N
+
+        buttonAjouter.setIcon(new javax.swing.ImageIcon("ressources\\iconBoutonAjouter.png")); // NOI18N
+        buttonAjouter.setBorder(null);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
@@ -207,84 +267,108 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                                 .addComponent(labelDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(labelIntitule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                        .addComponent(labelPeriode)
-                                        .addComponent(labelDossier))
+                                                .addComponent(labelIntitule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(labelDossier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(labelPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                        .addComponent(labelImage, javax.swing.GroupLayout.Alignment.TRAILING))
                                 .addGap(65, 65, 65)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(panelCalendrierDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(layout.createSequentialGroup()
-                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                        .addComponent(styleSaisieDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                        .addComponent(textFieldDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                                                .addGap(18, 18, 18)
-                                                                .addComponent(labelDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                                .addGap(18, 18, 18)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(panelCalendrierDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                                .addComponent(styleSaisieDateFin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                                .addComponent(textFieldDateFin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE))))
                                         .addGroup(layout.createSequentialGroup()
                                                 .addComponent(comboBoxPeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 200, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(styleSaisiePeriode, javax.swing.GroupLayout.PREFERRED_SIZE, 5, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                .addComponent(textFieldIntitule, javax.swing.GroupLayout.Alignment.LEADING)
-                                                .addComponent(styleSaisieIntitule, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
                                         .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                                                        .addComponent(styleSaisieDossier, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                        .addComponent(textFieldDossier, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(styleSaisieDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(textFieldDateDebut))
+                                                                .addGap(18, 18, 18)
+                                                                .addComponent(labelDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 142, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                        .addComponent(panelCalendrierDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE))
                                                 .addGap(18, 18, 18)
-                                                .addComponent(boutonParcourir, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                                .addContainerGap(251, Short.MAX_VALUE))
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(panelCalendrierDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, 275, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                .addComponent(styleSaisieDateFin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(textFieldDateFin, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createSequentialGroup()
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                                        .addComponent(styleSaisieImage, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(textFieldImage, javax.swing.GroupLayout.Alignment.LEADING)
+                                                                        .addComponent(styleSaisieDossier, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                        .addComponent(textFieldDossier, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE))
+                                                                .addGap(18, 18, 18)
+                                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                        .addComponent(boutonParcourirImage, javax.swing.GroupLayout.DEFAULT_SIZE, 150, Short.MAX_VALUE)
+                                                                        .addComponent(boutonParcourirDossier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(styleSaisieIntitule, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
+                                                                .addComponent(textFieldIntitule)))
+                                                .addGap(18, 18, 18)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(labelImageAffiche, javax.swing.GroupLayout.PREFERRED_SIZE, 180, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                                                                .addComponent(buttonAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                                .addGap(46, 46, 46)))))
+                                .addContainerGap(53, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(layout.createSequentialGroup()
                                 .addGap(79, 79, 79)
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(labelIntitule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textFieldIntitule))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(styleSaisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(labelDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textFieldDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textFieldDateDebut)
-                                        .addComponent(labelDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(styleSaisieDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(styleSaisieDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(panelCalendrierDateDebut, javax.swing.GroupLayout.PREFERRED_SIZE, 175, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(panelCalendrierDateFin, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                .addComponent(labelPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                                .addComponent(comboBoxPeriode))
-                                        .addComponent(styleSaisiePeriode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(31, 31, 31)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(boutonParcourir, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(labelDossier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(textFieldDossier))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(styleSaisieDossier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(372, Short.MAX_VALUE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(labelIntitule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(textFieldIntitule))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(styleSaisieIntitule, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(31, 31, 31)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(labelDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(textFieldDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(textFieldDateDebut)
+                                                        .addComponent(labelDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(styleSaisieDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(styleSaisieDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(panelCalendrierDateFin, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(panelCalendrierDateDebut, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addGap(31, 31, 31)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                                .addComponent(labelPeriode, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                                .addComponent(comboBoxPeriode))
+                                                        .addComponent(styleSaisiePeriode, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 50, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                                .addGap(31, 31, 31)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(labelDossier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                        .addComponent(textFieldDossier, javax.swing.GroupLayout.Alignment.TRAILING)
+                                                        .addComponent(boutonParcourirDossier, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(styleSaisieDossier, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addGap(31, 31, 31)
+                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                                        .addComponent(labelImage, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                                                        .addComponent(textFieldImage)
+                                                        .addComponent(boutonParcourirImage, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(styleSaisieImage, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(layout.createSequentialGroup()
+                                                .addComponent(buttonAjouter, javax.swing.GroupLayout.PREFERRED_SIZE, 75, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(labelImageAffiche, javax.swing.GroupLayout.PREFERRED_SIZE, 100, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         textFieldDateDebut.setText(new Date().toStringJourMoisAnnee());
         textFieldDateFin.setText(new Date().toStringJourMoisAnnee());
-        panelCalendrierDateDebut.setVisible(false);
-        panelCalendrierDateFin.setVisible(false);
     }// </editor-fold>
 
     private void textFieldIntituleFocusGained(java.awt.event.FocusEvent evt) {
@@ -293,6 +377,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
             textFieldIntitule.setCaretPosition(0);
         }
+    }
+
+    private void textFieldIntituleFocusLost(java.awt.event.FocusEvent evt) {
+        // TODO add your handling code here:
+        reculeStyleSaisieIntitule();
     }
 
     private void textFieldIntituleMousePressed(java.awt.event.MouseEvent evt) {
@@ -307,24 +396,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
-    private void textFieldIntituleFocusLost(java.awt.event.FocusEvent evt) {
+    private void textFieldIntituleMouseReleased(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
-        reculeStyleSaisieIntitule();
-    }
-
-    private void textFieldDateDebutFocusGained(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
-        avanceStyleSaisieDateDebut();
-        panelCalendrierDateDebut.setVisible(true);
-
-    }
-
-    private void textFieldDateDebutFocusLost(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
-        reculeStyleSaisieDateDebut();
-        panelCalendrierDateDebut.setVisible(false);
-        textFieldDateDebut.setForeground(Color.LIGHT_GRAY);
-        textFieldDateDebut.setText(panelCalendrierDateDebut.getDateSelectionnee().toStringJourMoisAnnee());
+        if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
+            textFieldIntitule.setCaretPosition(0);
+        }
     }
 
     private void textFieldIntituleKeyTyped(java.awt.event.KeyEvent evt) {
@@ -353,6 +429,40 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         System.out.println((int)evt.getKeyChar());
     }
 
+    private void textFieldDateDebutFocusGained(java.awt.event.FocusEvent evt) {
+        // TODO add your handling code here:
+        avanceStyleSaisieDateDebut();
+        panelCalendrierDateDebut.setVisible(true);
+
+    }
+
+    private void textFieldDateDebutFocusLost(java.awt.event.FocusEvent evt) {
+        // TODO add your handling code here:
+        reculeStyleSaisieDateDebut();
+        panelCalendrierDateDebut.setVisible(false);
+        textFieldDateDebut.setForeground(Color.LIGHT_GRAY);
+        textFieldDateDebut.setText(panelCalendrierDateDebut.getDateSelectionnee().toStringJourMoisAnnee());
+    }
+
+    private void textFieldDateDebutMousePressed(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        textFieldDateDebut.setSelectionStart(0);
+        textFieldDateDebut.setSelectionEnd(textFieldDateDebut.getText().length());
+    }
+
+    private void textFieldDateDebutKeyTyped(java.awt.event.KeyEvent evt) {
+        // TODO add your handling code here:/
+        textFieldDateDebut.setForeground(Color.BLACK);
+
+        analyseTextFieldDateDebut();
+
+        if ((int)evt.getKeyChar() == 10 || (int)evt.getKeyChar() == 27){
+            textFieldDateDebut.setForeground(Color.LIGHT_GRAY);
+            textFieldDateDebut.setText(panelCalendrierDateDebut.getDateSelectionnee().toStringJourMoisAnnee());
+            requestFocus();
+        }
+    }
+
     private void textFieldDateFinFocusGained(java.awt.event.FocusEvent evt) {
         // TODO add your handling code here:
         avanceStyleSaisieDateFin();
@@ -367,36 +477,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         textFieldDateFin.setText(panelCalendrierDateFin.getDateSelectionnee().toStringJourMoisAnnee());
     }
 
-    private void textFieldDateDebutMousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
-        textFieldDateDebut.setSelectionStart(0);
-        textFieldDateDebut.setSelectionEnd(textFieldDateDebut.getText().length());
-    }
-
     private void textFieldDateFinMousePressed(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
         textFieldDateFin.setSelectionStart(0);
         textFieldDateFin.setSelectionEnd(textFieldDateFin.getText().length());
-    }
-
-    private void textFieldIntituleMouseReleased(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
-        if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
-            textFieldIntitule.setCaretPosition(0);
-        }
-    }
-
-    private void textFieldDateDebutKeyTyped(java.awt.event.KeyEvent evt) {
-        // TODO add your handling code here:/
-        textFieldDateDebut.setForeground(Color.BLACK);
-
-        analyseTextFieldDateDebut();
-
-        if ((int)evt.getKeyChar() == 10 || (int)evt.getKeyChar() == 27){
-            textFieldDateDebut.setForeground(Color.LIGHT_GRAY);
-            textFieldDateDebut.setText(panelCalendrierDateDebut.getDateSelectionnee().toStringJourMoisAnnee());
-            requestFocus();
-        }
     }
 
     private void textFieldDateFinKeyTyped(java.awt.event.KeyEvent evt) {
@@ -479,9 +563,71 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
-    private void boutonParcourirActionPerformed(java.awt.event.ActionEvent evt) {
+    private void boutonParcourirDossierActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
         fileChooserDossier.showOpenDialog(this);
+    }
+
+    private void textFieldImageFocusGained(java.awt.event.FocusEvent evt) {
+        // TODO add your handling code here:
+        avanceStyleSaisieImage();
+        if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
+            textFieldImage.setCaretPosition(0);
+        }
+    }
+
+    private void textFieldImageFocusLost(java.awt.event.FocusEvent evt) {
+        // TODO add your handling code here:
+        reculeStyleSaisieImage();
+    }
+
+    private void textFieldImageMousePressed(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
+            textFieldImage.setCaretPosition(0);
+            textFieldImage.setSelectionColor(Color.WHITE);
+            textFieldImage.setSelectedTextColor(Color.LIGHT_GRAY);
+        } else {
+            textFieldImage.setSelectionColor(new Color(0,120,215));
+            textFieldImage.setSelectedTextColor(Color.WHITE);
+        }
+    }
+
+    private void textFieldImageMouseReleased(java.awt.event.MouseEvent evt) {
+        // TODO add your handling code here:
+        if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
+            textFieldImage.setCaretPosition(0);
+        }
+    }
+
+    private void textFieldImageKeyTyped(java.awt.event.KeyEvent evt) {
+        // TODO add your handling code here:
+        if (textFieldImage.getText().equals("Saisir le chemin de l'image") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1)){
+            textFieldImage.setText("");
+            textFieldImage.setForeground(Color.BLACK);
+        } else if (textFieldImage.getText().equals("")){
+            textFieldImage.setText("Saisir le chemin de l'image");
+            textFieldImage.setForeground(Color.LIGHT_GRAY);
+            textFieldImage.setCaretPosition(0);
+        } else if (!(textFieldImage.getText().equals("")) && !(textFieldImage.getText().equals("Saisir le chemin de l'image"))){
+            textFieldImage.setSelectionColor(new Color(0,120,215));
+            textFieldImage.setSelectedTextColor(Color.WHITE);
+        }
+        if ((int)evt.getKeyChar() == 127 && textFieldImage.getText().equals("aisir le chemin de l'image")){
+            textFieldImage.setText("Saisir le chemin de l'image");
+            textFieldImage.setCaretPosition(0);
+        }
+        if ((int)evt.getKeyChar() == 27){
+            requestFocus();
+        }
+        if ((int)evt.getKeyChar() == 1 && textFieldImage.getText().equals("Saisir le chemin de l'image")){
+            textFieldImage.setCaretPosition(0);
+        }
+    }
+
+    private void boutonParcourirImageActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+        fileChooserImage.showOpenDialog(this);
     }
 
     private static boolean estUnEntier(String texte){
@@ -740,6 +886,40 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieDossier.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    private void avanceStyleSaisieImage(){
+        timerStyleSaisieImage.cancel();
+        timerStyleSaisieImage.purge();
+        java.util.TimerTask timerTask = new java .util.TimerTask() {
+            public void run() {
+                if (styleSaisieImage.getValue() < 100)
+                    styleSaisieImage.setValue(styleSaisieImage.getValue()+1);
+                else {
+                    timerStyleSaisieImage.cancel();
+                    timerStyleSaisieImage.purge();
+                }
+            }
+        };
+        timerStyleSaisieImage = new java.util.Timer();
+        timerStyleSaisieImage.scheduleAtFixedRate(timerTask, 0, 2);
+    }
+
+    private void reculeStyleSaisieImage(){
+        timerStyleSaisieImage.cancel();
+        timerStyleSaisieImage.purge();
+        java.util.TimerTask timerTask = new java .util.TimerTask() {
+            public void run() {
+                if (styleSaisieImage.getValue() > 0)
+                    styleSaisieImage.setValue(styleSaisieImage.getValue()-1);
+                else {
+                    timerStyleSaisieImage.cancel();
+                    timerStyleSaisieImage.purge();
+                }
+            }
+        };
+        timerStyleSaisieImage = new java.util.Timer();
+        timerStyleSaisieImage.scheduleAtFixedRate(timerTask, 0, 2);
+    }
+
     public PanelCalendrierDate getPanelCalendrierDateDebut(){
         return panelCalendrierDateDebut;
     }
@@ -761,26 +941,34 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     private java.util.Timer timerStyleSaisieDateFin = new java.util.Timer();
     private java.util.Timer timerStyleSaisiePeriode = new java.util.Timer();
     private java.util.Timer timerStyleSaisieDossier = new java.util.Timer();
+    private java.util.Timer timerStyleSaisieImage = new java.util.Timer();
 
     // Variables declaration - do not modify
-    private javax.swing.JButton boutonParcourir;
+    private javax.swing.JButton boutonParcourirDossier;
+    private javax.swing.JButton boutonParcourirImage;
+    private javax.swing.JButton buttonAjouter;
     private javax.swing.JComboBox<String> comboBoxPeriode;
     private javax.swing.JFileChooser fileChooserDossier;
+    private javax.swing.JFileChooser fileChooserImage;
     private javax.swing.JLabel labelDateDebut;
     private javax.swing.JLabel labelDateFin;
     private javax.swing.JLabel labelDossier;
+    private javax.swing.JLabel labelImage;
+    private javax.swing.JLabel labelImageAffiche;
     private javax.swing.JLabel labelIntitule;
     private javax.swing.JLabel labelPeriode;
-    private PanelCalendrierDate panelCalendrierDateDebut;
-    private PanelCalendrierDate panelCalendrierDateFin;
+    private vue.PanelCalendrierDate panelCalendrierDateDebut;
+    private vue.PanelCalendrierDate panelCalendrierDateFin;
     private javax.swing.JProgressBar styleSaisieDateDebut;
     private javax.swing.JProgressBar styleSaisieDateFin;
     private javax.swing.JProgressBar styleSaisieDossier;
+    private javax.swing.JProgressBar styleSaisieImage;
     private javax.swing.JProgressBar styleSaisieIntitule;
     private javax.swing.JProgressBar styleSaisiePeriode;
     private javax.swing.JTextField textFieldDateDebut;
     private javax.swing.JTextField textFieldDateFin;
     private javax.swing.JTextField textFieldDossier;
+    private javax.swing.JTextField textFieldImage;
     private javax.swing.JTextField textFieldIntitule;
     // End of variables declaration
 }
