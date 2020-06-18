@@ -22,7 +22,7 @@ public class FenetreAccueil extends JFrame {
         setLocation(100,100);
         setBackground (Color.WHITE);
 
-        JMenuItem[] itemsMenu = new JMenuItem[]{new JMenuItem("Choix Frise", 'C'), new JMenuItem("Affichage Frise", 'I'), new JMenuItem("Création", 'r') , new JMenuItem("Fermer",'F'), new JMenuItem("?",'A')};
+        JMenuItem[] itemsMenu = new JMenuItem[]{new JMenuItem("Choix Frise", 'C'), new JMenuItem("Affichage Frise", 'A'), new JMenuItem("Création", 'R') , new JMenuItem("Fermer",'F'), new JMenuItem("?",'I')};
         JMenuBar menu = new JMenuBar();
 
         for(int i=0; i<itemsMenu.length; i++) {

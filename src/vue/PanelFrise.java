@@ -26,6 +26,13 @@ public class PanelFrise extends JPanel implements ActionListener {
         add(new PanelFormulaireChronologie(), 3);
     }
 
+    /**
+     * Traite les actions provenants des JMenuItem de la barre de menue JMenu.
+     *
+     * @param event ActionEvent correspondant à une action sur l'un des JMenuItem.
+     *
+     * @author Antoine Limerutti
+     */
     public void actionPerformed(ActionEvent event) {
         if(event.getActionCommand().compareTo("Affichage Frise")==0){
             card.first(this);
@@ -48,7 +55,10 @@ public class PanelFrise extends JPanel implements ActionListener {
         }
 
         else if(event.getActionCommand().compareTo("?")==0){
-            //JOptionPane.showMessageDialog();
+            JOptionPane.showMessageDialog(this,
+                    "<html>Utilité des différents onglets :<ul><li>Choix frise : Permet de séléctionner une frise à visionner ou d'en créer une nouvelle frise.</li><li>Affichage Frise : Affiche la frise précédemment sélectionnée dans l'onglet \"Choix Frise\".</li><li>Création : Permet d'ajouter un évènement à la frise en cours de visionnage.</li></ul><br>Assistance par e-mail : antoine.limerug@gmail.com</html>",
+                    "Aide",
+                    JOptionPane.INFORMATION_MESSAGE);
         }
 
     }
