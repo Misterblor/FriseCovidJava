@@ -18,6 +18,8 @@ public class FenetreAccueil extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
         setSize(700,700);
+        setLocationRelativeTo(null);
+        setResizable(false);
         setVisible(true);
         setLocation(100,100);
         setBackground (Color.WHITE);
