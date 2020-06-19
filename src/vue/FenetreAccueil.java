@@ -21,7 +21,6 @@ public class FenetreAccueil extends JFrame {
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);
-        setLocation(100,100);
         setBackground (Color.WHITE);
 
         JMenuItem[] itemsMenu = new JMenuItem[]{new JMenuItem("Choix Frise", 'C'), new JMenuItem("Affichage Frise", 'A'), new JMenuItem("Création", 'R') , new JMenuItem("Fermer",'F'), new JMenuItem("?",'I')};
