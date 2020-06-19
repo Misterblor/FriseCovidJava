@@ -467,7 +467,7 @@ public class PanelFormulaireEvenement extends JPanel {
         equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
 
         //---- labelIntitule ----
-        labelIntitule.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconLabelIntitule.jpg"));
+        labelIntitule.setIcon(new ImageIcon("ressources\\iconLabelIntitule.jpg"));
         labelIntitule.setBackground(Color.white);
 
         //---- textFieldIntitule ----
@@ -509,7 +509,7 @@ public class PanelFormulaireEvenement extends JPanel {
         styleSaisieIntitule.setBorder(null);
 
         //---- labelDate ----
-        labelDate.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconLabelSaisieDate.png"));
+        labelDate.setIcon(new ImageIcon("ressources\\iconLabelSaisieDate.png"));
 
         //---- textFieldDate ----
         textFieldDate.setBackground(Color.white);
@@ -550,7 +550,7 @@ public class PanelFormulaireEvenement extends JPanel {
         styleSaisieDate.setBorder(null);
 
         //---- labelPoids ----
-        labelPoids.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconLabelPoids.png"));
+        labelPoids.setIcon(new ImageIcon("ressources\\iconLabelPoids.png"));
 
         //---- comboBoxPoids ----
         comboBoxPoids.setBackground(Color.white);
@@ -581,7 +581,7 @@ public class PanelFormulaireEvenement extends JPanel {
         styleSaisiePoids.setBorder(null);
 
         //---- labelImage ----
-        labelImage.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconImage.png"));
+        labelImage.setIcon(new ImageIcon("ressources\\iconImage.png"));
 
         //---- textFieldImage ----
         textFieldImage.setForeground(Color.lightGray);
@@ -628,7 +628,7 @@ public class PanelFormulaireEvenement extends JPanel {
         buttonParcourirImage.addActionListener(e -> buttonParcourirImageActionPerformed(e));
 
         //---- labelDescription ----
-        labelDescription.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconLabelDescription.png"));
+        labelDescription.setIcon(new ImageIcon("ressources\\iconLabelDescription.png"));
 
         //======== scrollPaneTextAreaDescription ========
         {
@@ -655,11 +655,11 @@ public class PanelFormulaireEvenement extends JPanel {
         }
 
         //---- labelAffichageImage ----
-        labelAffichageImage.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconImageAffiche.png"));
+        labelAffichageImage.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
         labelAffichageImage.setHorizontalAlignment(SwingConstants.CENTER);
 
         //---- buttonAjouter ----
-        buttonAjouter.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconBoutonAjouter.png"));
+        buttonAjouter.setIcon(new ImageIcon("ressources\\iconBoutonAjouter.png"));
         buttonAjouter.setBorder(null);
 
         //---- comboBoxSelectionFrise ----
