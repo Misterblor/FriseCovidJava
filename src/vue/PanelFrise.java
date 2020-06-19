@@ -9,7 +9,7 @@ import java.awt.event.ActionListener;
 
 public class PanelFrise extends JPanel implements ActionListener {
     CardLayout card;
-
+    JMenuItem selectedMenuItem;
     FenetreAccueil fenetreMere;
 
     public PanelFrise(FenetreAccueil parFenetreMere){
@@ -24,6 +24,9 @@ public class PanelFrise extends JPanel implements ActionListener {
         add(new JPanel(), 1);
         add(new PanelFormulaireEvenement(), 2);
         add(new PanelFormulaireChronologie(), 3);
+
+        selectedMenuItem = (JMenuItem) fenetreMere.getMenuItem().getComponent(0);
+        selectedMenuItem.setForeground(Color.GRAY);
     }
 
     /**
@@ -34,6 +37,11 @@ public class PanelFrise extends JPanel implements ActionListener {
      * @author Antoine Limerutti
      */
     public void actionPerformed(ActionEvent event) {
+        if(selectedMenuItem!= null)
+            selectedMenuItem.setForeground(Color.BLACK);
+        selectedMenuItem = (JMenuItem) event.getSource();
+        selectedMenuItem.setForeground(Color.GRAY);
+
         if(event.getActionCommand().compareTo("Affichage Frise")==0){
             fenetreMere.setSize(new Dimension(700,700));
             fenetreMere.setLocationRelativeTo(null);
@@ -75,6 +83,10 @@ public class PanelFrise extends JPanel implements ActionListener {
 
         card.first(this);
         card.next(this);
+
+        selectedMenuItem.setForeground(Color.BLACK);
+        selectedMenuItem = (JMenuItem) fenetreMere.getMenuItem().getComponent(1);
+        selectedMenuItem.setForeground(Color.GRAY);
     }
 
     public void enableFormulaireChronologie() {
