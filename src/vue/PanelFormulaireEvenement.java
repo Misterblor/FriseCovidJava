@@ -6,9 +6,12 @@ package vue;
 
 import controleur.ControleurPanelFormulaireEvenement;
 import modele.Date;
+import modele.Evenement;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
+import java.util.ArrayList;
 import java.util.Timer;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -25,7 +28,7 @@ public class PanelFormulaireEvenement extends JPanel {
 
     private void textFieldIntituleFocusGained(FocusEvent e) {
         avanceStyleSaisieIntitule();
-        if (textFieldIntitule.getText().equals("Saisir le nom de l'evenement")){
+        if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
         }
     }
@@ -35,7 +38,7 @@ public class PanelFormulaireEvenement extends JPanel {
     }
 
     private void textFieldIntituleMousePressed(MouseEvent e) {
-        if (textFieldIntitule.getText().equals("Saisir le nom de l'evenement")){
+        if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
             textFieldIntitule.setSelectionColor(Color.WHITE);
             textFieldIntitule.setSelectedTextColor(Color.LIGHT_GRAY);
@@ -46,31 +49,31 @@ public class PanelFormulaireEvenement extends JPanel {
     }
 
     private void textFieldIntituleMouseReleased(MouseEvent e) {
-        if (textFieldIntitule.getText().equals("Saisir le nom de l'evenement")){
+        if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
         }
     }
 
     private void textFieldIntituleKeyTyped(KeyEvent e) {
-        if (textFieldIntitule.getText().equals("Saisir le nom de l'evenement") && !((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1)){
+        if (textFieldIntitule.getText().equals("Saisir le nom de l'événement") && !((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1 || (int)e.getKeyChar() == 10)){
             textFieldIntitule.setText("");
             textFieldIntitule.setForeground(Color.BLACK);
         } else if (textFieldIntitule.getText().equals("")){
-            textFieldIntitule.setText("Saisir le nom de l'evenement");
+            textFieldIntitule.setText("Saisir le nom de l'événement");
             textFieldIntitule.setForeground(Color.LIGHT_GRAY);
             textFieldIntitule.setCaretPosition(0);
-        } else if (!(textFieldIntitule.getText().equals("")) && !(textFieldIntitule.getText().equals("Saisir le nom de l'evenement"))){
+        } else if (!(textFieldIntitule.getText().equals("")) && !(textFieldIntitule.getText().equals("Saisir le nom de l'événement"))){
             textFieldIntitule.setSelectionColor(new Color(0,120,215));
             textFieldIntitule.setSelectedTextColor(Color.WHITE);
         }
-        if ((int)e.getKeyChar() == 127 && textFieldIntitule.getText().equals("aisir le nom de l'evenement")){
-            textFieldIntitule.setText("Saisir le nom de l'evenement");
+        if ((int)e.getKeyChar() == 127 && textFieldIntitule.getText().equals("aisir le nom de l'événement")){
+            textFieldIntitule.setText("Saisir le nom de l'événement");
             textFieldIntitule.setCaretPosition(0);
         }
-        if ((int)e.getKeyChar() == 27){
+        if ((int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 10){
             requestFocus();
         }
-        if ((int)e.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de l'evenement")){
+        if ((int)e.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
         }
     }
@@ -87,7 +90,6 @@ public class PanelFormulaireEvenement extends JPanel {
         panelCalendrierDate.setVisible(false);
         labelDescription.setVisible(true);
         scrollPaneTextAreaDescription.setVisible(true);
-        textFieldDate.setForeground(Color.LIGHT_GRAY);
         textFieldDate.setText(panelCalendrierDate.getDateSelectionnee().toStringJourMoisAnnee());
     }
 
@@ -102,7 +104,6 @@ public class PanelFormulaireEvenement extends JPanel {
         analyseTextFieldDate();
 
         if ((int)e.getKeyChar() == 10 || (int)e.getKeyChar() == 27){
-            textFieldDate.setForeground(Color.LIGHT_GRAY);
             textFieldDate.setText(panelCalendrierDate.getDateSelectionnee().toStringJourMoisAnnee());
             requestFocus();
         }
@@ -145,11 +146,18 @@ public class PanelFormulaireEvenement extends JPanel {
     }
 
     private void textFieldImageKeyTyped(KeyEvent e) {
-        if (textFieldImage.getText().equals("Saisir le chemin de l'image") && !((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1)){
+
+        if (!((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1 || (int)e.getKeyChar() == 10)){
+            textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        }
+
+        if (textFieldImage.getText().equals("Saisir le chemin de l'image") && !((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1 || (int)e.getKeyChar() == 10)){
             textFieldImage.setText("");
             textFieldImage.setForeground(Color.BLACK);
         } else if (textFieldImage.getText().equals("")){
             textFieldImage.setText("Saisir le chemin de l'image");
+            labelAffichageImage.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
+            textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
             textFieldImage.setForeground(Color.LIGHT_GRAY);
             textFieldImage.setCaretPosition(0);
         } else if (!(textFieldImage.getText().equals("")) && !(textFieldImage.getText().equals("Saisir le chemin de l'image"))){
@@ -158,22 +166,44 @@ public class PanelFormulaireEvenement extends JPanel {
         }
         if ((int)e.getKeyChar() == 127 && textFieldImage.getText().equals("aisir le chemin de l'image")){
             textFieldImage.setText("Saisir le chemin de l'image");
+            textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
             textFieldImage.setCaretPosition(0);
         }
-        if ((int)e.getKeyChar() == 27){
+        if ((int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 10){
             requestFocus();
         }
         if ((int)e.getKeyChar() == 1 && textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
+        }
+
+        String[] partieChemin = textFieldImage.getText().split("\\\\");
+        String chemin = "";
+        for (int i = 0; i < partieChemin.length; i++) {
+            chemin += partieChemin[i];
+            if (i < partieChemin.length - 1){
+                chemin += File.separator;
+            }
+        }
+        File file = new File(chemin);
+        if (estUneImage(file)){
+            ImageIcon icon = resizeImage(new ImageIcon(file.getPath()), 180, 100);
+            labelAffichageImage.setIcon(icon);
+        } else {
+            labelAffichageImage.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
         }
     }
 
     private void buttonParcourirImageActionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(this);
-        if (fileChooser.getSelectedFile() != null){
+        File file = fileChooser.getSelectedFile();
+
+        if (file != null && estUneImage(file)){
+            ImageIcon icon = resizeImage(new ImageIcon(file.getPath()), 180, 100);
+            labelAffichageImage.setIcon(icon);
             textFieldImage.setText(fileChooser.getSelectedFile().toString());
             textFieldImage.setForeground(Color.black);
+            textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 14));
         }
     }
 
@@ -185,6 +215,36 @@ public class PanelFormulaireEvenement extends JPanel {
     private void textAreaDescriptionFocusLost(FocusEvent e) {
         scrollPaneTextAreaDescription.setBorder(new TitledBorder(new LineBorder(Color.lightGray, 2, true), "Description", TitledBorder.LEADING, TitledBorder.TOP,
                 new Font("Open Sans", Font.PLAIN, 18), Color.lightGray));
+    }
+
+    private static boolean estUneImage(File file){
+        String chemin = file.toString();
+        String extension = chemin.split("\\.")[chemin.split("\\.").length-1];
+        return file.exists() && (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("bmp") || extension.equals("tiff"));
+    }
+
+    private ImageIcon resizeImage(ImageIcon icon, int largeur, int hauteur){
+        int largeurOrigine = icon.getImage().getWidth(labelAffichageImage);
+        int hauteurOrigine = icon.getImage().getHeight(labelAffichageImage);
+        float ratio;
+        if (largeurOrigine - largeur > hauteurOrigine - hauteur){
+            ratio = (float) largeur / largeurOrigine;
+        } else {
+            ratio = (float) hauteur / hauteurOrigine;
+        }
+        return new ImageIcon(icon.getImage().getScaledInstance((int)(largeurOrigine * ratio),(int)(hauteurOrigine * ratio), Image.SCALE_REPLICATE));
+    }
+
+    private static boolean estUnEntier(String texte){
+        if (texte == null || texte.length() == 0){
+            return false;
+        }
+        try {
+            int nb = Integer.parseInt(texte);
+        } catch (NumberFormatException e){
+            return false;
+        }
+        return true;
     }
 
     private void analyseTextFieldDate(){
@@ -360,18 +420,6 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisieImage.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
-    private static boolean estUnEntier(String texte){
-        if (texte == null || texte.length() == 0){
-            return false;
-        }
-        try {
-            int nb = Integer.parseInt(texte);
-        } catch (NumberFormatException e){
-            return false;
-        }
-        return true;
-    }
-
     public PanelCalendrierDate getPanelCalendrierDate() {
         return panelCalendrierDate;
     }
@@ -402,6 +450,7 @@ public class PanelFormulaireEvenement extends JPanel {
         textAreaDescription = new JTextArea();
         labelAffichageImage = new JLabel();
         buttonAjouter = new JButton();
+        comboBoxSelectionFrise = new JComboBox<>();
 
         //======== this ========
         setBorder(null);
@@ -409,12 +458,13 @@ public class PanelFormulaireEvenement extends JPanel {
         setPreferredSize(new Dimension(1280, 720));
         setFont(UIManager.getFont("Panel.font"));
         setForeground(Color.lightGray);
-        setBorder ( new javax . swing. border .CompoundBorder ( new javax . swing. border .TitledBorder ( new javax . swing. border
-        .EmptyBorder ( 0, 0 ,0 , 0) ,  "JF\u006frmDesi\u0067ner Ev\u0061luatio\u006e" , javax. swing .border . TitledBorder. CENTER ,javax
-        . swing. border .TitledBorder . BOTTOM, new java. awt .Font ( "Dialo\u0067", java .awt . Font. BOLD ,
-        12 ) ,java . awt. Color .red ) , getBorder () ) );  addPropertyChangeListener( new java. beans
-        .PropertyChangeListener ( ){ @Override public void propertyChange (java . beans. PropertyChangeEvent e) { if( "borde\u0072" .equals ( e.
-        getPropertyName () ) )throw new RuntimeException( ) ;} } );
+        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new
+        javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax
+        . swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java
+        .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
+        . Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans.
+        PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .
+        equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
 
         //---- labelIntitule ----
         labelIntitule.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconLabelIntitule.jpg"));
@@ -424,7 +474,7 @@ public class PanelFormulaireEvenement extends JPanel {
         textFieldIntitule.setBackground(Color.white);
         textFieldIntitule.setBorder(null);
         textFieldIntitule.setForeground(Color.lightGray);
-        textFieldIntitule.setText("Saisir le nom de l'evenement");
+        textFieldIntitule.setText("Saisir le nom de l'\u00e9v\u00e9nement");
         textFieldIntitule.setFont(new Font("Open Sans", Font.PLAIN, 24));
         textFieldIntitule.addFocusListener(new FocusAdapter() {
             @Override
@@ -505,12 +555,13 @@ public class PanelFormulaireEvenement extends JPanel {
         //---- comboBoxPoids ----
         comboBoxPoids.setBackground(Color.white);
         comboBoxPoids.setForeground(Color.black);
-        comboBoxPoids.setFont(new Font("Open Sans", Font.PLAIN, 18));
+        comboBoxPoids.setFont(new Font("Open Sans", Font.PLAIN, 12));
         comboBoxPoids.setModel(new DefaultComboBoxModel<>(new String[] {
+            "--S\u00e9lectionner un poids--",
             "1 - Tr\u00e8s Important",
             "2 - Important",
             "3 - Secondaire",
-            "4 - Peu d'interet"
+            "4 - Peu d'int\u00e9r\u00eat"
         }));
         comboBoxPoids.addFocusListener(new FocusAdapter() {
             @Override
@@ -611,6 +662,13 @@ public class PanelFormulaireEvenement extends JPanel {
         buttonAjouter.setIcon(new ImageIcon("C:\\Users\\miste\\Documents\\IUT\\Programmation\\Java\\Workspace IntelliJ\\FriseCovidJava\\ressources\\iconBoutonAjouter.png"));
         buttonAjouter.setBorder(null);
 
+        //---- comboBoxSelectionFrise ----
+        comboBoxSelectionFrise.setBackground(Color.white);
+        comboBoxSelectionFrise.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        comboBoxSelectionFrise.setModel(new DefaultComboBoxModel<>(new String[] {
+            "--S\u00e9lectionner une frise--"
+        }));
+
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
         layout.setHorizontalGroup(
@@ -625,7 +683,7 @@ public class PanelFormulaireEvenement extends JPanel {
                         .addComponent(labelDescription, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
                     .addGap(65, 65, 65)
                     .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(scrollPaneTextAreaDescription)
+                        .addComponent(scrollPaneTextAreaDescription, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
                         .addComponent(panelCalendrierDate, GroupLayout.PREFERRED_SIZE, 275, GroupLayout.PREFERRED_SIZE)
                         .addComponent(textFieldIntitule, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
                         .addComponent(styleSaisieIntitule, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -636,35 +694,36 @@ public class PanelFormulaireEvenement extends JPanel {
                             .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
                             .addComponent(styleSaisiePoids, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
                         .addComponent(textFieldImage, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(styleSaisieImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addComponent(styleSaisieImage, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createParallelGroup()
-                        .addGroup(layout.createSequentialGroup()
-                            .addGap(18, 18, 18)
-                            .addComponent(buttonParcourirImage, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(labelAffichageImage, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-                            .addContainerGap(53, Short.MAX_VALUE))
                         .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, 250, Short.MAX_VALUE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                             .addComponent(buttonAjouter, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-                            .addGap(94, 94, 94))))
+                            .addGap(93, 93, 93))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addComponent(comboBoxSelectionFrise, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(buttonParcourirImage, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(labelAffichageImage, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(12, 12, 12)))
+                            .addGap(71, 71, 71))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup()
                 .addGroup(layout.createSequentialGroup()
-                    .addGap(79, 79, 79)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING, false)
+                    .addGap(81, 81, 81)
+                    .addGroup(layout.createParallelGroup()
+                        .addComponent(labelIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(textFieldIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxSelectionFrise, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(styleSaisieIntitule, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+                    .addGap(31, 31, 31)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                         .addGroup(layout.createSequentialGroup()
-                            .addComponent(buttonAjouter, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelAffichageImage, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup()
-                                .addComponent(labelIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textFieldIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(styleSaisieIntitule, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-                            .addGap(31, 31, 31)
                             .addGroup(layout.createParallelGroup()
                                 .addComponent(labelDate, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(textFieldDate, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
@@ -681,9 +740,13 @@ public class PanelFormulaireEvenement extends JPanel {
                             .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
                                 .addComponent(labelImage, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
                                 .addComponent(textFieldImage, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(buttonParcourirImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(styleSaisieImage, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)))
+                                .addComponent(buttonParcourirImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(buttonAjouter, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelAffichageImage, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(styleSaisieImage, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
                     .addGap(31, 31, 31)
                     .addGroup(layout.createParallelGroup()
                         .addComponent(labelDescription, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
@@ -719,5 +782,6 @@ public class PanelFormulaireEvenement extends JPanel {
     private JTextArea textAreaDescription;
     private JLabel labelAffichageImage;
     private JButton buttonAjouter;
+    private JComboBox<String> comboBoxSelectionFrise;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 }

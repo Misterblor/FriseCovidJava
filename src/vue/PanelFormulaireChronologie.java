@@ -7,7 +7,9 @@ package vue;
 
 import controleur.ControleurPanelFormulaireChronologie;
 import modele.Date;
-import java.awt.Color;
+
+import java.awt.*;
+import java.io.File;
 import javax.swing.*;
 
 /**
@@ -162,7 +164,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
         labelPeriode.setIcon(new javax.swing.ImageIcon("ressources\\iconLabelPeriode.png")); // NOI18N
 
-        comboBoxPeriode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Item 1", "Item 2", "Item 3", "Item 4" }));
+        comboBoxPeriode.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "--Sélectionner une période--", "1 jour" }));
         comboBoxPeriode.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
                 comboBoxPeriodeFocusGained(evt);
@@ -372,7 +374,6 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }// </editor-fold>
 
     private void textFieldIntituleFocusGained(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         avanceStyleSaisieIntitule();
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
             textFieldIntitule.setCaretPosition(0);
@@ -380,12 +381,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldIntituleFocusLost(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         reculeStyleSaisieIntitule();
     }
 
     private void textFieldIntituleMousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
             textFieldIntitule.setCaretPosition(0);
             textFieldIntitule.setSelectionColor(Color.WHITE);
@@ -397,15 +396,13 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldIntituleMouseReleased(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
             textFieldIntitule.setCaretPosition(0);
         }
     }
 
     private void textFieldIntituleKeyTyped(java.awt.event.KeyEvent evt) {
-        // TODO add your handling code here:
-        if (textFieldIntitule.getText().equals("Saisir le nom de la frise") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1)){
+        if (textFieldIntitule.getText().equals("Saisir le nom de la frise") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldIntitule.setText("");
             textFieldIntitule.setForeground(Color.BLACK);
         } else if (textFieldIntitule.getText().equals("")){
@@ -420,7 +417,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             textFieldIntitule.setText("Saisir le nom de la frise");
             textFieldIntitule.setCaretPosition(0);
         }
-        if ((int)evt.getKeyChar() == 27){
+        if ((int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 10){
             requestFocus();
         }
         if ((int)evt.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de la frise")){
@@ -430,84 +427,119 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldDateDebutFocusGained(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         avanceStyleSaisieDateDebut();
         panelCalendrierDateDebut.setVisible(true);
 
     }
 
     private void textFieldDateDebutFocusLost(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         reculeStyleSaisieDateDebut();
         panelCalendrierDateDebut.setVisible(false);
-        textFieldDateDebut.setForeground(Color.LIGHT_GRAY);
         textFieldDateDebut.setText(panelCalendrierDateDebut.getDateSelectionnee().toStringJourMoisAnnee());
     }
 
     private void textFieldDateDebutMousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         textFieldDateDebut.setSelectionStart(0);
         textFieldDateDebut.setSelectionEnd(textFieldDateDebut.getText().length());
     }
 
     private void textFieldDateDebutKeyTyped(java.awt.event.KeyEvent evt) {
-        // TODO add your handling code here:/
         textFieldDateDebut.setForeground(Color.BLACK);
 
         analyseTextFieldDateDebut();
 
         if ((int)evt.getKeyChar() == 10 || (int)evt.getKeyChar() == 27){
-            textFieldDateDebut.setForeground(Color.LIGHT_GRAY);
             textFieldDateDebut.setText(panelCalendrierDateDebut.getDateSelectionnee().toStringJourMoisAnnee());
+            if (panelCalendrierDateDebut.getDateSelectionnee().compareTo(panelCalendrierDateFin.getDateSelectionnee()) > 0){
+                styleSaisieDateDebut.setForeground(Color.RED);
+                textFieldDateDebut.setForeground(Color.RED);
+                styleSaisieDateFin.setForeground(Color.RED);
+                textFieldDateFin.setForeground(Color.RED);
+                labelDateFin.setIcon(new ImageIcon("ressources\\iconFlecheBarree.png"));
+            } else {
+                styleSaisieDateDebut.setForeground(new Color(0,120,215));
+                textFieldDateDebut.setForeground(Color.BLACK);
+                styleSaisieDateFin.setForeground(new Color(0,120,215));
+                textFieldDateFin.setForeground(Color.BLACK);
+                labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
+                int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().distanceEntre(panelCalendrierDateFin.getDateSelectionnee());
+                if (nbJourPeriode < 31){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
+                } else if (nbJourPeriode < 180){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours"}));
+                } else if(nbJourPeriode < 365){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois"}));
+                } else if (nbJourPeriode < 1825){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois"}));
+                } else {
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois", "1 an"}));
+                }
+            }
             requestFocus();
         }
     }
 
     private void textFieldDateFinFocusGained(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         avanceStyleSaisieDateFin();
         panelCalendrierDateFin.setVisible(true);
     }
 
     private void textFieldDateFinFocusLost(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         reculeStyleSaisieDateFin();
         panelCalendrierDateFin.setVisible(false);
-        textFieldDateFin.setForeground(Color.LIGHT_GRAY);
         textFieldDateFin.setText(panelCalendrierDateFin.getDateSelectionnee().toStringJourMoisAnnee());
     }
 
     private void textFieldDateFinMousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         textFieldDateFin.setSelectionStart(0);
         textFieldDateFin.setSelectionEnd(textFieldDateFin.getText().length());
     }
 
     private void textFieldDateFinKeyTyped(java.awt.event.KeyEvent evt) {
-        // TODO add your handling code here:
-        textFieldDateFin.setForeground(Color.LIGHT_GRAY);
+        textFieldDateFin.setForeground(Color.BLACK);
 
         analyseTextFieldDateFin();
 
         if ((int)evt.getKeyChar() == 10 || (int)evt.getKeyChar() == 27){
-            textFieldDateFin.setForeground(Color.LIGHT_GRAY);
             textFieldDateFin.setText(panelCalendrierDateFin.getDateSelectionnee().toStringJourMoisAnnee());
+            if (panelCalendrierDateDebut.getDateSelectionnee().compareTo(panelCalendrierDateFin.getDateSelectionnee()) > 0){
+                styleSaisieDateDebut.setForeground(Color.RED);
+                textFieldDateDebut.setForeground(Color.RED);
+                styleSaisieDateFin.setForeground(Color.RED);
+                textFieldDateFin.setForeground(Color.RED);
+                labelDateFin.setIcon(new ImageIcon("ressources\\iconFlecheBarree.png"));
+            } else {
+                styleSaisieDateDebut.setForeground(new Color(0,120,215));
+                textFieldDateDebut.setForeground(Color.BLACK);
+                styleSaisieDateFin.setForeground(new Color(0,120,215));
+                textFieldDateFin.setForeground(Color.BLACK);
+                labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
+                int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().distanceEntre(panelCalendrierDateFin.getDateSelectionnee());
+                if (nbJourPeriode < 31){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
+                } else if (nbJourPeriode < 180){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours"}));
+                } else if(nbJourPeriode < 365){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois"}));
+                } else if (nbJourPeriode < 1825){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois"}));
+                } else {
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois", "1 an"}));
+                }
+            }
             requestFocus();
         }
     }
 
     private void comboBoxPeriodeFocusGained(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         avanceStyleSaisiePeriode();
     }
 
     private void comboBoxPeriodeFocusLost(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         reculeStyleSaisiePeriode();
     }
 
     private void textFieldDossierFocusGained(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         avanceStyleSaisieDossier();
         if (textFieldDossier.getText().equals("Saisir chemin de sauvegarde")){
             textFieldDossier.setCaretPosition(0);
@@ -515,12 +547,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldDossierFocusLost(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         reculeStyleSaisieDossier();
     }
 
     private void textFieldDossierMousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde")){
             textFieldDossier.setCaretPosition(0);
             textFieldDossier.setSelectionColor(Color.WHITE);
@@ -532,19 +562,22 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldDossierMouseReleased(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde")){
             textFieldDossier.setCaretPosition(0);
         }
     }
 
     private void textFieldDossierKeyTyped(java.awt.event.KeyEvent evt) {
-        // TODO add your handling code here:
-        if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1)){
+        if (!((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
+            textFieldDossier.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        }
+
+        if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldDossier.setText("");
             textFieldDossier.setForeground(Color.BLACK);
         } else if (textFieldDossier.getText().equals("")){
             textFieldDossier.setText("Saisir le chemin de sauvegarde");
+            textFieldDossier.setFont(new Font("Open Sans", Font.PLAIN, 24));
             textFieldDossier.setForeground(Color.LIGHT_GRAY);
             textFieldDossier.setCaretPosition(0);
         } else if (!(textFieldDossier.getText().equals("")) && !(textFieldDossier.getText().equals("Saisir le chemin de sauvegarde"))){
@@ -553,9 +586,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
         if ((int)evt.getKeyChar() == 127 && textFieldDossier.getText().equals("aisir le chemin de sauvegarde")){
             textFieldDossier.setText("Saisir le chemin de sauvegarde");
+            textFieldDossier.setFont(new Font("Open Sans", Font.PLAIN, 24));
             textFieldDossier.setCaretPosition(0);
         }
-        if ((int)evt.getKeyChar() == 27){
+        if ((int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 10){
             requestFocus();
         }
         if ((int)evt.getKeyChar() == 1 && textFieldDossier.getText().equals("Saisir le chemin de sauvegarde")){
@@ -564,12 +598,19 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void boutonParcourirDossierActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        fileChooserDossier.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+        fileChooserDossier.setAcceptAllFileFilterUsed(false);
         fileChooserDossier.showOpenDialog(this);
+        File file = fileChooserDossier.getSelectedFile();
+
+        if (file != null && file.isDirectory()){
+            textFieldDossier.setText(file.toString());
+            textFieldDossier.setForeground(Color.black);
+            textFieldDossier.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        }
     }
 
     private void textFieldImageFocusGained(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         avanceStyleSaisieImage();
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
@@ -577,12 +618,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldImageFocusLost(java.awt.event.FocusEvent evt) {
-        // TODO add your handling code here:
         reculeStyleSaisieImage();
     }
 
     private void textFieldImageMousePressed(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
             textFieldImage.setSelectionColor(Color.WHITE);
@@ -594,19 +633,23 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldImageMouseReleased(java.awt.event.MouseEvent evt) {
-        // TODO add your handling code here:
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
         }
     }
 
     private void textFieldImageKeyTyped(java.awt.event.KeyEvent evt) {
-        // TODO add your handling code here:
-        if (textFieldImage.getText().equals("Saisir le chemin de l'image") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1)){
+        if (!((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
+            textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        }
+
+        if (textFieldImage.getText().equals("Saisir le chemin de l'image") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldImage.setText("");
             textFieldImage.setForeground(Color.BLACK);
         } else if (textFieldImage.getText().equals("")){
             textFieldImage.setText("Saisir le chemin de l'image");
+            labelImageAffiche.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
+            textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
             textFieldImage.setForeground(Color.LIGHT_GRAY);
             textFieldImage.setCaretPosition(0);
         } else if (!(textFieldImage.getText().equals("")) && !(textFieldImage.getText().equals("Saisir le chemin de l'image"))){
@@ -615,19 +658,62 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
         if ((int)evt.getKeyChar() == 127 && textFieldImage.getText().equals("aisir le chemin de l'image")){
             textFieldImage.setText("Saisir le chemin de l'image");
+            textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
             textFieldImage.setCaretPosition(0);
         }
-        if ((int)evt.getKeyChar() == 27){
+        if ((int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 10){
             requestFocus();
         }
         if ((int)evt.getKeyChar() == 1 && textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
         }
+
+        String[] partieChemin = textFieldImage.getText().split("\\\\");
+        String chemin = "";
+        for (int i = 0; i < partieChemin.length; i++) {
+            chemin += partieChemin[i];
+            if (i < partieChemin.length - 1){
+                chemin += File.separator;
+            }
+        }
+        File file = new File(chemin);
+        if (estUneImage(file)){
+            ImageIcon icon = resizeImage(new ImageIcon(file.getPath()), 180, 100);
+            labelImageAffiche.setIcon(icon);
+        } else {
+            labelImageAffiche.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
+        }
     }
 
     private void boutonParcourirImageActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
         fileChooserImage.showOpenDialog(this);
+        File file = fileChooserImage.getSelectedFile();
+
+        if (file != null && estUneImage(file)){
+            ImageIcon icon = resizeImage(new ImageIcon(file.getPath()), 180, 100);
+            labelImageAffiche.setIcon(icon);
+            textFieldImage.setText(fileChooserImage.getSelectedFile().toString());
+            textFieldImage.setForeground(Color.black);
+            textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        }
+    }
+
+    private static boolean estUneImage(File file){
+        String chemin = file.toString();
+        String extension = chemin.split("\\.")[chemin.split("\\.").length-1];
+        return file.exists() && (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("bmp") || extension.equals("tiff"));
+    }
+
+    private ImageIcon resizeImage(ImageIcon icon, int largeur, int hauteur){
+        int largeurOrigine = icon.getImage().getWidth(labelImageAffiche);
+        int hauteurOrigine = icon.getImage().getHeight(labelImageAffiche);
+        float ratio;
+        if (largeurOrigine - largeur > hauteurOrigine - hauteur){
+            ratio = (float) largeur / largeurOrigine;
+        } else {
+            ratio = (float) hauteur / hauteurOrigine;
+        }
+        return new ImageIcon(icon.getImage().getScaledInstance((int)(largeurOrigine * ratio),(int)(hauteurOrigine * ratio), Image.SCALE_REPLICATE));
     }
 
     private static boolean estUnEntier(String texte){
