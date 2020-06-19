@@ -28,24 +28,8 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         labelDesc = new JLabel();
         reinitEvent(0);
 
-        JButton precedent = new JButton("<");
-        JButton suivant = new JButton(">");
-
-        precedent.addActionListener(this);
-        suivant.addActionListener(this);
-
-        precedent.setPreferredSize(new Dimension(20,115));
-        suivant.setPreferredSize(new Dimension(20,115));
-
-        precedent.setActionCommand("precedent");
-        suivant.setActionCommand("suivant");
-
         GridBagConstraints contrainte = new GridBagConstraints();
         contrainte.insets = new Insets(6,6,6,6);
-
-        contrainte.gridx=0;
-        contrainte.anchor=GridBagConstraints.FIRST_LINE_START;
-        add(precedent, contrainte);
 
         contrainte.anchor=GridBagConstraints.CENTER;
         contrainte.gridx=1;
@@ -54,10 +38,6 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         contrainte.anchor=GridBagConstraints.CENTER;
         contrainte.gridx=2;
         add(labelDesc, contrainte);
-
-        contrainte.gridx=3;
-        contrainte.anchor=GridBagConstraints.FIRST_LINE_END;
-        add(suivant, contrainte);
     }
 
     public void actionPerformed(ActionEvent event) {
