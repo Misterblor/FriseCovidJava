@@ -39,10 +39,12 @@ public class PanelFrise extends JPanel implements ActionListener {
      * @author Antoine Limerutti
      */
     public void actionPerformed(ActionEvent event) {
-        if(selectedMenuItem!= null)
-            selectedMenuItem.setForeground(Color.BLACK);
-        selectedMenuItem = (JMenuItem) event.getSource();
-        selectedMenuItem.setForeground(Color.GRAY);
+        if(event.getActionCommand().compareTo("Fermer")!=0 && event.getActionCommand().compareTo("?")!=0) {
+            if (selectedMenuItem != null)
+                selectedMenuItem.setForeground(Color.BLACK);
+            selectedMenuItem = (JMenuItem) event.getSource();
+            selectedMenuItem.setForeground(Color.GRAY);
+        }
 
         if(event.getActionCommand().compareTo("Affichage Frise")==0){
             fenetreMere.setSize(new Dimension(700,700));
