@@ -81,7 +81,7 @@ public class Chronologie implements Serializable {
         dateFin=parFin;
         periode=parPeriode;
         adresseFichierSauvegarde=sauvegarde;
-        System.out.println(imageChemin);
+
         String extension = imageChemin.split("\\.")[imageChemin.split("\\.").length-1];
         extension = extension.toLowerCase();
 
