@@ -32,7 +32,8 @@ public class PanelAffichageTable extends JPanel {
                 Point point = event.getPoint();
                 int rowIndex = table.rowAtPoint (point);
                 int colIndex = table.columnAtPoint (point);
-                affichageEvent.reinitEvent(frise.getIndice((Evenement) model.getValueAt(rowIndex,colIndex)));
+                if(model.getValueAt(rowIndex,colIndex)!=null)
+                    affichageEvent.reinitEvent(frise.getIndice((Evenement) model.getValueAt(rowIndex,colIndex)));
             }
         });
 
