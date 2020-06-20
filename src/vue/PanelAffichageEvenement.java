@@ -13,8 +13,9 @@ import java.util.StringTokenizer;
 public class PanelAffichageEvenement extends JPanel implements ActionListener {
     private int indiceEventUtil;
     private Chronologie frise;
-    private JLabel labelDesc;
+    private JLabel labelIntituleDate;
     private JLabel labelImage;
+    private JLabel labelDesc;
     private PanelAffichageTable affichageTable;
 
     public PanelAffichageEvenement(Chronologie parFrise) {
@@ -25,6 +26,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         Iterator<Evenement> iterateur = frise.getListeEvt().iterator();
 
         labelImage = new JLabel();
+        labelIntituleDate = new JLabel();
         labelDesc = new JLabel();
         reinitEvent(0);
 
@@ -32,12 +34,26 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         contrainte.insets = new Insets(6,6,6,6);
 
         contrainte.anchor=GridBagConstraints.CENTER;
-        contrainte.gridx=1;
+        contrainte.gridx=0;
+        contrainte.gridy=0;
+        contrainte.gridheight=2;
         add(labelImage, contrainte);
 
-        contrainte.anchor=GridBagConstraints.CENTER;
-        contrainte.gridx=2;
-        add(labelDesc, contrainte);
+        contrainte.insets = new Insets(6,6,0,6);
+        contrainte.anchor=GridBagConstraints.LINE_START;
+        contrainte.gridx=1;
+        contrainte.gridy=0;
+        contrainte.gridheight=1;
+        add(labelIntituleDate, contrainte);
+
+        JScrollPane scrollPane = new JScrollPane(labelDesc, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPane.setPreferredSize(new Dimension(460,70));
+        scrollPane.setBorder(null);
+
+        contrainte.insets = new Insets(0,6,6,6);
+        contrainte.gridx=1;
+        contrainte.gridy=1;
+        add(scrollPane, contrainte);
     }
 
     public void actionPerformed(ActionEvent event) {
@@ -57,9 +73,11 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
             indiceEventUtil = indice;
             Evenement event = frise.get(indice);
 
-            labelImage.setIcon(new ImageIcon(event.getImage().getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+            labelImage.setIcon(resizeImage(event.getImage(), 120, 120));
 
-            String description = "<html><h2>" + event.getTitre() + "</h2><h4>" + event.getDate().toString() + "</h4>";
+            String intituleDate = "<html><h3>" + event.getTitre() + "<br>" + event.getDate().toString() + "</h3></html>";
+
+            String description = "<html>";
 
             StringTokenizer stSpace = new StringTokenizer(event.getTexteDescriptif(), " ");
             StringTokenizer stRetourChariot;
@@ -81,13 +99,27 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
 
             description += "</html>";
 
+            labelIntituleDate.setText(intituleDate);
+            labelIntituleDate.setFont(new Font("Open Sans", 0, 14));
             labelDesc.setText(description);
+            labelDesc.setFont(new Font("Open Sans", 0, 14));
 
             validate();
             repaint();
         }
     }
 
+    private ImageIcon resizeImage(ImageIcon icon, int largeur, int hauteur){
+        int largeurOrigine = icon.getImage().getWidth(labelImage);
+        int hauteurOrigine = icon.getImage().getHeight(labelImage);
+        float ratio;
+        if (largeurOrigine - largeur > hauteurOrigine - hauteur){
+            ratio = (float) largeur / largeurOrigine;
+        } else {
+            ratio = (float) hauteur / hauteurOrigine;
+        }
+        return new ImageIcon(icon.getImage().getScaledInstance((int)(largeurOrigine * ratio),(int)(hauteurOrigine * ratio), Image.SCALE_REPLICATE));
+    }
 
     public void setAffichageTable(PanelAffichageTable affichageTable) {
         this.affichageTable = affichageTable;

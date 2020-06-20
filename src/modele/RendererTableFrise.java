@@ -7,7 +7,7 @@ import java.awt.*;
 public class RendererTableFrise extends JLabel implements TableCellRenderer {
 
     public RendererTableFrise(){
-        super();
+        super("",JLabel.CENTER);
         setOpaque(true);
     }
 
@@ -15,9 +15,10 @@ public class RendererTableFrise extends JLabel implements TableCellRenderer {
     public Component getTableCellRendererComponent(JTable table, Object cellValue, boolean isSelected, boolean hasFocus, int row, int column) {
         if (cellValue!=null) {
             Evenement event = (Evenement) cellValue;
-            setIcon(new ImageIcon(new ImageIcon(event.getImage().toString()).getImage().getScaledInstance(100, 100, Image.SCALE_DEFAULT)));
+            setIcon(resizeImage(event.getImage()));
             setText(null);
             setToolTipText(null);
+            setBackground(Color.WHITE);
             return this;
         }
 
@@ -25,5 +26,17 @@ public class RendererTableFrise extends JLabel implements TableCellRenderer {
             return null;
         }
 
+    }
+
+    private ImageIcon resizeImage(ImageIcon icon){
+        int largeurOrigine = icon.getIconWidth();
+        int hauteurOrigine = icon.getIconHeight();
+        float ratio;
+        if (largeurOrigine - 100 > hauteurOrigine - 100){
+            ratio = (float) 100 / largeurOrigine;
+        } else {
+            ratio = (float) 100 / hauteurOrigine;
+        }
+        return new ImageIcon(icon.getImage().getScaledInstance((int)(largeurOrigine * ratio),(int)(hauteurOrigine * ratio), Image.SCALE_REPLICATE));
     }
 }

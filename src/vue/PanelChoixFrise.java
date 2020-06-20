@@ -53,7 +53,7 @@ public class PanelChoixFrise extends javax.swing.JPanel {
 
                 Chronologie frise = (Chronologie) LectureEcriture.lecture(fichier);
                 if(frise.getImage()!=null)
-                    tableauFrise[indice].setIcon(new ImageIcon(new ImageIcon(frise.getImage().toString()).getImage().getScaledInstance(80, 80, Image.SCALE_DEFAULT)));
+                    tableauFrise[indice].setIcon(resizeImage(frise.getImage()));
                 else
                     tableauFrise[indice].setText(frise.getIntitule());
 
@@ -73,4 +73,15 @@ public class PanelChoixFrise extends javax.swing.JPanel {
 
     }
 
+    private ImageIcon resizeImage(ImageIcon icon){
+        int largeurOrigine = icon.getIconWidth();
+        int hauteurOrigine = icon.getIconHeight();
+        float ratio;
+        if (largeurOrigine - 80 > hauteurOrigine - 80){
+            ratio = (float) 80 / largeurOrigine;
+        } else {
+            ratio = (float) 80 / hauteurOrigine;
+        }
+        return new ImageIcon(icon.getImage().getScaledInstance((int)(largeurOrigine * ratio),(int)(hauteurOrigine * ratio), Image.SCALE_REPLICATE));
+    }
 }
