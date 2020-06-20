@@ -11,6 +11,8 @@ public class PanelFrise extends JPanel implements ActionListener {
     CardLayout card;
     JMenuItem selectedMenuItem;
     FenetreAccueil fenetreMere;
+    PanelFormulaireChronologie panelFormulaireChronologie = new PanelFormulaireChronologie();
+    PanelFormulaireEvenement panelFormulaireEvenement = new PanelFormulaireEvenement();
 
     public PanelFrise(FenetreAccueil parFenetreMere){
         card = new CardLayout();
@@ -18,12 +20,12 @@ public class PanelFrise extends JPanel implements ActionListener {
 
         fenetreMere = parFenetreMere;
 
-        Controleur controleur = new Controleur(this);
+        Controleur controleur = new Controleur(this, panelFormulaireChronologie, panelFormulaireEvenement);
 
         add(new PanelChoixFrise(controleur), 0);
         add(new JPanel(), 1);
-        add(new PanelFormulaireEvenement(), 2);
-        add(new PanelFormulaireChronologie(), 3);
+        add(panelFormulaireEvenement, 2);
+        add(panelFormulaireChronologie, 3);
 
         selectedMenuItem = (JMenuItem) fenetreMere.getMenuItem().getComponent(0);
         selectedMenuItem.setForeground(Color.GRAY);
