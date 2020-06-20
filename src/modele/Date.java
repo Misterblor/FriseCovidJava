@@ -242,23 +242,6 @@ public class Date implements Comparable<Date>, Serializable {
 		return nbJour+1;
 	}
 
-	public int distanceEntre(Date date){
-		Date dateTemp = this;
-		int nb = 0;
-		if (compareTo(date)>0){
-			while (dateTemp.compareTo(date) != 0){
-				dateTemp = dateTemp.dateDeLaVeille();
-				nb++;
-			}
-		} else {
-			while (dateTemp.compareTo(date) != 0){
-				dateTemp = dateTemp.dateDuLendemain();
-				nb++;
-			}
-		}
-		return nb;
-	}
-
 	/**
 	 * Retourne le nombre de mois entre deux dates.
 	 *
