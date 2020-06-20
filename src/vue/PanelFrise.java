@@ -23,7 +23,7 @@ public class PanelFrise extends JPanel implements ActionListener {
         Controleur controleur = new Controleur(this, panelFormulaireChronologie, panelFormulaireEvenement);
 
         add(new PanelChoixFrise(controleur), 0);
-        add(new JPanel(), 1);
+        add(new PanelAffichage(), 1);
         add(panelFormulaireEvenement, 2);
         add(panelFormulaireChronologie, 3);
 
