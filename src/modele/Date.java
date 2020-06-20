@@ -218,26 +218,28 @@ public class Date implements Comparable<Date>, Serializable {
 	public int nbJourEntre(Date date) {
 		int nbJour = 0;
 		int[] nbJourMois = new int[12];
+		int moisTemp = mois;
 
-		for (int indice = 0; indice < 12; indice++)
+		for (int indice = 0; indice < 12; indice++) {
 			nbJourMois[indice] = dernierJourDuMois(indice + 1, 2019);
-
-		while((jour+nbJour)%dernierJourDuMois(mois,annee)!=date.getJour()){
+		}
+		while((jour+nbJour)%dernierJourDuMois(mois+((jour+nbJour)/dernierJourDuMois(mois,annee)),annee)!=date.getJour())
 			nbJour++;
+
+		int moisEntre = nbMoisEntre(date);
+
+		if(jour>date.getJour()) {
+			moisTemp++;
+			moisEntre--;
 		}
 
-		int indiceMax = nbMoisEntre(date);
-		int i = 0;
-
-		for (int indice = 0; indice<=indiceMax; indice++) {
-			if (indice + mois > 12){
-				i=(indice+mois)%12;
-			}
-			else
-				i = indice + mois - 1;
-			nbJour += nbJourMois[i];
+		for (int indice = 0; indice<moisEntre; indice++) {
+			nbJour += nbJourMois[(indice + moisTemp) % 12];
+			if((indice + moisTemp) % 12==1 && estBissextile(annee+(indice + moisTemp) / 12))
+				nbJour++;
 		}
-		return nbJour;
+
+		return nbJour+1;
 	}
 
 	public int distanceEntre(Date date){
@@ -267,8 +269,12 @@ public class Date implements Comparable<Date>, Serializable {
 	 * @return Entier correspondant au nombre de mois entre les deux dates.
 	 */
 	public int nbMoisEntre(Date date){
-  	return ((nbAnneeEntre(date)-1)*12) + (date.getMois()-mois);
-  }
+		if(date.getMois()-mois>0) {
+			return (nbAnneeEntre(date) * 12) + (date.getMois() - mois);
+		}
+		else
+			return (nbAnneeEntre(date)*12) + (mois-date.getMois());
+	}
 
 	/**
 	 * Retourne le nombre d'années entre deux dates.
