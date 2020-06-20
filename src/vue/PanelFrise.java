@@ -11,6 +11,7 @@ public class PanelFrise extends JPanel implements ActionListener {
     CardLayout card;
     JMenuItem selectedMenuItem;
     FenetreAccueil fenetreMere;
+    PanelChoixFrise panelChoixFrise;
     PanelFormulaireChronologie panelFormulaireChronologie = new PanelFormulaireChronologie();
     PanelFormulaireEvenement panelFormulaireEvenement = new PanelFormulaireEvenement();
 
@@ -22,7 +23,9 @@ public class PanelFrise extends JPanel implements ActionListener {
 
         Controleur controleur = new Controleur(this, panelFormulaireChronologie, panelFormulaireEvenement);
 
-        add(new PanelChoixFrise(controleur), 0);
+        panelChoixFrise = new PanelChoixFrise(controleur);
+
+        add(panelChoixFrise, 0);
         add(new PanelAffichage(), 1);
         add(panelFormulaireEvenement, 2);
         add(panelFormulaireChronologie, 3);
@@ -39,12 +42,10 @@ public class PanelFrise extends JPanel implements ActionListener {
      * @author Antoine Limerutti
      */
     public void actionPerformed(ActionEvent event) {
-        if(event.getActionCommand().compareTo("Fermer")!=0 && event.getActionCommand().compareTo("?")!=0) {
-            if (selectedMenuItem != null)
-                selectedMenuItem.setForeground(Color.BLACK);
-            selectedMenuItem = (JMenuItem) event.getSource();
-            selectedMenuItem.setForeground(Color.GRAY);
-        }
+        if(selectedMenuItem!= null)
+            selectedMenuItem.setForeground(Color.BLACK);
+        selectedMenuItem = (JMenuItem) event.getSource();
+        selectedMenuItem.setForeground(Color.GRAY);
 
         if(event.getActionCommand().compareTo("Affichage Frise")==0){
             fenetreMere.setSize(new Dimension(700,700));
@@ -101,5 +102,21 @@ public class PanelFrise extends JPanel implements ActionListener {
 
     public void disableFormulaireChronologie() {
         card.first(this);
+    }
+
+    public CardLayout getCard() {
+        return card;
+    }
+
+    public FenetreAccueil getFenetreMere() {
+        return fenetreMere;
+    }
+
+    public void setPanelChoixFrise(PanelChoixFrise panelChoixFrise) {
+        remove(0);
+        this.panelChoixFrise = panelChoixFrise;
+        add(panelChoixFrise, 0);
+        validate();
+        repaint();
     }
 }

@@ -6,7 +6,10 @@
 package vue;
 
 import controleur.ControleurPanelFormulaireChronologie;
+import modele.Chronologie;
 import modele.Date;
+import modele.LectureEcriture;
+import modele.SavesChronologie;
 
 import java.awt.*;
 import java.io.File;
@@ -381,6 +384,22 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldIntituleFocusLost(java.awt.event.FocusEvent evt) {
+        SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+        for (int i = 0; i < listeChronologie.size(); i++) {
+            Chronologie chronologie = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
+            if (chronologie.getIntitule().equals(textFieldIntitule.getText())) {
+                textFieldIntitule.setForeground(Color.RED);
+                styleSaisieIntitule.setForeground(Color.RED);
+            } else {
+                if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
+                    textFieldIntitule.setForeground(Color.LIGHT_GRAY);
+                } else {
+                    textFieldIntitule.setForeground(Color.BLACK);
+                }
+
+                styleSaisieIntitule.setForeground(new Color(0,120,215));
+            }
+        }
         reculeStyleSaisieIntitule();
     }
 
@@ -418,11 +437,23 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             textFieldIntitule.setCaretPosition(0);
         }
         if ((int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 10){
+            SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+            for (int i = 0; i < listeChronologie.size(); i++) {
+                Chronologie chronologie = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
+                if (chronologie.getIntitule().equals(textFieldIntitule.getText())) {
+                    textFieldIntitule.setForeground(Color.RED);
+                    styleSaisieIntitule.setForeground(Color.RED);
+                } else {
+                    textFieldIntitule.setForeground(Color.BLACK);
+                    styleSaisieIntitule.setForeground(new Color(0,120,215));
+                }
+            }
             requestFocus();
         }
         if ((int)evt.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de la frise")){
             textFieldIntitule.setCaretPosition(0);
         }
+
         System.out.println((int)evt.getKeyChar());
     }
 
@@ -436,6 +467,31 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         reculeStyleSaisieDateDebut();
         panelCalendrierDateDebut.setVisible(false);
         textFieldDateDebut.setText(panelCalendrierDateDebut.getDateSelectionnee().toStringJourMoisAnnee());
+        if (panelCalendrierDateDebut.getDateSelectionnee().compareTo(panelCalendrierDateFin.getDateSelectionnee()) > 0){
+            styleSaisieDateDebut.setForeground(Color.RED);
+            textFieldDateDebut.setForeground(Color.RED);
+            styleSaisieDateFin.setForeground(Color.RED);
+            textFieldDateFin.setForeground(Color.RED);
+            labelDateFin.setIcon(new ImageIcon("ressources\\iconFlecheBarree.png"));
+        } else {
+            styleSaisieDateDebut.setForeground(new Color(0,120,215));
+            textFieldDateDebut.setForeground(Color.BLACK);
+            styleSaisieDateFin.setForeground(new Color(0,120,215));
+            textFieldDateFin.setForeground(Color.BLACK);
+            labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
+            int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().distanceEntre(panelCalendrierDateFin.getDateSelectionnee());
+            if (nbJourPeriode < 31){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
+            } else if (nbJourPeriode < 180){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours"}));
+            } else if(nbJourPeriode < 365){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois"}));
+            } else if (nbJourPeriode < 1825){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois"}));
+            } else {
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois", "1 an"}));
+            }
+        }
     }
 
     private void textFieldDateDebutMousePressed(java.awt.event.MouseEvent evt) {
@@ -488,6 +544,31 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         reculeStyleSaisieDateFin();
         panelCalendrierDateFin.setVisible(false);
         textFieldDateFin.setText(panelCalendrierDateFin.getDateSelectionnee().toStringJourMoisAnnee());
+        if (panelCalendrierDateDebut.getDateSelectionnee().compareTo(panelCalendrierDateFin.getDateSelectionnee()) > 0){
+            styleSaisieDateDebut.setForeground(Color.RED);
+            textFieldDateDebut.setForeground(Color.RED);
+            styleSaisieDateFin.setForeground(Color.RED);
+            textFieldDateFin.setForeground(Color.RED);
+            labelDateFin.setIcon(new ImageIcon("ressources\\iconFlecheBarree.png"));
+        } else {
+            styleSaisieDateDebut.setForeground(new Color(0,120,215));
+            textFieldDateDebut.setForeground(Color.BLACK);
+            styleSaisieDateFin.setForeground(new Color(0,120,215));
+            textFieldDateFin.setForeground(Color.BLACK);
+            labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
+            int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().distanceEntre(panelCalendrierDateFin.getDateSelectionnee());
+            if (nbJourPeriode < 31){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
+            } else if (nbJourPeriode < 180){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours"}));
+            } else if(nbJourPeriode < 365){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois"}));
+            } else if (nbJourPeriode < 1825){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois"}));
+            } else {
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois", "1 an"}));
+            }
+        }
     }
 
     private void textFieldDateFinMousePressed(java.awt.event.MouseEvent evt) {
@@ -536,6 +617,13 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void comboBoxPeriodeFocusLost(java.awt.event.FocusEvent evt) {
+        if (comboBoxPeriode.getSelectedIndex() == 0){
+            comboBoxPeriode.setForeground(Color.RED);
+            styleSaisiePeriode.setForeground(Color.RED);
+        } else {
+            comboBoxPeriode.setForeground(Color.BLACK);
+            styleSaisiePeriode.setForeground(new Color(0,120,215));
+        }
         reculeStyleSaisiePeriode();
     }
 
@@ -547,6 +635,18 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldDossierFocusLost(java.awt.event.FocusEvent evt) {
+        File fileDossier = new File(textFieldDossier.getText());
+        if ((!(fileDossier.exists()) || !(fileDossier.isDirectory())) && !(textFieldDossier.getText().equals("Saisir le chemin de sauvegarde"))) {
+            textFieldDossier.setForeground(Color.RED);
+            styleSaisieDossier.setForeground(Color.RED);
+        } else {
+            if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde")){
+                textFieldDossier.setForeground(Color.LIGHT_GRAY);
+            } else {
+                textFieldDossier.setForeground(Color.BLACK);
+            }
+            styleSaisieDossier.setForeground(new Color(0,120,215));
+        }
         reculeStyleSaisieDossier();
     }
 
@@ -590,6 +690,14 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             textFieldDossier.setCaretPosition(0);
         }
         if ((int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 10){
+            File fileDossier = new File(textFieldDossier.getText());
+            if (!(fileDossier.exists()) || !(fileDossier.isDirectory())) {
+                textFieldDossier.setForeground(Color.RED);
+                styleSaisieDossier.setForeground(Color.RED);
+            } else {
+                textFieldDossier.setForeground(Color.BLACK);
+                styleSaisieDossier.setForeground(new Color(0,120,215));
+            }
             requestFocus();
         }
         if ((int)evt.getKeyChar() == 1 && textFieldDossier.getText().equals("Saisir le chemin de sauvegarde")){
@@ -606,6 +714,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         if (file != null && file.isDirectory()){
             textFieldDossier.setText(file.toString());
             textFieldDossier.setForeground(Color.black);
+            styleSaisieDossier.setForeground(new Color(0,120,215));
             textFieldDossier.setFont(new Font("Open Sans", Font.PLAIN, 14));
         }
     }
@@ -618,6 +727,18 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     }
 
     private void textFieldImageFocusLost(java.awt.event.FocusEvent evt) {
+        File fileImage = new File(textFieldImage.getText());
+        if (!(estUneImage(fileImage)) && !(textFieldImage.getText().equals("Saisir le chemin de l'image"))) {
+            textFieldImage.setForeground(Color.RED);
+            styleSaisieImage.setForeground(Color.RED);
+        } else {
+            if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
+                textFieldImage.setForeground(Color.LIGHT_GRAY);
+            } else {
+                textFieldImage.setForeground(Color.BLACK);
+            }
+            styleSaisieImage.setForeground(new Color(0,120,215));
+        }
         reculeStyleSaisieImage();
     }
 
@@ -662,6 +783,14 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             textFieldImage.setCaretPosition(0);
         }
         if ((int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 10){
+            File fileImage = new File(textFieldImage.getText());
+            if (!(textFieldImage.getText().equals("Saisir le chemin de l'image")) && !(estUneImage(fileImage))) {
+                textFieldImage.setForeground(Color.RED);
+                styleSaisieImage.setForeground(Color.RED);
+            } else {
+                textFieldImage.setForeground(Color.BLACK);
+                styleSaisieImage.setForeground(new Color(0,120,215));
+            }
             requestFocus();
         }
         if ((int)evt.getKeyChar() == 1 && textFieldImage.getText().equals("Saisir le chemin de l'image")){
@@ -694,14 +823,72 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             labelImageAffiche.setIcon(icon);
             textFieldImage.setText(fileChooserImage.getSelectedFile().toString());
             textFieldImage.setForeground(Color.black);
+            styleSaisieImage.setForeground(new Color(0,120,215));
             textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        }
+    }
+
+    public boolean estValide(){
+        String erreur = "";
+        boolean valide = true;
+        SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+        for (int i = 0; i < listeChronologie.size(); i++) {
+            Chronologie chronologie = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
+            if (chronologie.getIntitule().equals(textFieldIntitule.getText()) || textFieldIntitule.getText().equals("Saisir le nom de la frise")){
+                textFieldIntitule.setForeground(Color.RED);
+                styleSaisieIntitule.setForeground(Color.RED);
+                erreur += "- Le nom de la frise est vide ou existe déjà";
+                valide = false;
+            }
+        }
+        if (panelCalendrierDateDebut.getDateSelectionnee().compareTo(panelCalendrierDateFin.getDateSelectionnee()) > 0){
+            styleSaisieDateDebut.setForeground(Color.RED);
+            textFieldDateDebut.setForeground(Color.RED);
+            styleSaisieDateFin.setForeground(Color.RED);
+            textFieldDateFin.setForeground(Color.RED);
+            labelDateFin.setIcon(new ImageIcon("ressources\\iconFlecheBarree.png"));
+            erreur += "\n- Les dates entrées ne sont pas correctes";
+            valide = false;
+        }
+        if (comboBoxPeriode.getSelectedIndex() == 0){
+            comboBoxPeriode.setForeground(Color.RED);
+            styleSaisiePeriode.setForeground(Color.RED);
+            erreur += "\n- Il faut sélectionner une période";
+            valide = false;
+        }
+        File fileDossier = new File(textFieldDossier.getText());
+        if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde") || !(fileDossier.exists()) || !(fileDossier.isDirectory())){
+            textFieldDossier.setForeground(Color.RED);
+            styleSaisieDossier.setForeground(Color.RED);
+            erreur += "\n- Le chemin donné n'existe pas ou n'est pas un dossier";
+            valide = false;
+        }
+        File fileImage = new File(textFieldImage.getText());
+        if (!(textFieldImage.getText().equals("Saisir le chemin de l'image")) && !(estUneImage(fileImage))){
+            textFieldImage.setForeground(Color.RED);
+            styleSaisieImage.setForeground(Color.RED);
+            erreur += "\n- Le fichier donné n'existe pas ou n'est pas une image";
+            valide = false;
+        }
+        if (!valide){
+            JOptionPane.showMessageDialog(this, erreur, "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return valide;
+    }
+
+    public Chronologie enregistreChronologie(){
+        if (textFieldImage.equals("Saisir le chemin de l'image")){
+            return new Chronologie(textFieldIntitule.getText(), panelCalendrierDateDebut.getDateSelectionnee(), panelCalendrierDateFin.getDateSelectionnee(), comboBoxPeriode.getSelectedIndex()-1, textFieldDossier.getText());
+
+        } else {
+            return new Chronologie(textFieldIntitule.getText(), panelCalendrierDateDebut.getDateSelectionnee(), panelCalendrierDateFin.getDateSelectionnee(), comboBoxPeriode.getSelectedIndex()-1, textFieldDossier.getText(), textFieldImage.getText());
         }
     }
 
     private static boolean estUneImage(File file){
         String chemin = file.toString();
         String extension = chemin.split("\\.")[chemin.split("\\.").length-1];
-        return file.exists() && (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("bmp") || extension.equals("tiff"));
+        return file.exists() && (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg") || extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("bmp") || extension.equalsIgnoreCase("tiff"));
     }
 
     private ImageIcon resizeImage(ImageIcon icon, int largeur, int hauteur){
@@ -1020,6 +1207,18 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
     public JTextField getTextFieldDateFin(){
         return textFieldDateFin;
+    }
+
+    public JTextField getTextFieldIntitule() {
+        return textFieldIntitule;
+    }
+
+    public JButton getButtonAjouter() {
+        return buttonAjouter;
+    }
+
+    public JTextField getTextFieldDossier() {
+        return textFieldDossier;
     }
 
     private java.util.Timer timerStyleSaisieIntitule = new java.util.Timer();
