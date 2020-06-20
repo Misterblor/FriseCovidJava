@@ -30,6 +30,10 @@ public class SavesChronologie implements Serializable {
         }
     }
 
+    public String get(int i){
+        return listeSave.get(i);
+    }
+
     public int size() {
         return listeSave.size();
     }
