@@ -5,13 +5,13 @@
 package vue;
 
 import controleur.ControleurPanelFormulaireEvenement;
-import modele.Date;
-import modele.Evenement;
+import modele.*;
 
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Timer;
 import javax.swing.*;
 import javax.swing.GroupLayout;
@@ -21,6 +21,25 @@ import javax.swing.border.*;
  * @author Blor
  */
 public class PanelFormulaireEvenement extends JPanel {
+    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
+    // Generated using JFormDesigner Evaluation license - Blor
+    private JTextField textFieldIntitule;
+    private JProgressBar styleSaisieIntitule;
+    private JTextField textFieldDate;
+    private PanelCalendrierDate panelCalendrierDate;
+    private JProgressBar styleSaisieDate;
+    private JComboBox<String> comboBoxPoids;
+    private JProgressBar styleSaisiePoids;
+    private JTextField textFieldImage;
+    private JProgressBar styleSaisieImage;
+    private JLabel labelDescription;
+    private JScrollPane scrollPaneTextAreaDescription;
+    private JTextArea textAreaDescription;
+    private JLabel labelAffichageImage;
+    private JButton buttonAjouter;
+    private JComboBox<String> comboBoxSelectionFrise;
+    // JFormDesigner - End of variables declaration  //GEN-END:variables
+
     public PanelFormulaireEvenement() {
         initComponents();
         new ControleurPanelFormulaireEvenement(this);
@@ -220,6 +239,7 @@ public class PanelFormulaireEvenement extends JPanel {
     private static boolean estUneImage(File file){
         String chemin = file.toString();
         String extension = chemin.split("\\.")[chemin.split("\\.").length-1];
+        extension = extension.toLowerCase();
         return file.exists() && (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("bmp") || extension.equals("tiff"));
     }
 
@@ -431,20 +451,20 @@ public class PanelFormulaireEvenement extends JPanel {
     private void initComponents() {
         // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
         // Generated using JFormDesigner Evaluation license - Blor
-        labelIntitule = new JLabel();
+        JLabel labelIntitule = new JLabel();
         textFieldIntitule = new JTextField();
         styleSaisieIntitule = new JProgressBar();
-        labelDate = new JLabel();
+        JLabel labelDate = new JLabel();
         textFieldDate = new JTextField();
         panelCalendrierDate = new PanelCalendrierDate();
         styleSaisieDate = new JProgressBar();
-        labelPoids = new JLabel();
+        JLabel labelPoids = new JLabel();
         comboBoxPoids = new JComboBox<>();
         styleSaisiePoids = new JProgressBar();
-        labelImage = new JLabel();
+        JLabel labelImage = new JLabel();
         textFieldImage = new JTextField();
         styleSaisieImage = new JProgressBar();
-        buttonParcourirImage = new JButton();
+        JButton buttonParcourirImage = new JButton();
         labelDescription = new JLabel();
         scrollPaneTextAreaDescription = new JScrollPane();
         textAreaDescription = new JTextArea();
@@ -665,9 +685,17 @@ public class PanelFormulaireEvenement extends JPanel {
         //---- comboBoxSelectionFrise ----
         comboBoxSelectionFrise.setBackground(Color.white);
         comboBoxSelectionFrise.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        comboBoxSelectionFrise.setModel(new DefaultComboBoxModel<>(new String[] {
-            "--S\u00e9lectionner une frise--"
-        }));
+
+        SavesChronologie frises = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+        String[] intituleFrises = new String[frises.size()+1];
+        intituleFrises[0]="--Sélectionner une frise--";
+
+        Iterator<String> iterateur = frises.iterator();
+        for(int i = 1; i<intituleFrises.length && iterateur.hasNext(); i++){
+            intituleFrises[i] = ((Chronologie) LectureEcriture.lecture(new File(iterateur.next()))).getIntitule();
+        }
+
+        comboBoxSelectionFrise.setModel(new DefaultComboBoxModel<String>(intituleFrises));
 
         GroupLayout layout = new GroupLayout(this);
         setLayout(layout);
@@ -760,28 +788,4 @@ public class PanelFormulaireEvenement extends JPanel {
     private Timer timerStyleSaisieDate = new Timer();
     private Timer timerStyleSaisiePoids = new Timer();
     private Timer timerStyleSaisieImage = new Timer();
-    
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Blor
-    private JLabel labelIntitule;
-    private JTextField textFieldIntitule;
-    private JProgressBar styleSaisieIntitule;
-    private JLabel labelDate;
-    private JTextField textFieldDate;
-    private PanelCalendrierDate panelCalendrierDate;
-    private JProgressBar styleSaisieDate;
-    private JLabel labelPoids;
-    private JComboBox<String> comboBoxPoids;
-    private JProgressBar styleSaisiePoids;
-    private JLabel labelImage;
-    private JTextField textFieldImage;
-    private JProgressBar styleSaisieImage;
-    private JButton buttonParcourirImage;
-    private JLabel labelDescription;
-    private JScrollPane scrollPaneTextAreaDescription;
-    private JTextArea textAreaDescription;
-    private JLabel labelAffichageImage;
-    private JButton buttonAjouter;
-    private JComboBox<String> comboBoxSelectionFrise;
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
 }
