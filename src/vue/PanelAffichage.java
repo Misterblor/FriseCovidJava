@@ -7,6 +7,14 @@ import java.awt.*;
 
 public class PanelAffichage extends JPanel {
 
+    public PanelAffichage(){
+        setLayout(new BorderLayout());
+
+        JLabel label = new JLabel("<html>Aucune frise sélectionnée !<br>Pour sélectionner une frise, rendez-vous dans l'onglet \"Choix Frise\" afin d'en choisir ou d'en créer une !",JLabel.CENTER);
+        label.setFont(new Font("Open Sans", Font.PLAIN, 12));
+        add(label, BorderLayout.CENTER);
+    }
+
     public PanelAffichage(Chronologie frise) {
         setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
