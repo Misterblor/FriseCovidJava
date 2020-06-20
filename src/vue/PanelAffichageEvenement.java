@@ -57,19 +57,21 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent event) {
-        if(event.getActionCommand()=="precedent") {
-            if (indiceEventUtil == 0) {
-                reinitEvent(frise.getNbEvent()-1);
-            } else {
-                reinitEvent(indiceEventUtil - 1);
-            }
-        } else if(event.getActionCommand()=="suivant")
-            reinitEvent((indiceEventUtil+1)%frise.getNbEvent());
-        affichageTable.setRow(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode());
+        if (frise.getNbEvent() != 0) {
+            if (event.getActionCommand() == "precedent") {
+                if (indiceEventUtil == 0) {
+                    reinitEvent(frise.getNbEvent() - 1);
+                } else {
+                    reinitEvent(indiceEventUtil - 1);
+                }
+            } else if (event.getActionCommand() == "suivant")
+                reinitEvent((indiceEventUtil + 1) % frise.getNbEvent());
+            affichageTable.setRow(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode());
+        }
     }
 
     public void reinitEvent(int indice){
-        if(indice != -1) {
+        if(indice != -1 && indice<frise.getNbEvent()) {
             indiceEventUtil = indice;
             Evenement event = frise.get(indice);
 
