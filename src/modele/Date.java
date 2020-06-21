@@ -307,6 +307,26 @@ public class Date implements Comparable<Date>, Serializable {
 	}
 
 	/**
+	 * Retourne le nombre de semaine entre deux dates.
+	 *
+	 * @param date Date avec laquelle il vas falloir déterminer le nombre de semaine d'écart.
+	 *
+	 * @author Antoine Limerutti
+	 *
+	 * @return Entier correspondant au nombre de semaine entre les deux dates.
+	 */
+	public int nbSemaineEntre(Date date){
+		int nbSemaine = date.getNumeroSemaine()-getNumeroSemaine();
+
+		for(int anneeTemp = annee; anneeTemp<date.getAnnee(); anneeTemp++){
+			if(estBissextile(anneeTemp))
+				nbSemaine++;
+		}
+
+		return nbSemaine;
+	}
+
+	/**
 	 * Vérifie si l'année de l'objet appellant est bisextile.
 	 * 
 	 * @param parAnnee année dont la méthode vas vérifier si elle est bisextile.

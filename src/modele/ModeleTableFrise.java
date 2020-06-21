@@ -52,7 +52,7 @@ public class ModeleTableFrise extends DefaultTableModel {
         if(periode==0)
             return debut.nbJourEntre(fin)+1;
         else if(periode==1)
-            return (debut.nbJourEntre(fin)+1)%7==0 ? (debut.nbJourEntre(fin)+1)/7 : (debut.nbJourEntre(fin)+1)+1;
+            return debut.nbSemaineEntre(fin)+1;
         else if(periode==2)
             return debut.nbMoisEntre(fin)+1;
         else if(periode==3)
@@ -81,7 +81,7 @@ public class ModeleTableFrise extends DefaultTableModel {
             for(int i=1; i<nbColonne; i++){
                 dateTemp = dateTemp.dateDuLendemain();
 
-                if(periode==7)
+                if(periode==1)
                     for(int j=0; j<6; j++)
                         dateTemp = dateTemp.dateDuLendemain();
 
