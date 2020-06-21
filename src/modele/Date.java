@@ -206,6 +206,29 @@ public class Date implements Comparable<Date>, Serializable {
 		return  new Date(j,m,a);
 	}
 
+	public boolean estDansLaSemaine(Date date){
+		Date dateTemp = new Date(jour, mois, annee);
+		while (dateTemp.dateDeLaVeille().getSemaineDeAnnee() == this.getSemaineDeAnnee()){
+			dateTemp = dateTemp.dateDeLaVeille();
+		}
+		for (int i = 0; i < 7; i++) {
+			if (dateTemp.compareTo(date) == 0){
+				return true;
+			}
+			dateTemp = dateTemp.dateDuLendemain();
+		}
+		return false;
+	}
+
+	public boolean estDansLeMois(Date date){
+		return mois == date.mois && annee == date.annee;
+	}
+
+	public int getSemaineDeAnnee(){
+		GregorianCalendar cal = new GregorianCalendar(annee,mois-1,jour);
+		return cal.get(Calendar.WEEK_OF_YEAR);
+	}
+
 	/**
 	 * Retourne le nombre de jour entre deux dates.
 	 *
