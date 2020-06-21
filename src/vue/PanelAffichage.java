@@ -5,6 +5,7 @@ import modele.Chronologie;
 
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
 import java.math.RoundingMode;
 
@@ -29,7 +30,7 @@ public class PanelAffichage extends JPanel {
         contrainte.gridx=0;
         contrainte.gridy=0;
         JLabel combler = new JLabel();
-        combler.setPreferredSize(new Dimension(90,20));
+        combler.setPreferredSize(new Dimension(20,20));
         add(combler, contrainte);
 
         JLabel labelIntitule = new JLabel(frise.getIntitule(), JLabel.CENTER);
@@ -38,11 +39,13 @@ public class PanelAffichage extends JPanel {
         contrainte.anchor=GridBagConstraints.CENTER;
         add(labelIntitule, contrainte);
 
-        boutonSupr = new JButton("Supprimer");
-        boutonSupr.setPreferredSize(new Dimension(90,20));
-        boutonSupr.setFont(new Font("Calibri", Font.PLAIN, 12));
+        boutonSupr = new JButton("-");
+        boutonSupr.setPreferredSize(new Dimension(20,20));
+        boutonSupr.setFont(new Font("Calibri", Font.BOLD, 12));
         boutonSupr.setForeground(Color.RED);
         contrainte.gridx=2;
+        contrainte.insets = new Insets(0,0,0,12);
+        contrainte.anchor=GridBagConstraints.LINE_END;
         add(boutonSupr, contrainte);
 
         contrainte.insets=new Insets(0,0,10,0);
@@ -69,12 +72,12 @@ public class PanelAffichage extends JPanel {
         suivant.setBackground(getBackground());
 
         contrainte.gridx=0;
-        contrainte.anchor=GridBagConstraints.LINE_START;
+        contrainte.anchor=GridBagConstraints.WEST;
         contrainte.insets=new Insets(0,20,10,0);
         add(precedent, contrainte);
 
         contrainte.gridx=2;
-        contrainte.anchor=GridBagConstraints.LINE_END;
+        contrainte.anchor=GridBagConstraints.EAST;
         contrainte.insets=new Insets(0,0,10,20);
         add(suivant, contrainte);
 
