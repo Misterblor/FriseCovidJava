@@ -22,11 +22,18 @@ public class SavesChronologie implements Serializable {
     }
 
     public void remove(String save){
-        if(listeSave.contains(save)) {
-            listeSave.remove(save);
-            if(new File(save).exists() && save.split(".")[save.split(".").length-1].compareTo(".ser")==0)
-                new File(save).delete();
-            LectureEcriture.ecriture(SavesChronologie.FILE,this);
+        Iterator<String> iterator = listeSave.iterator();
+        int indice=-1;
+
+        for(int i=0; iterator.hasNext(); indice++) {
+            if (iterator.next().equals(save))
+                indice = i;
+        }
+
+        if(indice!=-1) {
+            new File(listeSave.get(indice)).delete();
+            listeSave.remove(indice);
+            LectureEcriture.ecriture(SavesChronologie.FILE, this);
         }
     }
 

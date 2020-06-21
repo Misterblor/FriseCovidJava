@@ -43,7 +43,7 @@ public class Controleur implements ActionListener {
             }
         }
 
-        if (event.getSource() == panelFormulaireChronologie.getButtonAjouter()){
+        else if (event.getSource() == panelFormulaireChronologie.getButtonAjouter()){
             if (panelFormulaireChronologie.estValide()){
                 SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
                 listeChronologie.verification();
@@ -56,7 +56,7 @@ public class Controleur implements ActionListener {
             }
         }
 
-        if (event.getSource() == panelFormulaireEvenement.getButtonAjouter()){
+        else if (event.getSource() == panelFormulaireEvenement.getButtonAjouter()){
             if (panelFormulaireEvenement.estValide()){
                 SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
                 listeChronologie.verification();
@@ -69,6 +69,16 @@ public class Controleur implements ActionListener {
                 panelFrise.updatePanelAffichage(new PanelAffichage(chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1]));
                 panelFormulaireEvenement.reset();
                 JOptionPane.showMessageDialog(panelFormulaireEvenement, "Votre évènement a bien été ajouté !", "Ajout de l'évènement", JOptionPane.INFORMATION_MESSAGE);
+            }
+        }
+
+        else if(event.getActionCommand().split(">")[0].equals("suprimmerFrise")){
+            if(JOptionPane.showConfirmDialog(panelFrise, "Voulez-vous réellement supprimer cette frise ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==JOptionPane.OK_OPTION) {
+                SavesChronologie listeSave = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+                listeSave.remove(event.getActionCommand().split(">")[1]);
+
+                panelFrise.setPanelChoixFrise(new PanelChoixFrise());
+                panelFrise.resetPanelAffichage();
             }
         }
     }

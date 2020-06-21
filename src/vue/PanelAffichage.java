@@ -1,11 +1,16 @@
 package vue;
 
+import controleur.Controleur;
 import modele.Chronologie;
 
 import javax.swing.*;
+import javax.swing.border.LineBorder;
 import java.awt.*;
+import java.math.RoundingMode;
 
 public class PanelAffichage extends JPanel {
+    JButton boutonSupr;
+    Chronologie frise;
 
     public PanelAffichage(){
         setLayout(new BorderLayout());
@@ -15,23 +20,35 @@ public class PanelAffichage extends JPanel {
         add(label, BorderLayout.CENTER);
     }
 
-    public PanelAffichage(Chronologie frise) {
+    public PanelAffichage(Chronologie parFrise) {
         setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
 
-        JLabel labelIntitule = new JLabel(frise.getIntitule(), JLabel.CENTER);
-        labelIntitule.setFont(new Font("Calibri", Font.BOLD, 20));
+        frise=parFrise;
+
         contrainte.gridx=0;
         contrainte.gridy=0;
-        contrainte.gridwidth=3;
+        JLabel combler = new JLabel();
+        combler.setPreferredSize(new Dimension(90,20));
+        add(combler, contrainte);
+
+        JLabel labelIntitule = new JLabel(frise.getIntitule(), JLabel.CENTER);
+        labelIntitule.setFont(new Font("Calibri", Font.BOLD, 20));
+        contrainte.gridx=1;
         contrainte.anchor=GridBagConstraints.CENTER;
         add(labelIntitule, contrainte);
+
+        boutonSupr = new JButton("Supprimer");
+        boutonSupr.setPreferredSize(new Dimension(90,20));
+        boutonSupr.setFont(new Font("Calibri", Font.PLAIN, 12));
+        boutonSupr.setForeground(Color.RED);
+        contrainte.gridx=2;
+        add(boutonSupr, contrainte);
 
         contrainte.insets=new Insets(0,0,10,0);
         contrainte.gridx=1;
         contrainte.gridy=1;
         contrainte.gridheight=10;
-        contrainte.gridwidth=1;
         contrainte.anchor=GridBagConstraints.CENTER;
         PanelAffichageEvenement affichageEvent = new PanelAffichageEvenement(frise);
         add(affichageEvent, contrainte);
@@ -71,5 +88,10 @@ public class PanelAffichage extends JPanel {
         add(affichageTable, contrainte);
 
         affichageEvent.setAffichageTable(affichageTable);
+    }
+
+    public void enregistreEcouteur(Controleur controleur){
+        boutonSupr.setActionCommand("suprimmerFrise>"+frise.getAdresseFichierSauvegarde());
+        boutonSupr.addActionListener(controleur);
     }
 }

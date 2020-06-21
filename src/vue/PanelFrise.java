@@ -104,7 +104,21 @@ public class PanelFrise extends JPanel implements ActionListener {
     public void updatePanelAffichage(PanelAffichage affichage){
         remove(panelAffichage);
         panelAffichage = affichage;
+        panelAffichage.enregistreEcouteur(controleur);
         add(affichage, "Panel Affichage");
+    }
+
+    public void resetPanelAffichage(){
+        remove(panelAffichage);
+        panelAffichage = new PanelAffichage();
+        add(panelAffichage, "Panel Affichage");
+
+        if(selectedMenuItem!= null)
+            selectedMenuItem.setForeground(Color.BLACK);
+        selectedMenuItem = (JMenuItem) fenetreMere.getMenuItem().getComponent(0);
+        selectedMenuItem.setForeground(Color.GRAY);
+
+        card.show(this, "Panel Choix Frise");
     }
 
     public void enableFormulaireChronologie() {
