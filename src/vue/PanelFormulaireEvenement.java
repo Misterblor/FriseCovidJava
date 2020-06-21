@@ -40,9 +40,345 @@ public class PanelFormulaireEvenement extends JPanel {
     private JComboBox<String> comboBoxSelectionFrise;
     // JFormDesigner - End of variables declaration  //GEN-END:variables
 
+    private Timer timerStyleSaisieIntitule = new Timer();
+    private Timer timerStyleSaisieDate = new Timer();
+    private Timer timerStyleSaisiePoids = new Timer();
+    private Timer timerStyleSaisieImage = new Timer();
+
     public PanelFormulaireEvenement() {
         initComponents();
         new ControleurPanelFormulaireEvenement(this);
+        requestFocus();
+    }
+
+    private void initComponents() {
+        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
+        // Generated using JFormDesigner Evaluation license - Blor
+        JLabel labelIntitule = new JLabel();
+        textFieldIntitule = new JTextField();
+        styleSaisieIntitule = new JProgressBar();
+        JLabel labelDate = new JLabel();
+        textFieldDate = new JTextField();
+        panelCalendrierDate = new PanelCalendrierDate();
+        styleSaisieDate = new JProgressBar();
+        JLabel labelPoids = new JLabel();
+        comboBoxPoids = new JComboBox<>();
+        styleSaisiePoids = new JProgressBar();
+        JLabel labelImage = new JLabel();
+        textFieldImage = new JTextField();
+        styleSaisieImage = new JProgressBar();
+        JButton buttonParcourirImage = new JButton();
+        labelDescription = new JLabel();
+        scrollPaneTextAreaDescription = new JScrollPane();
+        textAreaDescription = new JTextArea();
+        labelAffichageImage = new JLabel();
+        buttonAjouter = new JButton();
+        comboBoxSelectionFrise = new JComboBox<>();
+
+        //======== this ========
+        setBorder(null);
+        setBackground(Color.white);
+        setPreferredSize(new Dimension(1280, 720));
+        setFont(UIManager.getFont("Panel.font"));
+        setForeground(Color.lightGray);
+
+        //---- labelIntitule ----
+        labelIntitule.setIcon(new ImageIcon("ressources\\iconLabelIntitule.jpg"));
+        labelIntitule.setBackground(Color.white);
+
+        //---- textFieldIntitule ----
+        textFieldIntitule.setBackground(Color.white);
+        textFieldIntitule.setBorder(null);
+        textFieldIntitule.setForeground(Color.lightGray);
+        textFieldIntitule.setText("Saisir le nom de l'\u00e9v\u00e9nement");
+        textFieldIntitule.setFont(new Font("Open Sans", Font.PLAIN, 24));
+        textFieldIntitule.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                textFieldIntituleFocusGained(e);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                textFieldIntituleFocusLost(e);
+            }
+        });
+        textFieldIntitule.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                textFieldIntituleMousePressed(e);
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                textFieldIntituleMouseReleased(e);
+            }
+        });
+        textFieldIntitule.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                textFieldIntituleKeyTyped(e);
+            }
+        });
+
+        //---- styleSaisieIntitule ----
+        styleSaisieIntitule.setBackground(Color.lightGray);
+        styleSaisieIntitule.setForeground(new Color(0, 120, 215));
+        styleSaisieIntitule.setBorder(null);
+
+        //---- labelDate ----
+        labelDate.setIcon(new ImageIcon("ressources\\iconLabelSaisieDate.png"));
+
+        //---- textFieldDate ----
+        textFieldDate.setBackground(Color.white);
+        textFieldDate.setForeground(Color.lightGray);
+        textFieldDate.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        textFieldDate.setBorder(null);
+        textFieldDate.setHorizontalAlignment(SwingConstants.CENTER);
+        textFieldDate.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                textFieldDateFocusGained(e);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                textFieldDateFocusLost(e);
+            }
+        });
+        textFieldDate.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                textFieldDateMousePressed(e);
+            }
+        });
+        textFieldDate.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                textFieldDateKeyTyped(e);
+            }
+        });
+        textFieldDate.setText(panelCalendrierDate.getDateSelectionnee().toStringJourMoisAnnee());
+
+        //---- panelCalendrierDate ----
+        panelCalendrierDate.setVisible(false);
+
+        //---- styleSaisieDate ----
+        styleSaisieDate.setBackground(Color.lightGray);
+        styleSaisieDate.setForeground(new Color(0, 120, 215));
+        styleSaisieDate.setBorder(null);
+
+        //---- labelPoids ----
+        labelPoids.setIcon(new ImageIcon("ressources\\iconLabelPoids.png"));
+
+        //---- comboBoxPoids ----
+        comboBoxPoids.setBackground(Color.white);
+        comboBoxPoids.setForeground(Color.black);
+        comboBoxPoids.setFont(new Font("Open Sans", Font.PLAIN, 12));
+        comboBoxPoids.setModel(new DefaultComboBoxModel<>(new String[] {
+            "--S\u00e9lectionner un poids--",
+            "1 - Tr\u00e8s Important",
+            "2 - Important",
+            "3 - Secondaire",
+            "4 - Peu d'int\u00e9r\u00eat"
+        }));
+        comboBoxPoids.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                comboBoxPoidsFocusGained(e);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                comboBoxPoidsFocusLost(e);
+            }
+        });
+
+        //---- styleSaisiePoids ----
+        styleSaisiePoids.setOrientation(SwingConstants.VERTICAL);
+        styleSaisiePoids.setBackground(Color.lightGray);
+        styleSaisiePoids.setForeground(new Color(0, 120, 215));
+        styleSaisiePoids.setBorder(null);
+
+        //---- labelImage ----
+        labelImage.setIcon(new ImageIcon("ressources\\iconImage.png"));
+
+        //---- textFieldImage ----
+        textFieldImage.setForeground(Color.lightGray);
+        textFieldImage.setBackground(Color.white);
+        textFieldImage.setBorder(null);
+        textFieldImage.setText("Saisir le chemin de l'image");
+        textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
+        textFieldImage.addFocusListener(new FocusAdapter() {
+            @Override
+            public void focusGained(FocusEvent e) {
+                textFieldImageFocusGained(e);
+            }
+            @Override
+            public void focusLost(FocusEvent e) {
+                textFieldImageFocusLost(e);
+            }
+        });
+        textFieldImage.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mousePressed(MouseEvent e) {
+                textFieldImageMousePressed(e);
+            }
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                textFieldImageMouseReleased(e);
+            }
+        });
+        textFieldImage.addKeyListener(new KeyAdapter() {
+            @Override
+            public void keyTyped(KeyEvent e) {
+                textFieldImageKeyTyped(e);
+            }
+        });
+
+        //---- styleSaisieImage ----
+        styleSaisieImage.setForeground(new Color(0, 120, 215));
+        styleSaisieImage.setBackground(Color.lightGray);
+        styleSaisieImage.setBorder(null);
+
+        //---- buttonParcourirImage ----
+        buttonParcourirImage.setText("Parcourir");
+        buttonParcourirImage.setBackground(Color.white);
+        buttonParcourirImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
+        buttonParcourirImage.addActionListener(e -> buttonParcourirImageActionPerformed(e));
+
+        //---- labelDescription ----
+        labelDescription.setIcon(new ImageIcon("ressources\\iconLabelDescription.png"));
+
+        //======== scrollPaneTextAreaDescription ========
+        {
+            scrollPaneTextAreaDescription.setBorder(new TitledBorder(new LineBorder(Color.lightGray, 2, true), "Description", TitledBorder.LEADING, TitledBorder.TOP,
+                new Font("Open Sans", Font.PLAIN, 18), Color.lightGray));
+
+            //---- textAreaDescription ----
+            textAreaDescription.setBackground(Color.white);
+            textAreaDescription.setForeground(Color.black);
+            textAreaDescription.setLineWrap(true);
+            textAreaDescription.setWrapStyleWord(true);
+            textAreaDescription.setBorder(null);
+            textAreaDescription.addFocusListener(new FocusAdapter() {
+                @Override
+                public void focusGained(FocusEvent e) {
+                    textAreaDescriptionFocusGained(e);
+                }
+                @Override
+                public void focusLost(FocusEvent e) {
+                    textAreaDescriptionFocusLost(e);
+                }
+            });
+            scrollPaneTextAreaDescription.setViewportView(textAreaDescription);
+        }
+
+        //---- labelAffichageImage ----
+        labelAffichageImage.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
+        labelAffichageImage.setHorizontalAlignment(SwingConstants.CENTER);
+
+        //---- buttonAjouter ----
+        buttonAjouter.setIcon(new ImageIcon("ressources\\iconBoutonAjouter.png"));
+        buttonAjouter.setBorder(null);
+
+        //---- comboBoxSelectionFrise ----
+        comboBoxSelectionFrise.setBackground(Color.white);
+        comboBoxSelectionFrise.setFont(new Font("Open Sans", Font.PLAIN, 14));
+
+        SavesChronologie frises = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+        frises.verification();
+        String[] intituleFrises = new String[frises.size()+1];
+        intituleFrises[0]="--Sélectionner une frise--";
+
+        Iterator<String> iterateur = frises.iterator();
+        for(int i = 1; i<intituleFrises.length && iterateur.hasNext(); i++){
+            intituleFrises[i] = ((Chronologie) LectureEcriture.lecture(new File(iterateur.next()))).getIntitule();
+        }
+
+        comboBoxSelectionFrise.setModel(new DefaultComboBoxModel<String>(intituleFrises));
+
+        GroupLayout layout = new GroupLayout(this);
+        setLayout(layout);
+        layout.setHorizontalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(182, 182, 182)
+                    .addGroup(layout.createParallelGroup()
+                        .addComponent(labelIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelDate, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelPoids, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelImage, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(labelDescription, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                    .addGap(65, 65, 65)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addComponent(scrollPaneTextAreaDescription, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(panelCalendrierDate, GroupLayout.PREFERRED_SIZE, 275, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(textFieldIntitule, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(styleSaisieIntitule, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(textFieldDate, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(styleSaisieDate, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(comboBoxPoids, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(styleSaisiePoids, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+                        .addComponent(textFieldImage, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(styleSaisieImage, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createParallelGroup()
+                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(buttonAjouter, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                            .addGap(93, 93, 93))
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
+                                .addComponent(comboBoxSelectionFrise, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
+                                .addGroup(layout.createSequentialGroup()
+                                    .addComponent(buttonParcourirImage, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
+                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                                    .addComponent(labelAffichageImage, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
+                                    .addGap(12, 12, 12)))
+                            .addGap(71, 71, 71))))
+        );
+        layout.setVerticalGroup(
+            layout.createParallelGroup()
+                .addGroup(layout.createSequentialGroup()
+                    .addGap(81, 81, 81)
+                    .addGroup(layout.createParallelGroup()
+                        .addComponent(labelIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
+                            .addComponent(textFieldIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                            .addComponent(comboBoxSelectionFrise, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(styleSaisieIntitule, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+                    .addGap(31, 31, 31)
+                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGroup(layout.createParallelGroup()
+                                .addComponent(labelDate, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textFieldDate, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                            .addComponent(styleSaisieDate, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+                            .addGap(18, 18, 18)
+                            .addComponent(panelCalendrierDate, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup()
+                                .addComponent(styleSaisiePoids, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(labelPoids, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(comboBoxPoids, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
+                            .addGap(31, 31, 31)
+                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
+                                .addComponent(labelImage, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(textFieldImage, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                                .addComponent(buttonParcourirImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                        .addGroup(layout.createSequentialGroup()
+                            .addComponent(buttonAjouter, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
+                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(labelAffichageImage, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
+                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
+                    .addComponent(styleSaisieImage, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
+                    .addGap(31, 31, 31)
+                    .addGroup(layout.createParallelGroup()
+                        .addComponent(labelDescription, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
+                        .addComponent(scrollPaneTextAreaDescription, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
+                    .addContainerGap())
+        );
+        // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
     private void textFieldIntituleFocusGained(FocusEvent e) {
@@ -53,6 +389,17 @@ public class PanelFormulaireEvenement extends JPanel {
     }
 
     private void textFieldIntituleFocusLost(FocusEvent e) {
+        if (textFieldIntitule.getText().equals("")) {
+            textFieldIntitule.setForeground(Color.RED);
+            styleSaisieIntitule.setForeground(Color.RED);
+        } else {
+            if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
+                textFieldIntitule.setForeground(Color.LIGHT_GRAY);
+            } else {
+                textFieldIntitule.setForeground(Color.BLACK);
+            }
+            styleSaisieIntitule.setForeground(new Color(0,120,215));
+        }
         reculeStyleSaisieIntitule();
     }
 
@@ -90,6 +437,13 @@ public class PanelFormulaireEvenement extends JPanel {
             textFieldIntitule.setCaretPosition(0);
         }
         if ((int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 10){
+            if (textFieldIntitule.getText().equals("")) {
+                textFieldIntitule.setForeground(Color.RED);
+                styleSaisieIntitule.setForeground(Color.RED);
+            } else {
+                textFieldIntitule.setForeground(Color.BLACK);
+                styleSaisieIntitule.setForeground(new Color(0,120,215));
+            }
             requestFocus();
         }
         if ((int)e.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
@@ -124,6 +478,22 @@ public class PanelFormulaireEvenement extends JPanel {
 
         if ((int)e.getKeyChar() == 10 || (int)e.getKeyChar() == 27){
             textFieldDate.setText(panelCalendrierDate.getDateSelectionnee().toStringJourMoisAnnee());
+            if (comboBoxSelectionFrise.getSelectedIndex() > 0){
+                SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+                listeChronologie.verification();
+                Chronologie[] chronologies = new Chronologie[listeChronologie.size()];
+                for (int i = 0; i < listeChronologie.size(); i++) {
+                    chronologies[i] = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
+                }
+                if (!(panelCalendrierDate.getDateSelectionnee().compareTo(chronologies[comboBoxSelectionFrise.getSelectedIndex()-1].getDateDebut()) >= 0
+                        && panelCalendrierDate.getDateSelectionnee().compareTo(chronologies[comboBoxSelectionFrise.getSelectedIndex()-1].getDateFin()) <= 0)){
+                    textFieldDate.setForeground(Color.RED);
+                    styleSaisieDate.setForeground(Color.RED);
+                } else {
+                    textFieldDate.setForeground(Color.BLACK);
+                    styleSaisieDate.setForeground(new Color(0,120,215));
+                }
+            }
             requestFocus();
         }
     }
@@ -133,6 +503,11 @@ public class PanelFormulaireEvenement extends JPanel {
     }
 
     private void comboBoxPoidsFocusLost(FocusEvent e) {
+        if (comboBoxPoids.getSelectedIndex() == 0){
+            comboBoxPoids.setForeground(Color.RED);
+        } else {
+            comboBoxPoids.setForeground(Color.BLACK);
+        }
         reculeStyleSaisiePoids();
     }
 
@@ -189,6 +564,14 @@ public class PanelFormulaireEvenement extends JPanel {
             textFieldImage.setCaretPosition(0);
         }
         if ((int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 10){
+            File fileImage = new File(textFieldImage.getText());
+            if (textFieldImage.getText().equals("Saisir le chemin de l'image") || !(estUneImage(fileImage))){
+                textFieldImage.setForeground(Color.RED);
+                styleSaisieImage.setForeground(Color.RED);
+            } else {
+                textFieldImage.setForeground(Color.BLACK);
+                styleSaisieImage.setForeground(new Color(0,120,215));
+            }
             requestFocus();
         }
         if ((int)e.getKeyChar() == 1 && textFieldImage.getText().equals("Saisir le chemin de l'image")){
@@ -234,6 +617,96 @@ public class PanelFormulaireEvenement extends JPanel {
     private void textAreaDescriptionFocusLost(FocusEvent e) {
         scrollPaneTextAreaDescription.setBorder(new TitledBorder(new LineBorder(Color.lightGray, 2, true), "Description", TitledBorder.LEADING, TitledBorder.TOP,
                 new Font("Open Sans", Font.PLAIN, 18), Color.lightGray));
+    }
+
+    public void updateModelComboBoxSelectionFrise(SavesChronologie savesChronologie){
+        String[] intituleFrises = new String[savesChronologie.size()+1];
+        intituleFrises[0]="--Sélectionner une frise--";
+
+        Iterator<String> iterateur = savesChronologie.iterator();
+        for(int i = 1; i<intituleFrises.length && iterateur.hasNext(); i++){
+            intituleFrises[i] = ((Chronologie) LectureEcriture.lecture(new File(iterateur.next()))).getIntitule();
+        }
+        comboBoxSelectionFrise.setModel(new DefaultComboBoxModel<>(intituleFrises));
+    }
+
+    public boolean estValide(){
+        String erreur = "";
+        boolean valide = true;
+        if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
+            textFieldIntitule.setForeground(Color.RED);
+            styleSaisieIntitule.setForeground(Color.RED);
+            erreur += "- Le nom de l'événement est vide\n";
+            valide = false;
+        }
+        if (comboBoxSelectionFrise.getSelectedIndex() > 0){
+            comboBoxSelectionFrise.setForeground(Color.BLACK);
+            SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+            listeChronologie.verification();
+            Chronologie[] chronologies = new Chronologie[listeChronologie.size()];
+            for (int i = 0; i < listeChronologie.size(); i++) {
+                chronologies[i] = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
+            }
+            if (!(panelCalendrierDate.getDateSelectionnee().compareTo(chronologies[comboBoxSelectionFrise.getSelectedIndex()-1].getDateDebut()) >= 0
+                    && panelCalendrierDate.getDateSelectionnee().compareTo(chronologies[comboBoxSelectionFrise.getSelectedIndex()-1].getDateFin()) <= 0)){
+                textFieldDate.setForeground(Color.RED);
+                styleSaisieDate.setForeground(Color.RED);
+                erreur += "- La date saisie n'est pas dans les bornes de la frise choisie\n";
+                valide = false;
+            }
+        } else {
+            comboBoxSelectionFrise.setForeground(Color.RED);
+            erreur += "- Aucune frise n'a été choisie\n";
+            valide = false;
+        }
+        if (comboBoxPoids.getSelectedIndex() == 0){
+            comboBoxPoids.setForeground(Color.RED);
+            erreur += "- Aucun poids n'a été choisi\n";
+            valide = false;
+        }
+        File fileImage = new File(textFieldImage.getText());
+        if (textFieldImage.getText().equals("Saisir le chemin de l'image") || !(estUneImage(fileImage))){
+            textFieldImage.setForeground(Color.RED);
+            styleSaisieImage.setForeground(Color.RED);
+            erreur += "- Le chemin donné est vide, n'existe pas ou n'est pas une image\n";
+            valide = false;
+        }
+        if (!valide){
+            JOptionPane.showMessageDialog(this, erreur, "Erreur", JOptionPane.ERROR_MESSAGE);
+        }
+        return valide;
+    }
+
+    public void reset(){
+        textFieldIntitule.setText("Saisir le nom de l'événement");
+        textFieldIntitule.setForeground(Color.LIGHT_GRAY);
+        textFieldIntitule.setFont(new Font("Open Sans", Font.PLAIN, 24));
+        styleSaisieIntitule.setForeground(new Color(0,120,215));
+
+        textFieldDate.setText(new Date().toStringJourMoisAnnee());
+        textFieldDate.setForeground(Color.LIGHT_GRAY);
+        styleSaisieDate.setForeground(new Color(0,120,215));
+        panelCalendrierDate.setDate(new Date());
+
+        comboBoxSelectionFrise.setForeground(Color.BLACK);
+        comboBoxSelectionFrise.setSelectedIndex(0);
+
+        comboBoxPoids.setForeground(Color.BLACK);
+        comboBoxPoids.setSelectedIndex(0);
+        styleSaisiePoids.setForeground(new Color(0,120,215));
+
+        textFieldImage.setText("Saisir le chemin de l'image");
+        textFieldImage.setForeground(Color.LIGHT_GRAY);
+        textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
+        styleSaisieImage.setForeground(new Color(0,120,215));
+
+        labelAffichageImage.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
+
+        textAreaDescription.setText("");
+    }
+
+    public Evenement enregistrerEvenement(){
+        return new Evenement(panelCalendrierDate.getDateSelectionnee(), textFieldIntitule.getText(), comboBoxPoids.getSelectedIndex()-1, textAreaDescription.getText(), textFieldImage.getText());
     }
 
     private static boolean estUneImage(File file){
@@ -448,344 +921,11 @@ public class PanelFormulaireEvenement extends JPanel {
         return textFieldDate;
     }
 
-    private void initComponents() {
-        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Blor
-        JLabel labelIntitule = new JLabel();
-        textFieldIntitule = new JTextField();
-        styleSaisieIntitule = new JProgressBar();
-        JLabel labelDate = new JLabel();
-        textFieldDate = new JTextField();
-        panelCalendrierDate = new PanelCalendrierDate();
-        styleSaisieDate = new JProgressBar();
-        JLabel labelPoids = new JLabel();
-        comboBoxPoids = new JComboBox<>();
-        styleSaisiePoids = new JProgressBar();
-        JLabel labelImage = new JLabel();
-        textFieldImage = new JTextField();
-        styleSaisieImage = new JProgressBar();
-        JButton buttonParcourirImage = new JButton();
-        labelDescription = new JLabel();
-        scrollPaneTextAreaDescription = new JScrollPane();
-        textAreaDescription = new JTextArea();
-        labelAffichageImage = new JLabel();
-        buttonAjouter = new JButton();
-        comboBoxSelectionFrise = new JComboBox<>();
-
-        //======== this ========
-        setBorder(null);
-        setBackground(Color.white);
-        setPreferredSize(new Dimension(1280, 720));
-        setFont(UIManager.getFont("Panel.font"));
-        setForeground(Color.lightGray);
-        setBorder (new javax. swing. border. CompoundBorder( new javax .swing .border .TitledBorder (new
-        javax. swing. border. EmptyBorder( 0, 0, 0, 0) , "JF\u006frmD\u0065sig\u006eer \u0045val\u0075ati\u006fn", javax
-        . swing. border. TitledBorder. CENTER, javax. swing. border. TitledBorder. BOTTOM, new java
-        .awt .Font ("Dia\u006cog" ,java .awt .Font .BOLD ,12 ), java. awt
-        . Color. red) , getBorder( )) );  addPropertyChangeListener (new java. beans.
-        PropertyChangeListener( ){ @Override public void propertyChange (java .beans .PropertyChangeEvent e) {if ("\u0062ord\u0065r" .
-        equals (e .getPropertyName () )) throw new RuntimeException( ); }} );
-
-        //---- labelIntitule ----
-        labelIntitule.setIcon(new ImageIcon("ressources\\iconLabelIntitule.jpg"));
-        labelIntitule.setBackground(Color.white);
-
-        //---- textFieldIntitule ----
-        textFieldIntitule.setBackground(Color.white);
-        textFieldIntitule.setBorder(null);
-        textFieldIntitule.setForeground(Color.lightGray);
-        textFieldIntitule.setText("Saisir le nom de l'\u00e9v\u00e9nement");
-        textFieldIntitule.setFont(new Font("Open Sans", Font.PLAIN, 24));
-        textFieldIntitule.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                textFieldIntituleFocusGained(e);
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                textFieldIntituleFocusLost(e);
-            }
-        });
-        textFieldIntitule.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                textFieldIntituleMousePressed(e);
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                textFieldIntituleMouseReleased(e);
-            }
-        });
-        textFieldIntitule.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                textFieldIntituleKeyTyped(e);
-            }
-        });
-
-        //---- styleSaisieIntitule ----
-        styleSaisieIntitule.setBackground(Color.lightGray);
-        styleSaisieIntitule.setForeground(new Color(0, 120, 215));
-        styleSaisieIntitule.setBorder(null);
-
-        //---- labelDate ----
-        labelDate.setIcon(new ImageIcon("ressources\\iconLabelSaisieDate.png"));
-
-        //---- textFieldDate ----
-        textFieldDate.setBackground(Color.white);
-        textFieldDate.setForeground(Color.lightGray);
-        textFieldDate.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        textFieldDate.setBorder(null);
-        textFieldDate.setHorizontalAlignment(SwingConstants.CENTER);
-        textFieldDate.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                textFieldDateFocusGained(e);
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                textFieldDateFocusLost(e);
-            }
-        });
-        textFieldDate.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                textFieldDateMousePressed(e);
-            }
-        });
-        textFieldDate.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                textFieldDateKeyTyped(e);
-            }
-        });
-        textFieldDate.setText(panelCalendrierDate.getDateSelectionnee().toStringJourMoisAnnee());
-
-        //---- panelCalendrierDate ----
-        panelCalendrierDate.setVisible(false);
-
-        //---- styleSaisieDate ----
-        styleSaisieDate.setBackground(Color.lightGray);
-        styleSaisieDate.setForeground(new Color(0, 120, 215));
-        styleSaisieDate.setBorder(null);
-
-        //---- labelPoids ----
-        labelPoids.setIcon(new ImageIcon("ressources\\iconLabelPoids.png"));
-
-        //---- comboBoxPoids ----
-        comboBoxPoids.setBackground(Color.white);
-        comboBoxPoids.setForeground(Color.black);
-        comboBoxPoids.setFont(new Font("Open Sans", Font.PLAIN, 12));
-        comboBoxPoids.setModel(new DefaultComboBoxModel<>(new String[] {
-            "--S\u00e9lectionner un poids--",
-            "1 - Tr\u00e8s Important",
-            "2 - Important",
-            "3 - Secondaire",
-            "4 - Peu d'int\u00e9r\u00eat"
-        }));
-        comboBoxPoids.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                comboBoxPoidsFocusGained(e);
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                comboBoxPoidsFocusLost(e);
-            }
-        });
-
-        //---- styleSaisiePoids ----
-        styleSaisiePoids.setOrientation(SwingConstants.VERTICAL);
-        styleSaisiePoids.setBackground(Color.lightGray);
-        styleSaisiePoids.setForeground(new Color(0, 120, 215));
-        styleSaisiePoids.setBorder(null);
-
-        //---- labelImage ----
-        labelImage.setIcon(new ImageIcon("ressources\\iconImage.png"));
-
-        //---- textFieldImage ----
-        textFieldImage.setForeground(Color.lightGray);
-        textFieldImage.setBackground(Color.white);
-        textFieldImage.setBorder(null);
-        textFieldImage.setText("Saisir le chemin de l'image");
-        textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
-        textFieldImage.addFocusListener(new FocusAdapter() {
-            @Override
-            public void focusGained(FocusEvent e) {
-                textFieldImageFocusGained(e);
-            }
-            @Override
-            public void focusLost(FocusEvent e) {
-                textFieldImageFocusLost(e);
-            }
-        });
-        textFieldImage.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mousePressed(MouseEvent e) {
-                textFieldImageMousePressed(e);
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                textFieldImageMouseReleased(e);
-            }
-        });
-        textFieldImage.addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyTyped(KeyEvent e) {
-                textFieldImageKeyTyped(e);
-            }
-        });
-
-        //---- styleSaisieImage ----
-        styleSaisieImage.setForeground(new Color(0, 120, 215));
-        styleSaisieImage.setBackground(Color.lightGray);
-        styleSaisieImage.setBorder(null);
-
-        //---- buttonParcourirImage ----
-        buttonParcourirImage.setText("Parcourir");
-        buttonParcourirImage.setBackground(Color.white);
-        buttonParcourirImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
-        buttonParcourirImage.addActionListener(e -> buttonParcourirImageActionPerformed(e));
-
-        //---- labelDescription ----
-        labelDescription.setIcon(new ImageIcon("ressources\\iconLabelDescription.png"));
-
-        //======== scrollPaneTextAreaDescription ========
-        {
-            scrollPaneTextAreaDescription.setBorder(new TitledBorder(new LineBorder(Color.lightGray, 2, true), "Description", TitledBorder.LEADING, TitledBorder.TOP,
-                new Font("Open Sans", Font.PLAIN, 18), Color.lightGray));
-
-            //---- textAreaDescription ----
-            textAreaDescription.setBackground(Color.white);
-            textAreaDescription.setForeground(Color.black);
-            textAreaDescription.setLineWrap(true);
-            textAreaDescription.setWrapStyleWord(true);
-            textAreaDescription.setBorder(null);
-            textAreaDescription.addFocusListener(new FocusAdapter() {
-                @Override
-                public void focusGained(FocusEvent e) {
-                    textAreaDescriptionFocusGained(e);
-                }
-                @Override
-                public void focusLost(FocusEvent e) {
-                    textAreaDescriptionFocusLost(e);
-                }
-            });
-            scrollPaneTextAreaDescription.setViewportView(textAreaDescription);
-        }
-
-        //---- labelAffichageImage ----
-        labelAffichageImage.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
-        labelAffichageImage.setHorizontalAlignment(SwingConstants.CENTER);
-
-        //---- buttonAjouter ----
-        buttonAjouter.setIcon(new ImageIcon("ressources\\iconBoutonAjouter.png"));
-        buttonAjouter.setBorder(null);
-
-        //---- comboBoxSelectionFrise ----
-        comboBoxSelectionFrise.setBackground(Color.white);
-        comboBoxSelectionFrise.setFont(new Font("Open Sans", Font.PLAIN, 14));
-
-        SavesChronologie frises = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
-        String[] intituleFrises = new String[frises.size()+1];
-        intituleFrises[0]="--Sélectionner une frise--";
-
-        Iterator<String> iterateur = frises.iterator();
-        for(int i = 1; i<intituleFrises.length && iterateur.hasNext(); i++){
-            intituleFrises[i] = ((Chronologie) LectureEcriture.lecture(new File(iterateur.next()))).getIntitule();
-        }
-
-        comboBoxSelectionFrise.setModel(new DefaultComboBoxModel<String>(intituleFrises));
-
-        GroupLayout layout = new GroupLayout(this);
-        setLayout(layout);
-        layout.setHorizontalGroup(
-            layout.createParallelGroup()
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(182, 182, 182)
-                    .addGroup(layout.createParallelGroup()
-                        .addComponent(labelIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelDate, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelPoids, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelImage, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(labelDescription, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-                    .addGap(65, 65, 65)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addComponent(scrollPaneTextAreaDescription, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(panelCalendrierDate, GroupLayout.PREFERRED_SIZE, 275, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(textFieldIntitule, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(styleSaisieIntitule, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(textFieldDate, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(styleSaisieDate, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(comboBoxPoids, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(styleSaisiePoids, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-                        .addComponent(textFieldImage, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(styleSaisieImage, GroupLayout.PREFERRED_SIZE, 564, GroupLayout.PREFERRED_SIZE))
-                    .addGroup(layout.createParallelGroup()
-                        .addGroup(GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(buttonAjouter, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-                            .addGap(93, 93, 93))
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.TRAILING)
-                                .addComponent(comboBoxSelectionFrise, GroupLayout.PREFERRED_SIZE, 300, GroupLayout.PREFERRED_SIZE)
-                                .addGroup(layout.createSequentialGroup()
-                                    .addComponent(buttonParcourirImage, GroupLayout.PREFERRED_SIZE, 150, GroupLayout.PREFERRED_SIZE)
-                                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(labelAffichageImage, GroupLayout.PREFERRED_SIZE, 180, GroupLayout.PREFERRED_SIZE)
-                                    .addGap(12, 12, 12)))
-                            .addGap(71, 71, 71))))
-        );
-        layout.setVerticalGroup(
-            layout.createParallelGroup()
-                .addGroup(layout.createSequentialGroup()
-                    .addGap(81, 81, 81)
-                    .addGroup(layout.createParallelGroup()
-                        .addComponent(labelIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                        .addGroup(layout.createParallelGroup(GroupLayout.Alignment.BASELINE)
-                            .addComponent(textFieldIntitule, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                            .addComponent(comboBoxSelectionFrise, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(styleSaisieIntitule, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-                    .addGap(31, 31, 31)
-                    .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                        .addGroup(layout.createSequentialGroup()
-                            .addGroup(layout.createParallelGroup()
-                                .addComponent(labelDate, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textFieldDate, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                            .addComponent(styleSaisieDate, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-                            .addGap(18, 18, 18)
-                            .addComponent(panelCalendrierDate, GroupLayout.PREFERRED_SIZE, 175, GroupLayout.PREFERRED_SIZE)
-                            .addGap(31, 31, 31)
-                            .addGroup(layout.createParallelGroup()
-                                .addComponent(styleSaisiePoids, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(labelPoids, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(comboBoxPoids, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE))
-                            .addGap(31, 31, 31)
-                            .addGroup(layout.createParallelGroup(GroupLayout.Alignment.LEADING, false)
-                                .addComponent(labelImage, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(textFieldImage, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                                .addComponent(buttonParcourirImage, GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                        .addGroup(layout.createSequentialGroup()
-                            .addComponent(buttonAjouter, GroupLayout.PREFERRED_SIZE, 75, GroupLayout.PREFERRED_SIZE)
-                            .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(labelAffichageImage, GroupLayout.PREFERRED_SIZE, 100, GroupLayout.PREFERRED_SIZE)))
-                    .addPreferredGap(LayoutStyle.ComponentPlacement.RELATED)
-                    .addComponent(styleSaisieImage, GroupLayout.PREFERRED_SIZE, 4, GroupLayout.PREFERRED_SIZE)
-                    .addGap(31, 31, 31)
-                    .addGroup(layout.createParallelGroup()
-                        .addComponent(labelDescription, GroupLayout.PREFERRED_SIZE, 50, GroupLayout.PREFERRED_SIZE)
-                        .addComponent(scrollPaneTextAreaDescription, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
-                    .addContainerGap())
-        );
-        // JFormDesigner - End of component initialization  //GEN-END:initComponents
+    public JButton getButtonAjouter() {
+        return buttonAjouter;
     }
 
-    private Timer timerStyleSaisieIntitule = new Timer();
-    private Timer timerStyleSaisieDate = new Timer();
-    private Timer timerStyleSaisiePoids = new Timer();
-    private Timer timerStyleSaisieImage = new Timer();
+    public JComboBox<String> getComboBoxSelectionFrise() {
+        return comboBoxSelectionFrise;
+    }
 }

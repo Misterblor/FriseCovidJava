@@ -1,6 +1,8 @@
 package vue;
 
 import controleur.Controleur;
+import modele.LectureEcriture;
+import modele.SavesChronologie;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,8 +14,10 @@ public class PanelFrise extends JPanel implements ActionListener {
     JMenuItem selectedMenuItem;
     FenetreAccueil fenetreMere;
     PanelChoixFrise panelChoixFrise;
-    PanelFormulaireChronologie panelFormulaireChronologie = new PanelFormulaireChronologie();
-    PanelFormulaireEvenement panelFormulaireEvenement = new PanelFormulaireEvenement();
+    PanelAffichage panelAffichage;
+    PanelFormulaireChronologie panelFormulaireChronologie;
+    PanelFormulaireEvenement panelFormulaireEvenement;
+    Controleur controleur;
 
     public PanelFrise(FenetreAccueil parFenetreMere){
         card = new CardLayout();
@@ -21,14 +25,17 @@ public class PanelFrise extends JPanel implements ActionListener {
 
         fenetreMere = parFenetreMere;
 
-        Controleur controleur = new Controleur(this, panelFormulaireChronologie, panelFormulaireEvenement);
+        panelChoixFrise = new PanelChoixFrise();
+        panelAffichage = new PanelAffichage();
+        panelFormulaireChronologie = new PanelFormulaireChronologie();
+        panelFormulaireEvenement = new PanelFormulaireEvenement();
 
-        panelChoixFrise = new PanelChoixFrise(controleur);
+        controleur = new Controleur(this, panelChoixFrise, panelFormulaireChronologie, panelFormulaireEvenement);
 
-        add(panelChoixFrise, 0);
-        add(new PanelAffichage(), 1);
-        add(panelFormulaireEvenement, 2);
-        add(panelFormulaireChronologie, 3);
+        add(panelChoixFrise, "Panel Choix Frise");
+        add(panelAffichage, "Panel Affichage");
+        add(panelFormulaireEvenement, "Panel Formulaire Evenement");
+        add(panelFormulaireChronologie, "Panel Formulaire Chronologie");
 
         selectedMenuItem = (JMenuItem) fenetreMere.getMenuItem().getComponent(0);
         selectedMenuItem.setForeground(Color.GRAY);
@@ -50,32 +57,35 @@ public class PanelFrise extends JPanel implements ActionListener {
         if(event.getActionCommand().compareTo("Affichage Frise")==0){
             fenetreMere.setSize(new Dimension(700,700));
             fenetreMere.setLocationRelativeTo(null);
-            card.first(this);
-            card.next(this);
+            card.show(this, "Panel Affichage");
         }
 
         else if(event.getActionCommand().compareTo("Choix Frise")==0){
             fenetreMere.setSize(new Dimension(700,700));
             fenetreMere.setLocationRelativeTo(null);
-            card.first(this);
+            setPanelChoixFrise(new PanelChoixFrise());
+            card.show(this, "Panel Choix Frise");
         }
 
         else if(event.getActionCommand().compareTo("Création")==0){
             fenetreMere.setSize(new Dimension(1280,740));
             fenetreMere.setLocationRelativeTo(null);
-            card.last(this);
-            card.previous(this);
+            panelFormulaireEvenement.reset();
+            SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+            listeChronologie.verification();
+            panelFormulaireEvenement.updateModelComboBoxSelectionFrise(listeChronologie);
+            card.show(this, "Panel Formulaire Evenement");
         }
 
         else if(event.getActionCommand().compareTo("Fermer")==0) {
             int quitter = JOptionPane.showConfirmDialog(null, "Etes-vous sûr de vouloir quitter l'application ?", "Fermer", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE);
             if(quitter==JOptionPane.OK_OPTION)
-                fenetreMere.dispose();
+                System.exit(0);
         }
 
         else if(event.getActionCommand().compareTo("?")==0){
             JOptionPane.showMessageDialog(this,
-                    "<html>Utilité des différents onglets :<ul><li>Choix frise : Permet de séléctionner une frise à visionner ou d'en créer une nouvelle frise.</li><li>Affichage Frise : Affiche la frise précédemment sélectionnée dans l'onglet \"Choix Frise\".</li><li>Création : Permet d'ajouter un évènement à la frise en cours de visionnage.</li></ul><br>Assistance par e-mail : antoine.limerug@gmail.com</html>",
+                    "<html>Utilité des différents onglets :<ul><li>Choix frise : Permet de séléctionner une frise à visionner ou d'en créer une nouvelle frise.</li><li>Affichage Frise : Affiche la frise précédemment sélectionnée dans l'onglet \"Choix Frise\".</li><li>Création : Permet d'ajouter un évènement à une frise.</li></ul><br>Assistance par e-mail : antoine.limerug@gmail.com / ricanpablo@gmail.com</html>",
                     "Aide",
                     JOptionPane.INFORMATION_MESSAGE);
         }
@@ -83,25 +93,32 @@ public class PanelFrise extends JPanel implements ActionListener {
     }
 
     public void setAffichage(PanelAffichage affichage){
-        remove(1);
-        add(affichage, 1);
-
-        card.first(this);
-        card.next(this);
+        updatePanelAffichage(affichage);
+        card.show(this, "Panel Affichage");
 
         selectedMenuItem.setForeground(Color.BLACK);
         selectedMenuItem = (JMenuItem) fenetreMere.getMenuItem().getComponent(1);
         selectedMenuItem.setForeground(Color.GRAY);
     }
 
+    public void updatePanelAffichage(PanelAffichage affichage){
+        remove(panelAffichage);
+        panelAffichage = affichage;
+        add(affichage, "Panel Affichage");
+    }
+
     public void enableFormulaireChronologie() {
         fenetreMere.setSize(new Dimension(1280,740));
         fenetreMere.setLocationRelativeTo(null);
-        card.last(this);
+        panelFormulaireChronologie.reset();
+        card.show(this, "Panel Formulaire Chronologie");
     }
 
     public void disableFormulaireChronologie() {
-        card.first(this);
+        fenetreMere.setSize(new Dimension(700,700));
+        fenetreMere.setLocationRelativeTo(null);
+        panelFormulaireChronologie.reset();
+        card.show(this, "Panel Choix Frise");
     }
 
     public CardLayout getCard() {
@@ -113,9 +130,10 @@ public class PanelFrise extends JPanel implements ActionListener {
     }
 
     public void setPanelChoixFrise(PanelChoixFrise panelChoixFrise) {
-        remove(0);
+        remove(panelChoixFrise);
         this.panelChoixFrise = panelChoixFrise;
-        add(panelChoixFrise, 0);
+        this.panelChoixFrise.enregistreEcouteur(controleur);
+        add(panelChoixFrise, "Panel Choix Frise");
         validate();
         repaint();
     }

@@ -23,10 +23,12 @@ import javax.swing.*;
  */
 public class PanelChoixFrise extends javax.swing.JPanel {
 
+    JButton[] tableauFrise;
+
     /**
      * Creates new form PanelChoixFrise
      */
-    public PanelChoixFrise(Controleur controleur) {
+    public PanelChoixFrise() {
         setLayout(new GridLayout(7, 7, 20, 20));
 
         SavesChronologie listeSave;
@@ -39,7 +41,7 @@ public class PanelChoixFrise extends javax.swing.JPanel {
             LectureEcriture.ecriture(SavesChronologie.FILE, listeSave);
         }
 
-        JButton[] tableauFrise = new JButton[listeSave.size() + 1];
+        tableauFrise = new JButton[listeSave.size() + 1];
         Iterator<String> iterateur = listeSave.iterator();
         int indice;
         File fichier;
@@ -64,13 +66,18 @@ public class PanelChoixFrise extends javax.swing.JPanel {
                 tableauFrise[indice].setActionCommand("Créer");
             }
             add(tableauFrise[indice]);
-            tableauFrise[indice].addActionListener(controleur);
         }
 
         for(;indice<7*7; indice++){
             add((new JLabel()));
         }
 
+    }
+
+    public void enregistreEcouteur(Controleur controleur){
+        for (int i = 0; i < tableauFrise.length; i++) {
+            tableauFrise[i].addActionListener(controleur);
+        }
     }
 
     private ImageIcon resizeImage(ImageIcon icon){

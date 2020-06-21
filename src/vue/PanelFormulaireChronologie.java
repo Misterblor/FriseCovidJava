@@ -21,11 +21,46 @@ import javax.swing.*;
  */
 public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
+    // Variables declaration - do not modify
+    private javax.swing.JButton boutonParcourirDossier;
+    private javax.swing.JButton boutonParcourirImage;
+    private javax.swing.JButton buttonAjouter;
+    private javax.swing.JComboBox<String> comboBoxPeriode;
+    private javax.swing.JFileChooser fileChooserDossier;
+    private javax.swing.JFileChooser fileChooserImage;
+    private javax.swing.JLabel labelDateDebut;
+    private javax.swing.JLabel labelDateFin;
+    private javax.swing.JLabel labelDossier;
+    private javax.swing.JLabel labelImage;
+    private javax.swing.JLabel labelImageAffiche;
+    private javax.swing.JLabel labelIntitule;
+    private javax.swing.JLabel labelPeriode;
+    private vue.PanelCalendrierDate panelCalendrierDateDebut;
+    private vue.PanelCalendrierDate panelCalendrierDateFin;
+    private javax.swing.JProgressBar styleSaisieDateDebut;
+    private javax.swing.JProgressBar styleSaisieDateFin;
+    private javax.swing.JProgressBar styleSaisieDossier;
+    private javax.swing.JProgressBar styleSaisieImage;
+    private javax.swing.JProgressBar styleSaisieIntitule;
+    private javax.swing.JProgressBar styleSaisiePeriode;
+    private javax.swing.JTextField textFieldDateDebut;
+    private javax.swing.JTextField textFieldDateFin;
+    private javax.swing.JTextField textFieldDossier;
+    private javax.swing.JTextField textFieldImage;
+    private javax.swing.JTextField textFieldIntitule;
+    // End of variables declaration
+
+    private java.util.Timer timerStyleSaisieIntitule = new java.util.Timer();
+    private java.util.Timer timerStyleSaisieDateDebut = new java.util.Timer();
+    private java.util.Timer timerStyleSaisieDateFin = new java.util.Timer();
+    private java.util.Timer timerStyleSaisiePeriode = new java.util.Timer();
+    private java.util.Timer timerStyleSaisieDossier = new java.util.Timer();
+    private java.util.Timer timerStyleSaisieImage = new java.util.Timer();
+
     /**
      * Creates new form PanelFormulaireChronologie
      */
     public PanelFormulaireChronologie() {
-        com.formdev.flatlaf.FlatLightLaf.install();
         initComponents();
         new ControleurPanelFormulaireChronologie(this);
         requestFocus();
@@ -385,6 +420,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
     private void textFieldIntituleFocusLost(java.awt.event.FocusEvent evt) {
         SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+        listeChronologie.verification();
         for (int i = 0; i < listeChronologie.size(); i++) {
             Chronologie chronologie = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
             if (chronologie.getIntitule().equals(textFieldIntitule.getText())) {
@@ -399,6 +435,12 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
                 styleSaisieIntitule.setForeground(new Color(0,120,215));
             }
+        }
+        if (textFieldIntitule.getText().contains("'") || textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
+                || textFieldIntitule.getText().contains("/") || textFieldIntitule.getText().contains("<") || textFieldIntitule.getText().contains(">")
+                || textFieldIntitule.getText().contains(":") || textFieldIntitule.getText().contains("?") || textFieldIntitule.getText().contains("*")) {
+            textFieldIntitule.setForeground(Color.RED);
+            styleSaisieIntitule.setForeground(Color.RED);
         }
         reculeStyleSaisieIntitule();
     }
@@ -438,6 +480,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
         if ((int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 10){
             SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+            listeChronologie.verification();
             for (int i = 0; i < listeChronologie.size(); i++) {
                 Chronologie chronologie = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
                 if (chronologie.getIntitule().equals(textFieldIntitule.getText())) {
@@ -447,6 +490,12 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
                     textFieldIntitule.setForeground(Color.BLACK);
                     styleSaisieIntitule.setForeground(new Color(0,120,215));
                 }
+            }
+            if (textFieldIntitule.getText().contains("'") || textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
+                    || textFieldIntitule.getText().contains("/") || textFieldIntitule.getText().contains("<") || textFieldIntitule.getText().contains(">")
+                    || textFieldIntitule.getText().contains(":") || textFieldIntitule.getText().contains("?") || textFieldIntitule.getText().contains("*")) {
+                textFieldIntitule.setForeground(Color.RED);
+                styleSaisieIntitule.setForeground(Color.RED);
             }
             requestFocus();
         }
@@ -479,17 +528,21 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             styleSaisieDateFin.setForeground(new Color(0,120,215));
             textFieldDateFin.setForeground(Color.BLACK);
             labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
-            int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().distanceEntre(panelCalendrierDateFin.getDateSelectionnee());
+            int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().nbJourEntre(panelCalendrierDateFin.getDateSelectionnee());
             if (nbJourPeriode < 31){
                 comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
             } else if (nbJourPeriode < 180){
-                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours"}));
-            } else if(nbJourPeriode < 365){
-                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois"}));
-            } else if (nbJourPeriode < 1825){
-                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois"}));
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine"}));
+            } else if(nbJourPeriode < 1825){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois"}));
+            } else if (nbJourPeriode < 7300){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année"}));
+            } else if (nbJourPeriode < 18250){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années"}));
+            } else if (nbJourPeriode < 182500){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années", "10 années"}));
             } else {
-                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois", "1 an"}));
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années", "10 années", "1 siècle"}));
             }
         }
     }
@@ -518,17 +571,21 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
                 styleSaisieDateFin.setForeground(new Color(0,120,215));
                 textFieldDateFin.setForeground(Color.BLACK);
                 labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
-                int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().distanceEntre(panelCalendrierDateFin.getDateSelectionnee());
+                int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().nbJourEntre(panelCalendrierDateFin.getDateSelectionnee());
                 if (nbJourPeriode < 31){
                     comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
                 } else if (nbJourPeriode < 180){
-                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours"}));
-                } else if(nbJourPeriode < 365){
-                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois"}));
-                } else if (nbJourPeriode < 1825){
-                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois"}));
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine"}));
+                } else if(nbJourPeriode < 1825){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois"}));
+                } else if (nbJourPeriode < 7300){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année"}));
+                } else if (nbJourPeriode < 18250){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années"}));
+                } else if (nbJourPeriode < 182500){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années", "10 années"}));
                 } else {
-                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois", "1 an"}));
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années", "10 années", "1 siècle"}));
                 }
             }
             requestFocus();
@@ -556,17 +613,21 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             styleSaisieDateFin.setForeground(new Color(0,120,215));
             textFieldDateFin.setForeground(Color.BLACK);
             labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
-            int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().distanceEntre(panelCalendrierDateFin.getDateSelectionnee());
+            int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().nbJourEntre(panelCalendrierDateFin.getDateSelectionnee());
             if (nbJourPeriode < 31){
                 comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
             } else if (nbJourPeriode < 180){
-                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours"}));
-            } else if(nbJourPeriode < 365){
-                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois"}));
-            } else if (nbJourPeriode < 1825){
-                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois"}));
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine"}));
+            } else if(nbJourPeriode < 1825){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois"}));
+            } else if (nbJourPeriode < 7300){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année"}));
+            } else if (nbJourPeriode < 18250){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années"}));
+            } else if (nbJourPeriode < 182500){
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années", "10 années"}));
             } else {
-                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois", "1 an"}));
+                comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années", "10 années", "1 siècle"}));
             }
         }
     }
@@ -595,17 +656,21 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
                 styleSaisieDateFin.setForeground(new Color(0,120,215));
                 textFieldDateFin.setForeground(Color.BLACK);
                 labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
-                int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().distanceEntre(panelCalendrierDateFin.getDateSelectionnee());
+                int nbJourPeriode = panelCalendrierDateDebut.getDateSelectionnee().nbJourEntre(panelCalendrierDateFin.getDateSelectionnee());
                 if (nbJourPeriode < 31){
                     comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
                 } else if (nbJourPeriode < 180){
-                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours"}));
-                } else if(nbJourPeriode < 365){
-                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois"}));
-                } else if (nbJourPeriode < 1825){
-                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois"}));
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine"}));
+                } else if(nbJourPeriode < 1825){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois"}));
+                } else if (nbJourPeriode < 7300){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année"}));
+                } else if (nbJourPeriode < 18250){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années"}));
+                } else if (nbJourPeriode < 182500){
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années", "10 années"}));
                 } else {
-                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "5 jours", "1 mois", "6 mois", "1 an"}));
+                    comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour", "1 semaine", "1 mois", "1 année", "5 années", "10 années", "1 siècle"}));
                 }
             }
             requestFocus();
@@ -832,14 +897,24 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         String erreur = "";
         boolean valide = true;
         SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+        listeChronologie.verification();
         for (int i = 0; i < listeChronologie.size(); i++) {
             Chronologie chronologie = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
             if (chronologie.getIntitule().equals(textFieldIntitule.getText()) || textFieldIntitule.getText().equals("Saisir le nom de la frise")){
                 textFieldIntitule.setForeground(Color.RED);
                 styleSaisieIntitule.setForeground(Color.RED);
-                erreur += "- Le nom de la frise est vide ou existe déjà";
+                erreur += "- Le nom de la frise est vide ou existe déjà\n";
                 valide = false;
+                break;
             }
+        }
+        if (textFieldIntitule.getText().contains("'") || textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
+                || textFieldIntitule.getText().contains("/") || textFieldIntitule.getText().contains("<") || textFieldIntitule.getText().contains(">")
+                || textFieldIntitule.getText().contains(":") || textFieldIntitule.getText().contains("?") || textFieldIntitule.getText().contains("*")){
+            textFieldIntitule.setForeground(Color.RED);
+            styleSaisieIntitule.setForeground(Color.RED);
+            erreur  += "- Le nom de la frise ne peut pas contenir les caractères suivants :\n' \" \\ / | < > : ? *\n";
+            valide = false;
         }
         if (panelCalendrierDateDebut.getDateSelectionnee().compareTo(panelCalendrierDateFin.getDateSelectionnee()) > 0){
             styleSaisieDateDebut.setForeground(Color.RED);
@@ -847,27 +922,27 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             styleSaisieDateFin.setForeground(Color.RED);
             textFieldDateFin.setForeground(Color.RED);
             labelDateFin.setIcon(new ImageIcon("ressources\\iconFlecheBarree.png"));
-            erreur += "\n- Les dates entrées ne sont pas correctes";
+            erreur += "- Les dates entrées ne sont pas correctes\n";
             valide = false;
         }
         if (comboBoxPeriode.getSelectedIndex() == 0){
             comboBoxPeriode.setForeground(Color.RED);
             styleSaisiePeriode.setForeground(Color.RED);
-            erreur += "\n- Il faut sélectionner une période";
+            erreur += "- Il faut sélectionner une période\n";
             valide = false;
         }
         File fileDossier = new File(textFieldDossier.getText());
         if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde") || !(fileDossier.exists()) || !(fileDossier.isDirectory())){
             textFieldDossier.setForeground(Color.RED);
             styleSaisieDossier.setForeground(Color.RED);
-            erreur += "\n- Le chemin donné n'existe pas ou n'est pas un dossier";
+            erreur += "- Le chemin donné n'existe pas ou n'est pas un dossier\n";
             valide = false;
         }
         File fileImage = new File(textFieldImage.getText());
         if (!(textFieldImage.getText().equals("Saisir le chemin de l'image")) && !(estUneImage(fileImage))){
             textFieldImage.setForeground(Color.RED);
             styleSaisieImage.setForeground(Color.RED);
-            erreur += "\n- Le fichier donné n'existe pas ou n'est pas une image";
+            erreur += "- Le fichier donné n'existe pas ou n'est pas une image\n";
             valide = false;
         }
         if (!valide){
@@ -876,8 +951,43 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         return valide;
     }
 
+    public void reset(){
+        textFieldIntitule.setText("Saisir le nom de la frise");
+        textFieldIntitule.setForeground(Color.LIGHT_GRAY);
+        textFieldIntitule.setFont(new Font("Open Sans", Font.PLAIN, 24));
+        styleSaisieIntitule.setForeground(new Color(0,120,215));
+
+        textFieldDateDebut.setText(new Date().toStringJourMoisAnnee());
+        textFieldDateDebut.setForeground(Color.LIGHT_GRAY);
+        styleSaisieDateDebut.setForeground(new Color(0,120,215));
+        panelCalendrierDateDebut.setDate(new Date());
+
+        labelDateFin.setIcon(new ImageIcon("ressources\\iconFleche.png"));
+
+        textFieldDateFin.setText(new Date().toStringJourMoisAnnee());
+        textFieldDateFin.setForeground(Color.LIGHT_GRAY);
+        styleSaisieDateFin.setForeground(new Color(0,120,215));
+        panelCalendrierDateFin.setDate(new Date());
+
+        comboBoxPeriode.setModel(new DefaultComboBoxModel<>(new String[] {"--Sélectionner une période--", "1 jour"}));
+        comboBoxPeriode.setForeground(Color.BLACK);
+        styleSaisiePeriode.setForeground(new Color(0,120,215));
+
+        textFieldDossier.setText("Saisir le chemin de sauvegarde");
+        textFieldDossier.setForeground(Color.LIGHT_GRAY);
+        textFieldDossier.setFont(new Font("Open Sans", Font.PLAIN, 24));
+        styleSaisieDossier.setForeground(new Color(0,120,215));
+
+        textFieldImage.setText("Saisir le chemin de l'image");
+        textFieldImage.setForeground(Color.LIGHT_GRAY);
+        textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 24));
+        styleSaisieImage.setForeground(new Color(0,120,215));
+
+        labelImageAffiche.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
+    }
+
     public Chronologie enregistreChronologie(){
-        if (textFieldImage.equals("Saisir le chemin de l'image")){
+        if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             return new Chronologie(textFieldIntitule.getText(), panelCalendrierDateDebut.getDateSelectionnee(), panelCalendrierDateFin.getDateSelectionnee(), comboBoxPeriode.getSelectedIndex()-1, textFieldDossier.getText());
 
         } else {
@@ -1220,40 +1330,4 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     public JTextField getTextFieldDossier() {
         return textFieldDossier;
     }
-
-    private java.util.Timer timerStyleSaisieIntitule = new java.util.Timer();
-    private java.util.Timer timerStyleSaisieDateDebut = new java.util.Timer();
-    private java.util.Timer timerStyleSaisieDateFin = new java.util.Timer();
-    private java.util.Timer timerStyleSaisiePeriode = new java.util.Timer();
-    private java.util.Timer timerStyleSaisieDossier = new java.util.Timer();
-    private java.util.Timer timerStyleSaisieImage = new java.util.Timer();
-
-    // Variables declaration - do not modify
-    private javax.swing.JButton boutonParcourirDossier;
-    private javax.swing.JButton boutonParcourirImage;
-    private javax.swing.JButton buttonAjouter;
-    private javax.swing.JComboBox<String> comboBoxPeriode;
-    private javax.swing.JFileChooser fileChooserDossier;
-    private javax.swing.JFileChooser fileChooserImage;
-    private javax.swing.JLabel labelDateDebut;
-    private javax.swing.JLabel labelDateFin;
-    private javax.swing.JLabel labelDossier;
-    private javax.swing.JLabel labelImage;
-    private javax.swing.JLabel labelImageAffiche;
-    private javax.swing.JLabel labelIntitule;
-    private javax.swing.JLabel labelPeriode;
-    private vue.PanelCalendrierDate panelCalendrierDateDebut;
-    private vue.PanelCalendrierDate panelCalendrierDateFin;
-    private javax.swing.JProgressBar styleSaisieDateDebut;
-    private javax.swing.JProgressBar styleSaisieDateFin;
-    private javax.swing.JProgressBar styleSaisieDossier;
-    private javax.swing.JProgressBar styleSaisieImage;
-    private javax.swing.JProgressBar styleSaisieIntitule;
-    private javax.swing.JProgressBar styleSaisiePeriode;
-    private javax.swing.JTextField textFieldDateDebut;
-    private javax.swing.JTextField textFieldDateFin;
-    private javax.swing.JTextField textFieldDossier;
-    private javax.swing.JTextField textFieldImage;
-    private javax.swing.JTextField textFieldIntitule;
-    // End of variables declaration
 }
