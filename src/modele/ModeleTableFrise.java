@@ -47,12 +47,10 @@ public class ModeleTableFrise extends DefaultTableModel {
     }
 
     public int nbCol(Date debut, Date fin, int periode){
-        int nbJourEcart=debut.nbJourEntre(fin);
-
         if(periode==0)
             return debut.nbJourEntre(fin)+1;
         else if(periode==1)
-            return debut.nbSemaineEntre(fin)+1;
+            return debut.nbSemaineEntre(fin);
         else if(periode==2)
             return debut.nbMoisEntre(fin)+1;
         else if(periode==3)

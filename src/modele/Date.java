@@ -248,7 +248,7 @@ public class Date implements Comparable<Date>, Serializable {
 		}
 
 		if(jour<=date.getJour())
-			nbJour+=date.getJour()-jour-1;
+			nbJour+=date.getJour()-jour;
 		else
 			nbJour+=(dernierJourDuMois(date.getMois()-1,date.getAnnee())-jour) + date.getJour()-1;
 
@@ -316,14 +316,9 @@ public class Date implements Comparable<Date>, Serializable {
 	 * @return Entier correspondant au nombre de semaine entre les deux dates.
 	 */
 	public int nbSemaineEntre(Date date){
-		int nbSemaine = date.getNumeroSemaine()-getNumeroSemaine();
-
-		for(int anneeTemp = annee; anneeTemp<date.getAnnee(); anneeTemp++){
-			if(estBissextile(anneeTemp))
-				nbSemaine++;
-		}
-
-		return nbSemaine;
+		double nbSemaine;
+		nbSemaine=((double)nbJourEntre(date))/7.0;
+		return (int)nbSemaine+2;
 	}
 
 	/**
