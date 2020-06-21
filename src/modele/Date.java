@@ -223,8 +223,11 @@ public class Date implements Comparable<Date>, Serializable {
 		for (int indice = 0; indice < 12; indice++) {
 			nbJourMois[indice] = dernierJourDuMois(indice + 1, 2019);
 		}
-		while((jour+nbJour)%dernierJourDuMois(mois+((jour+nbJour)/dernierJourDuMois(mois,annee)),annee)!=date.getJour())
-			nbJour++;
+
+		if(jour<=date.getJour())
+			nbJour+=date.getJour()-jour-1;
+		else
+			nbJour+=(dernierJourDuMois(date.getMois()-1,date.getAnnee())-jour) + date.getJour()-1;
 
 		int moisEntre = nbMoisEntre(date);
 
@@ -239,7 +242,7 @@ public class Date implements Comparable<Date>, Serializable {
 				nbJour++;
 		}
 
-		return nbJour+1;
+		return nbJour;
 	}
 
 	/**
@@ -252,11 +255,14 @@ public class Date implements Comparable<Date>, Serializable {
 	 * @return Entier correspondant au nombre de mois entre les deux dates.
 	 */
 	public int nbMoisEntre(Date date){
-		if(date.getMois()-mois>0) {
+		if(mois<date.getMois())
 			return (nbAnneeEntre(date) * 12) + (date.getMois() - mois);
-		}
+		else if(mois>date.getMois())
+			return (nbAnneeEntre(date) * 12) + ((12 - mois) + date.getMois());
+		else if(mois==date.getMois() && annee!=date.getAnnee())
+			return ((nbAnneeEntre(date)+1) * 12);
 		else
-			return (nbAnneeEntre(date)*12) + (mois-date.getMois());
+			return (nbAnneeEntre(date) * 12);
 	}
 
 	/**
@@ -269,7 +275,12 @@ public class Date implements Comparable<Date>, Serializable {
 	 * @return Entier correspondant au nombre d'année entre les deux dates.
 	 */
 	public int nbAnneeEntre(Date date){
-  		return date.getAnnee()-annee;
+		if(annee==date.getAnnee())
+			return 0;
+		else if(mois<date.getMois() || mois==date.getMois() && jour<=date.getJour())
+			return date.getAnnee()-annee;
+		else
+			return date.getAnnee()-annee-1;
 	}
 
 	/**
@@ -326,18 +337,6 @@ public class Date implements Comparable<Date>, Serializable {
   public String toStringJour(){
   	return Integer.toString(jour);
   }
-
-	/**
-	 * Vérifie si l'objet appellant correspond à la date du jour.
-	 * 
-	 * @return booleen qui indique si l'objet appellant est à la date du jour.
-	 * 
-	 * @author Antoine Limerutti / Pablo Rican
-	 * 
-	 */
-	public boolean isToday() {
-		return new Date().compareTo(this) == 0;
-	}
 
 	/**
 	 * Modifieur du champ parJour.
