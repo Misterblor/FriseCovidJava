@@ -48,8 +48,8 @@ public class Controleur implements ActionListener {
                 SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
                 listeChronologie.verification();
                 Chronologie chronologie = panelFormulaireChronologie.enregistreChronologie();
-                listeChronologie.add(chronologie.getAdresseFichierSauvegarde() + File.separator + chronologie.getIntitule());
-                LectureEcriture.ecriture(new File(chronologie.getAdresseFichierSauvegarde() + File.separator + chronologie.getIntitule()), chronologie);
+                listeChronologie.add(chronologie.getAdresseFichierSauvegarde() + File.separator + chronologie.getIntitule() + ".ser");
+                LectureEcriture.ecriture(new File(chronologie.getAdresseFichierSauvegarde() + File.separator + chronologie.getIntitule() + ".ser"), chronologie);
                 panelFormulaireEvenement.updateModelComboBoxSelectionFrise(listeChronologie);
                 panelFrise.setPanelChoixFrise(new PanelChoixFrise());
                 panelFrise.disableFormulaireChronologie();
@@ -65,9 +65,10 @@ public class Controleur implements ActionListener {
                     chronologies[i] = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
                 }
                 chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1].ajout(panelFormulaireEvenement.enregistrerEvenement());
-                LectureEcriture.ecriture(new File(chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1].getAdresseFichierSauvegarde() + File.separator + chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1].getIntitule()), chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1]);
+                LectureEcriture.ecriture(new File(chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1].getAdresseFichierSauvegarde() + File.separator + chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1].getIntitule() + ".ser"), chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1]);
                 panelFrise.updatePanelAffichage(new PanelAffichage(chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1]));
                 panelFormulaireEvenement.reset();
+                JOptionPane.showMessageDialog(panelFormulaireEvenement, "Votre évènement a bien été ajouté !", "Ajout de l'évènement", JOptionPane.INFORMATION_MESSAGE);
             }
         }
     }
