@@ -647,12 +647,84 @@ public class PanelFormulaireEvenement extends JPanel {
             for (int i = 0; i < listeChronologie.size(); i++) {
                 chronologies[i] = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
             }
-            if (!(panelCalendrierDate.getDateSelectionnee().compareTo(chronologies[comboBoxSelectionFrise.getSelectedIndex()-1].getDateDebut()) >= 0
-                    && panelCalendrierDate.getDateSelectionnee().compareTo(chronologies[comboBoxSelectionFrise.getSelectedIndex()-1].getDateFin()) <= 0)){
+            Chronologie chronologieSelectionnee = chronologies[comboBoxSelectionFrise.getSelectedIndex()-1];
+            if (!(panelCalendrierDate.getDateSelectionnee().compareTo(chronologieSelectionnee.getDateDebut()) >= 0
+                    && panelCalendrierDate.getDateSelectionnee().compareTo(chronologieSelectionnee.getDateFin()) <= 0)){
                 textFieldDate.setForeground(Color.RED);
                 styleSaisieDate.setForeground(Color.RED);
                 erreur += "- La date saisie n'est pas dans les bornes de la frise choisie\n";
                 valide = false;
+            }
+            if (chronologieSelectionnee.getPeriode() == 0){
+                for (int i = 0; i < chronologieSelectionnee.getListeEvt().size(); i++) {
+                    if (panelCalendrierDate.getDateSelectionnee().compareTo(chronologieSelectionnee.get(i).getDate()) == 0
+                            && comboBoxPoids.getSelectedIndex()-1 == chronologieSelectionnee.get(i).getPoids()){
+                        textFieldDate.setForeground(Color.RED);
+                        styleSaisieDate.setForeground(Color.RED);
+                        erreur += "- Le poids sélectionné est déjà attribué pour cette date\n";
+                        valide = false;
+                    }
+                }
+            } else if (chronologieSelectionnee.getPeriode() == 1){
+                for (int i = 0; i < chronologieSelectionnee.getListeEvt().size(); i++) {
+                    if (panelCalendrierDate.getDateSelectionnee().estDansLaSemaine(chronologieSelectionnee.get(i).getDate())
+                            && comboBoxPoids.getSelectedIndex()-1 == chronologieSelectionnee.get(i).getPoids()){
+                        textFieldDate.setForeground(Color.RED);
+                        styleSaisieDate.setForeground(Color.RED);
+                        erreur += "- Le poids sélectionné est déjà attribué pour cette date\n";
+                        valide = false;
+                    }
+                }
+            } else if (chronologieSelectionnee.getPeriode() == 2){
+                for (int i = 0; i < chronologieSelectionnee.getListeEvt().size(); i++) {
+                    if (panelCalendrierDate.getDateSelectionnee().estDansLeMois(chronologieSelectionnee.get(i).getDate())
+                            && comboBoxPoids.getSelectedIndex()-1 == chronologieSelectionnee.get(i).getPoids()){
+                        textFieldDate.setForeground(Color.RED);
+                        styleSaisieDate.setForeground(Color.RED);
+                        erreur += "- Le poids sélectionné est déjà attribué pour cette date\n";
+                        valide = false;
+                    }
+                }
+            } else if (chronologieSelectionnee.getPeriode() == 3){
+                for (int i = 0; i < chronologieSelectionnee.getListeEvt().size(); i++) {
+                    if (panelCalendrierDate.getDateSelectionnee().getAnnee() == chronologieSelectionnee.get(i).getDate().getAnnee()
+                            && comboBoxPoids.getSelectedIndex()-1 == chronologieSelectionnee.get(i).getPoids()){
+                        textFieldDate.setForeground(Color.RED);
+                        styleSaisieDate.setForeground(Color.RED);
+                        erreur += "- Le poids sélectionné est déjà attribué pour cette date\n";
+                        valide = false;
+                    }
+                }
+            } else if (chronologieSelectionnee.getPeriode() == 4){
+                for (int i = 0; i < chronologieSelectionnee.getListeEvt().size(); i++) {
+                    if ((panelCalendrierDate.getDateSelectionnee().getAnnee()/5)*5 == (chronologieSelectionnee.get(i).getDate().getAnnee()/5)*5
+                            && comboBoxPoids.getSelectedIndex()-1 == chronologieSelectionnee.get(i).getPoids()){
+                        textFieldDate.setForeground(Color.RED);
+                        styleSaisieDate.setForeground(Color.RED);
+                        erreur += "- Le poids sélectionné est déjà attribué pour cette date\n";
+                        valide = false;
+                    }
+                }
+            } else if (chronologieSelectionnee.getPeriode() == 5){
+                for (int i = 0; i < chronologieSelectionnee.getListeEvt().size(); i++) {
+                    if ((panelCalendrierDate.getDateSelectionnee().getAnnee()/10)*10 == (chronologieSelectionnee.get(i).getDate().getAnnee()/10)*10
+                            && comboBoxPoids.getSelectedIndex()-1 == chronologieSelectionnee.get(i).getPoids()){
+                        textFieldDate.setForeground(Color.RED);
+                        styleSaisieDate.setForeground(Color.RED);
+                        erreur += "- Le poids sélectionné est déjà attribué pour cette date\n";
+                        valide = false;
+                    }
+                }
+            } else if (chronologieSelectionnee.getPeriode() == 6){
+                for (int i = 0; i < chronologieSelectionnee.getListeEvt().size(); i++) {
+                    if ((panelCalendrierDate.getDateSelectionnee().getAnnee()/100)*100 == (chronologieSelectionnee.get(i).getDate().getAnnee()/100)*100
+                            && comboBoxPoids.getSelectedIndex()-1 == chronologieSelectionnee.get(i).getPoids()){
+                        textFieldDate.setForeground(Color.RED);
+                        styleSaisieDate.setForeground(Color.RED);
+                        erreur += "- Le poids sélectionné est déjà attribué pour cette date\n";
+                        valide = false;
+                    }
+                }
             }
         } else {
             comboBoxSelectionFrise.setForeground(Color.RED);
