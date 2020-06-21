@@ -41,6 +41,10 @@ public class PanelChoixFrise extends javax.swing.JPanel {
             LectureEcriture.ecriture(SavesChronologie.FILE, listeSave);
         }
 
+        for (int i = 0; i < listeSave.size(); i++) {
+            System.out.println(listeSave.get(i));
+        }
+
         tableauFrise = new JButton[listeSave.size() + 1];
         Iterator<String> iterateur = listeSave.iterator();
         int indice;
@@ -59,7 +63,7 @@ public class PanelChoixFrise extends javax.swing.JPanel {
                 else
                     tableauFrise[indice].setText(frise.getIntitule());
 
-                tableauFrise[indice].setActionCommand("Charger'" + fichier);
+                tableauFrise[indice].setActionCommand("Charger>" + fichier);
             } else {
                 tableauFrise[indice].setText("<html>Nouvelle<br>frise</html>");
                 tableauFrise[indice].setFont(new Font("Calibri", Font.PLAIN, 10));

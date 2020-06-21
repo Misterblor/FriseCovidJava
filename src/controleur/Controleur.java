@@ -6,6 +6,7 @@ import modele.LectureEcriture;
 import modele.SavesChronologie;
 import vue.*;
 
+import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -18,13 +19,13 @@ public class Controleur implements ActionListener {
     PanelFormulaireEvenement panelFormulaireEvenement;
 
     public Controleur(PanelFrise parPanelFrise, PanelChoixFrise parPanelChoixFrise, PanelFormulaireChronologie parPanelFormulaireChronologie, PanelFormulaireEvenement parPanelFormulaireEvenement){
-    panelFrise = parPanelFrise;
-    panelChoixFrise = parPanelChoixFrise;
-    panelChoixFrise.enregistreEcouteur(this);
-    panelFormulaireChronologie = parPanelFormulaireChronologie;
-    panelFormulaireChronologie.getButtonAjouter().addActionListener(this);
-    panelFormulaireEvenement = parPanelFormulaireEvenement;
-    panelFormulaireEvenement.getButtonAjouter().addActionListener(this);
+        panelFrise = parPanelFrise;
+        panelChoixFrise = parPanelChoixFrise;
+        panelChoixFrise.enregistreEcouteur(this);
+        panelFormulaireChronologie = parPanelFormulaireChronologie;
+        panelFormulaireChronologie.getButtonAjouter().addActionListener(this);
+        panelFormulaireEvenement = parPanelFormulaireEvenement;
+        panelFormulaireEvenement.getButtonAjouter().addActionListener(this);
     }
 
     public void actionPerformed(ActionEvent event) {
@@ -32,10 +33,14 @@ public class Controleur implements ActionListener {
             panelFrise.enableFormulaireChronologie();
         }
 
-        else if((event.getActionCommand().split("'"))[0].compareTo("Charger")==0){
-            SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
-            listeChronologie.verification();
-            panelFrise.setAffichage(new PanelAffichage((Chronologie) LectureEcriture.lecture(new File(event.getActionCommand().split("'")[1]))));
+        else if((event.getActionCommand().split(">"))[0].compareTo("Charger")==0){
+            File fichier = new File(event.getActionCommand().split(">")[1]);
+            if(fichier.exists())
+                panelFrise.setAffichage(new PanelAffichage((Chronologie) LectureEcriture.lecture(fichier)));
+            else{
+                JOptionPane.showMessageDialog(panelChoixFrise, "Le fichier spécifié a été supprimé ou déplacé.", "Erreur de chargement", JOptionPane.ERROR_MESSAGE);
+                panelFrise.setPanelChoixFrise(new PanelChoixFrise());
+            }
         }
 
         if (event.getSource() == panelFormulaireChronologie.getButtonAjouter()){

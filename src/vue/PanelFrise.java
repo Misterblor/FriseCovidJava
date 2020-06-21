@@ -136,5 +136,6 @@ public class PanelFrise extends JPanel implements ActionListener {
         add(panelChoixFrise, "Panel Choix Frise");
         validate();
         repaint();
+        card.show(this, "Panel Choix Frise");
     }
 }

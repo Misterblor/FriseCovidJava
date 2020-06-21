@@ -56,5 +56,7 @@ public class SavesChronologie implements Serializable {
         iterateur = supr.iterator();
         while(iterateur.hasNext())
             listeSave.remove(iterateur.next());
+
+        LectureEcriture.ecriture(FILE, this);
     }
 }

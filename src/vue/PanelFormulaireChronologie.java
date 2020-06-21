@@ -436,7 +436,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
                 styleSaisieIntitule.setForeground(new Color(0,120,215));
             }
         }
-        if (textFieldIntitule.getText().contains("'") || textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
+        if (textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
                 || textFieldIntitule.getText().contains("/") || textFieldIntitule.getText().contains("<") || textFieldIntitule.getText().contains(">")
                 || textFieldIntitule.getText().contains(":") || textFieldIntitule.getText().contains("?") || textFieldIntitule.getText().contains("*")) {
             textFieldIntitule.setForeground(Color.RED);
@@ -491,7 +491,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
                     styleSaisieIntitule.setForeground(new Color(0,120,215));
                 }
             }
-            if (textFieldIntitule.getText().contains("'") || textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
+            if (textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
                     || textFieldIntitule.getText().contains("/") || textFieldIntitule.getText().contains("<") || textFieldIntitule.getText().contains(">")
                     || textFieldIntitule.getText().contains(":") || textFieldIntitule.getText().contains("?") || textFieldIntitule.getText().contains("*")) {
                 textFieldIntitule.setForeground(Color.RED);
@@ -908,12 +908,12 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
                 break;
             }
         }
-        if (textFieldIntitule.getText().contains("'") || textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
+        if (textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
                 || textFieldIntitule.getText().contains("/") || textFieldIntitule.getText().contains("<") || textFieldIntitule.getText().contains(">")
                 || textFieldIntitule.getText().contains(":") || textFieldIntitule.getText().contains("?") || textFieldIntitule.getText().contains("*")){
             textFieldIntitule.setForeground(Color.RED);
             styleSaisieIntitule.setForeground(Color.RED);
-            erreur  += "- Le nom de la frise ne peut pas contenir les caractères suivants :\n' \" \\ / | < > : ? *\n";
+            erreur  += "- Le nom de la frise ne peut pas contenir les caractères suivants :\n\" \\ / | < > : ? *\n";
             valide = false;
         }
         if (panelCalendrierDateDebut.getDateSelectionnee().compareTo(panelCalendrierDateFin.getDateSelectionnee()) > 0){
