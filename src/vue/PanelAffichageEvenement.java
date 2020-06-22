@@ -128,7 +128,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
                 }
             } else if (event.getActionCommand() == "suivant")
                 reinitEvent((indiceEventUtil + 1) % frise.getNbEvent());
-            affichageTable.setCol(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode());
+            affichageTable.setCol();
         }
     }
 
