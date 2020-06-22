@@ -7,10 +7,43 @@ import java.awt.*;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
+/**
+ * <b>Panel s'occupant de l'affichage de la table.<br>
+ * Panel fils de PanelAffichage.<br>
+ * Appartiens au package vue.</b>
+ *
+ * @see JPanel
+ *
+ * @Author Antoine Limerutti
+ *
+ * @version 1.0
+ */
 public class PanelAffichageTable extends JPanel {
+    /**
+     * JTable contenant la Chronologie.
+     *
+     * @see JTable
+     */
     JTable tableFrise;
+
+    /**
+     * Modele de la table tableFrise.
+     *
+     * @see ModeleTableFrise
+     */
     ModeleTableFrise modele;
 
+    /**
+     * Constructeur de la classe PanelAffichageTable.
+     *
+     * @param frise Chronologie dont on souhaite afficher le contenu.
+     * @param affichageEvent PanelAffichageEvenement synchronisé avec le PanelAffichageTable.
+     *
+     * @see Chronologie
+     * @see PanelAffichageEvenement
+     *
+     * @Author Antoine Limerutti
+     */
     public PanelAffichageTable(Chronologie frise, PanelAffichageEvenement affichageEvent) {
         tableFrise = new JTable();
         modele = new ModeleTableFrise(frise);
@@ -42,7 +75,12 @@ public class PanelAffichageTable extends JPanel {
         add(scrollPane);
     }
 
-    public void setCol(Date dateDebut, Date dateEvent, int periode){
+    /**
+     * Permet de faire scroller la table à l'évènement en cours de visionnage dans le panel PanelAffichageEvenement.
+     *
+     * @Author Antoine Limerutti
+     */
+    public void setCol(){
         tableFrise.scrollRectToVisible(tableFrise.getCellRect(1, modele.getNbCol(),false));
     }
 }
