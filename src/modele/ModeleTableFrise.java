@@ -2,11 +2,30 @@ package modele;
 
 import javax.swing.table.DefaultTableModel;
 
+/**
+ * <b>Modèle de la JTable du panel PanelAffichageTable.<br>
+ * Appartient au package modeles.</b>
+ *
+ * @see javax.swing.table.DefaultTableModel
+ * @see vue.PanelAffichageTable
+ *
+ * @author Antoine Limerutti
+ *
+ * @version 1.0
+ */
 public class ModeleTableFrise extends DefaultTableModel {
+
+    /**
+     * Constructeur de la classe ModeleTableFrise.
+     *
+     * @param frise Chronologie de la table dont il vas falloir réaliser le modèle.
+     *
+     * @author Antoine Limerutti
+     *
+     * @see Chronologie
+     */
     public ModeleTableFrise(Chronologie frise) {
         setRowCount(4);
-        int nbColonne = nbCol(frise.getDateDebut(), frise.getDateFin(), frise.getPeriode());
-        setColumnCount(nbColonne);
 
         Evenement event = frise.get(0);
 
@@ -34,30 +53,53 @@ public class ModeleTableFrise extends DefaultTableModel {
 
             event = frise.get(i);
         }
-
-        setColumnIdentifiers(getIdentifieur(frise.getPeriode(), nbColonne, frise.getDateDebut()));
+        setId(frise.getPeriode(), getColumnCount(), frise.getDateDebut());
     }
 
-    public int nbCol(Date debut, Date fin, int periode){
+    /**
+     * Détermine le nombre de colonne nécéssaires dans le modèle en fonction de la periode et des dates de bébut et de fin de la chronologie.
+     *
+     * @param debut Date de début de la chronologie.
+     * @param fin Date de fin de la chronologie.
+     * @param periode Entier correspondant à la periode de la chronologie
+     *
+     * @see Date
+     *
+     * @author Antoine Limerutti
+     */
+    public void nbCol(Date debut, Date fin, int periode){
+        int nbColonne=0;
+
         if(periode==0)
-            return debut.nbJourEntre(fin)+1;
+            nbColonne = debut.nbJourEntre(fin)+1;
         else if(periode==1)
-            return debut.nbSemaineEntre(fin)-1;
+            nbColonne = debut.nbSemaineEntre(fin)-1;
         else if(periode==2)
-            return debut.nbMoisEntre(fin)+1;
+            nbColonne = debut.nbMoisEntre(fin)+1;
         else if(periode==3)
-            return debut.nbAnneeEntre(fin)+1;
+            nbColonne = debut.nbAnneeEntre(fin)+1;
         else if(periode==4)
-            return debut.nbAnneeEntre(fin)%5==0 ? (debut.nbAnneeEntre(fin)+1)/5 : ((debut.nbAnneeEntre(fin)+1)/5)+1;
+            nbColonne = debut.nbAnneeEntre(fin)%5==0 ? (debut.nbAnneeEntre(fin)+1)/5 : ((debut.nbAnneeEntre(fin)+1)/5)+1;
         else if(periode==5)
-            return debut.nbAnneeEntre(fin)%10==0 ? (debut.nbAnneeEntre(fin)+1)/10 : ((debut.nbAnneeEntre(fin)+1)/10)+1;
+            nbColonne = debut.nbAnneeEntre(fin)%10==0 ? (debut.nbAnneeEntre(fin)+1)/10 : ((debut.nbAnneeEntre(fin)+1)/10)+1;
         else if(periode==6)
-            return debut.nbAnneeEntre(fin)%100==0 ? (debut.nbAnneeEntre(fin)+1)/100 : ((debut.nbAnneeEntre(fin)+1)/100)+1;
+            nbColonne = debut.nbAnneeEntre(fin)%100==0 ? (debut.nbAnneeEntre(fin)+1)/100 : ((debut.nbAnneeEntre(fin)+1)/100)+1;
 
-        return 0;
+        setColumnCount(nbColonne);
     }
 
-    private String[] getIdentifieur(int periode, int nbColonne, Date debut) {
+    /**
+     * Définit les identifieurs de chaque colonne de la table.
+     *
+     * @param periode Entier correspondant à la periode de la Chronologie.
+     * @param nbColonne Entier correspondant au nombre de colonnes dans le modèle.
+     * @param debut Date de debut de la frise.
+     *
+     * @author Antoine Limerutti.
+     *
+     * @see Date
+     */
+    private void setId(int periode, int nbColonne, Date debut) {
         String[]id = new String[nbColonne];
 
         if(periode==0 || periode==1) {
@@ -137,7 +179,7 @@ public class ModeleTableFrise extends DefaultTableModel {
                 }
             }
         }
-        return id;
+        setColumnIdentifiers(id);
     }
 
     /**
@@ -147,7 +189,7 @@ public class ModeleTableFrise extends DefaultTableModel {
      *
      * @return Retourne la classe de la colonne sélectionnée.
      *
-     * @author Antoine Limerutti - Pablo Rican
+     * @author Antoine Limerutti
      */
     public Class<Evenement> getColumnClass(int col) {
         return Evenement.class;
