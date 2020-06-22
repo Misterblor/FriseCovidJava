@@ -42,7 +42,7 @@ public class PanelAffichageTable extends JPanel {
         add(scrollPane);
     }
 
-    public void setRow(Date dateDebut, Date dateEvent, int periode){
-        tableFrise.scrollRectToVisible(tableFrise.getCellRect(1, modele.nbCol(dateDebut, dateEvent, periode)-1,false));
+    public void setCol(Date dateDebut, Date dateEvent, int periode){
+        tableFrise.scrollRectToVisible(tableFrise.getCellRect(1, modele.getNbCol(),false));
     }
 }
