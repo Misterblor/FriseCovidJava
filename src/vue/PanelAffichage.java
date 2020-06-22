@@ -123,6 +123,10 @@ public class PanelAffichage extends JPanel {
         add(affichageTable, contrainte);
 
         affichageEvent.setAffichageTable(affichageTable);
+
+        if(frise.get(0)!=null) {
+            affichageTable.setCol(frise.getDateDebut(), frise.get(0).getDate(), frise.getPeriode(), frise.get(0).getPoids());
+        }
     }
 
     /**

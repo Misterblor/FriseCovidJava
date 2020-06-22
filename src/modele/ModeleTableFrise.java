@@ -74,19 +74,20 @@ public class ModeleTableFrise extends DefaultTableModel {
         int nbColonne=0;
 
         if(periode==0)
-            nbColonne = debut.nbJourEntre(fin) + 1;
+            nbColonne = debut.nbJourEntre(fin)+1;
         else if(periode==1)
             nbColonne = debut.nbSemaineEntre(fin)-1;
         else if(periode==2)
             nbColonne = debut.nbMoisEntre(fin)+1;
         else if(periode==3)
-            nbColonne = debut.nbAnneeEntre(fin)+1;
+            nbColonne = fin.getAnnee()-debut.getAnnee()+1;
         else if(periode==4)
-            nbColonne = debut.nbAnneeEntre(fin)%5==0 ? (debut.nbAnneeEntre(fin)+1)/5 : ((debut.nbAnneeEntre(fin)+1)/5)+1;
+            nbColonne = ((fin.getAnnee()/5)*5-(debut.getAnnee()/5)*5)/5+1;
+            //nbColonne = debut.nbAnneeEntre(fin)%5==0 ? (debut.nbAnneeEntre(fin)+1)/5 : ((debut.nbAnneeEntre(fin)+1)/5)+1;
         else if(periode==5)
-            nbColonne = debut.nbAnneeEntre(fin)%10==0 ? (debut.nbAnneeEntre(fin)+1)/10 : ((debut.nbAnneeEntre(fin)+1)/10)+1;
+            nbColonne = ((fin.getAnnee()/10)*10-(debut.getAnnee()/10)*10)/10+1;
         else if(periode==6)
-            nbColonne = debut.nbAnneeEntre(fin)%100==0 ? (debut.nbAnneeEntre(fin)+1)/100 : ((debut.nbAnneeEntre(fin)+1)/100)+1;
+            nbColonne = ((fin.getAnnee()/100)*100-(debut.getAnnee()/100)*100)/100+1;
 
         return nbColonne;
     }

@@ -48,8 +48,8 @@ public class PanelAffichageTable extends JPanel {
         tableFrise = new JTable();
         modele = new ModeleTableFrise(frise);
 
-        tableFrise.setDefaultRenderer(Evenement.class, new RendererTableFrise());
         tableFrise.setModel(modele);
+        tableFrise.setDefaultRenderer(Evenement.class, new RendererTableFrise());
 
         tableFrise.setAutoResizeMode(JTable.AUTO_RESIZE_OFF);
         tableFrise.getTableHeader().setReorderingAllowed(false);
@@ -78,9 +78,16 @@ public class PanelAffichageTable extends JPanel {
     /**
      * Permet de faire scroller la table à l'évènement en cours de visionnage dans le panel PanelAffichageEvenement.
      *
+     * @param dateDebut Date du debut de la frise.
+     * @param dateEvent Date de la colonne souhaitée.
+     * @param periode Entier correspondant à la periode de la frise.
+     * @param poids Entier correspondant au poids de l'évènement (et donc à la ligne dans la table).
+     *
      * @author Antoine Limerutti
      */
-    public void setCol(Date dateDebut, Date dateEvent, int periode){
-        tableFrise.scrollRectToVisible(tableFrise.getCellRect(1, modele.nbCol(dateDebut, dateEvent, periode),false));
+    public void setCol(Date dateDebut, Date dateEvent, int periode, int poids){
+        Rectangle rectangleDeMerde = tableFrise.getCellRect(poids, modele.nbCol(dateDebut, dateEvent, periode)-1,true);
+        tableFrise.scrollRectToVisible(rectangleDeMerde);
+        System.out.println(rectangleDeMerde.getX() + " - " + rectangleDeMerde.getY());
     }
 }

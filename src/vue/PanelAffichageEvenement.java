@@ -82,7 +82,6 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         labelIntituleDate = new JLabel();
         labelDesc = new JLabel();
         reinitEvent(0);
-        indiceEventUtil=0;
 
         GridBagConstraints contrainte = new GridBagConstraints();
         contrainte.insets = new Insets(6,6,6,6);
@@ -108,8 +107,6 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         contrainte.gridx=1;
         contrainte.gridy=1;
         add(scrollPane, contrainte);
-
-        affichageTable.setCol(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode());
     }
 
     /**
@@ -131,7 +128,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
                 }
             } else if (event.getActionCommand().equals("suivant"))
                 reinitEvent((indiceEventUtil + 1) % frise.getNbEvent());
-            affichageTable.setCol(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode());
+            affichageTable.setCol(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode(), frise.get(indiceEventUtil).getPoids());
         }
     }
 
