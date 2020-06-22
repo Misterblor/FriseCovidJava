@@ -18,15 +18,19 @@ import javax.swing.*;
 
 
 /**
+ * <b>Panel qui vas permettre de dire si l'on veut voire ou créer une frise.<br>
+ * Appartiens au package vue.</b>
  *
- * @author ifocs
+ * @author Antoine Limerutti
  */
 public class PanelChoixFrise extends javax.swing.JPanel {
 
     JButton[] tableauFrise;
 
     /**
-     * Creates new form PanelChoixFrise
+     * Constructeur de la classe PanelChoixFrise. Crée les boutons correspondant à chaque Chronologie et les ajoute.
+     *
+     * @Author Antoine Limerutti
      */
     public PanelChoixFrise() {
         setLayout(new GridLayout(7, 7, 20, 20));
@@ -39,10 +43,6 @@ public class PanelChoixFrise extends javax.swing.JPanel {
         else {
             listeSave = new SavesChronologie();
             LectureEcriture.ecriture(SavesChronologie.FILE, listeSave);
-        }
-
-        for (int i = 0; i < listeSave.size(); i++) {
-            System.out.println(listeSave.get(i));
         }
 
         tableauFrise = new JButton[listeSave.size() + 1];
@@ -78,12 +78,32 @@ public class PanelChoixFrise extends javax.swing.JPanel {
 
     }
 
+    /**
+     * Met à le controleur passsé en paralètre à l'écoute des boutons de choix de la frise.
+     *
+     * @param controleur Controleur à mettre à l'écoute des boutons de choix de la frise
+     *
+     * @see Controleur
+     *
+     * @author Antoine Limerutti
+     */
     public void enregistreEcouteur(Controleur controleur){
         for (int i = 0; i < tableauFrise.length; i++) {
             tableauFrise[i].addActionListener(controleur);
         }
     }
 
+    /**
+     * Retaille l'objet ImageIcon fournis en paramètre et la retourne.
+     *
+     * @param icon ImageIcon à retailler.
+     *
+     * @return ImageIcon ayant une taille correcte.
+     *
+     * @Author Pablo Rican
+     *
+     * @see ImageIcon
+     */
     private ImageIcon resizeImage(ImageIcon icon){
         int largeurOrigine = icon.getIconWidth();
         int hauteurOrigine = icon.getIconHeight();
