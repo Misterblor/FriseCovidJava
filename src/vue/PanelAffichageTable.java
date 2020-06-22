@@ -86,8 +86,12 @@ public class PanelAffichageTable extends JPanel {
      * @author Antoine Limerutti
      */
     public void setCol(Date dateDebut, Date dateEvent, int periode, int poids){
-        Rectangle rectangleDeMerde = tableFrise.getCellRect(poids, modele.nbCol(dateDebut, dateEvent, periode)-1,true);
-        tableFrise.scrollRectToVisible(rectangleDeMerde);
-        System.out.println(rectangleDeMerde.getX() + " - " + rectangleDeMerde.getY());
+        double col = modele.nbCol(dateDebut, dateEvent, periode)-1;
+        double row = poids;
+
+        Rectangle rect = new Rectangle();
+        rect.setRect(col*100.0, row*100.0, 100.0, 100.0);
+        
+        tableFrise.scrollRectToVisible(rect);
     }
 }
