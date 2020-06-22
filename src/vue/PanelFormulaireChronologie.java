@@ -109,14 +109,14 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
     /**
      * PanelCalendrierDate permettant de saisir la date de début
-     * de la frise
+     * de la chronologie
      * @see PanelCalendrierDate
      */
     private vue.PanelCalendrierDate panelCalendrierDateDebut;
 
     /**
      * PanelCalendrierDate permettant de saisir la date de fin
-     * de la frise
+     * de la chronologie
      * @see PanelCalendrierDate
      */
     private vue.PanelCalendrierDate panelCalendrierDateFin;
@@ -164,13 +164,13 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     private javax.swing.JProgressBar styleSaisiePeriode;
 
     /**
-     * Champ de saisie de la date de debut
+     * Champ de saisie de la date de debut de la chronologie
      * @see JTextField
      */
     private javax.swing.JTextField textFieldDateDebut;
 
     /**
-     * Champ de saisie de la date de fin
+     * Champ de saisie de la date de fin de la chronologie
      * @see JTextField
      */
     private javax.swing.JTextField textFieldDateFin;
@@ -1335,7 +1335,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
      * Si des éléments saisie par l'utilisateur ne sont pas valides,
      * un message d'erreur apparait en listant les champs à corriger.
      *
-     * @return Si l'événement saisie est valide ou non.
+     * @return Si la chronologie saisie est valide ou non.
      */
     public boolean estValide(){
         String erreur = "";
@@ -1435,7 +1435,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
     /**
      * Cette methode permet d'enregistrer une chronologie avec les champs
-     * que l'utilisateur à saisie.
+     * que l'utilisateur a saisie.
      *
      * @return une chronologie qui comporte tous les champs
      * que l'utilisateur a renseigné

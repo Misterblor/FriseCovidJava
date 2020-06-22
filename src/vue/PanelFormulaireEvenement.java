@@ -1,7 +1,3 @@
-/*
- * Created by JFormDesigner on Tue Jun 16 15:52:53 CEST 2020
- */
-
 package vue;
 
 import controleur.ControleurPanelFormulaireEvenement;
@@ -17,38 +13,159 @@ import javax.swing.GroupLayout;
 import javax.swing.border.*;
 
 /**
+ * <b>
+ *     Cette classe permet d'afficher un formulaire permettant d'ajouter un événement à une frise chronologique.<br>
+ *     Appartient au package vue.
+ * </b>
+ *
  * @author Pablo RICAN
+ *
+ * @see JPanel
+ *
+ * @version 1.0
  */
 public class PanelFormulaireEvenement extends JPanel {
 
+    /**
+     * Champ de saisie de l'intitule de l'événement
+     * @see JTextField
+     */
     private JTextField textFieldIntitule;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie de l'intitule a le focus
+     * @see JProgressBar
+     */
     private JProgressBar styleSaisieIntitule;
+
+    /**
+     * Champ de saisie de la date de l'événement
+     * @see JTextField
+     */
     private JTextField textFieldDate;
+
+    /**
+     * PanelCalendrierDate permettant de saisir la date de l'événement
+     * @see PanelCalendrierDate
+     */
     private PanelCalendrierDate panelCalendrierDate;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie de la date a le focus
+     * @see JProgressBar
+     */
     private JProgressBar styleSaisieDate;
+
+    /**
+     * ComboBox permettant de sélectionner le poids de l'événement
+     * @see JComboBox
+     */
     private JComboBox<String> comboBoxPoids;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie du poids a le focus
+     * @see JProgressBar
+     */
     private JProgressBar styleSaisiePoids;
+
+    /**
+     * Champ de saisie de l'image de l'événement'
+     * @see JTextField
+     */
     private JTextField textFieldImage;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie de l'image a le focus
+     * @see JProgressBar
+     */
     private JProgressBar styleSaisieImage;
+
+    /**
+     * Label permettant d'afficher l'icon de la description
+     * @see JLabel
+     */
     private JLabel labelDescription;
+
+    /**
+     * ScrollPane contenant le textArea description
+     * @see JScrollPane
+     */
     private JScrollPane scrollPaneTextAreaDescription;
+
+    /**
+     * TextArea permettant de saisir la description de l'événement
+     * @see JTextArea
+     */
     private JTextArea textAreaDescription;
+
+    /**
+     * Label permettant d'afficher l'image choisie par l'utilisateur
+     * @see JLabel
+     */
     private JLabel labelAffichageImage;
+
+    /**
+     * Bouton permettant d'enregistrer un nouvel événement
+     * @see JButton
+     */
     private JButton buttonAjouter;
+
+    /**
+     * ComboBox permettant de sélectionner la frise dans laquelle
+     * on souhaite enregistrer l'événement
+     * @see JComboBox
+     */
     private JComboBox<String> comboBoxSelectionFrise;
 
-
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisieIntitule
+     * @see java.util.Timer
+     */
     private Timer timerStyleSaisieIntitule = new Timer();
+
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisieDate
+     * @see java.util.Timer
+     */
     private Timer timerStyleSaisieDate = new Timer();
+
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisiePoids
+     * @see java.util.Timer
+     */
     private Timer timerStyleSaisiePoids = new Timer();
+
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisieImage
+     * @see java.util.Timer
+     */
     private Timer timerStyleSaisieImage = new Timer();
 
+    /**
+     * Constructeur de la classe PanelFormulaireEvenement,
+     * permet d'initialiser et de placer tout les composants graphiques.
+     * Instancie un controleur permettant de gérer les dates avec le PanelCalendrierDate
+     * et le textFieldDate
+     *
+     * @see ControleurPanelFormulaireEvenement
+     */
     public PanelFormulaireEvenement() {
         initComponents();
         new ControleurPanelFormulaireEvenement(this);
         requestFocus();
     }
 
+    /**
+     * Cette methode a été généré par le logiciel IntelliJ IDEA grâce au plugin JFormDesigner
+     * et permet de placer tous les composants graphiques sur le panel de manière précise.
+     * Elle permet aussi de déclarer les methodes gérant les événements pour les composant s'ils en ont besoin.
+     *
+     * @see GroupLayout
+     */
     private void initComponents() {
         JLabel labelIntitule = new JLabel();
         textFieldIntitule = new JTextField();
@@ -374,9 +491,17 @@ public class PanelFormulaireEvenement extends JPanel {
                         .addComponent(scrollPaneTextAreaDescription, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))
                     .addContainerGap())
         );
-        // JFormDesigner - End of component initialization  //GEN-END:initComponents
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldIntitule.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar et on met le cusreur au début du composant.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldIntituleFocusGained(FocusEvent e) {
         avanceStyleSaisieIntitule();
         if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
@@ -384,6 +509,15 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldIntitule.
+     * Quand le composant pert le focus, on regarde la validité de la saisie,
+     * et on fait un effet de style avec la ProgressBar.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldIntituleFocusLost(FocusEvent e) {
         if (textFieldIntitule.getText().equals("")) {
             textFieldIntitule.setForeground(Color.RED);
@@ -399,6 +533,15 @@ public class PanelFormulaireEvenement extends JPanel {
         reculeStyleSaisieIntitule();
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldIntitule.
+     * Quand la souris est appuyée sur le composant, on regarde si la saisie est "vide"
+     * et on colorie le composant d'une certaine couleur.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldIntituleMousePressed(MouseEvent e) {
         if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
@@ -410,12 +553,32 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldIntitule.
+     * Quand la souris est relachée sur le composant, on regarde si la saisie est "vide"
+     * et on met le curseur au debut du composant.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldIntituleMouseReleased(MouseEvent e) {
         if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du clavier du textFieldIntitule.
+     * Quand une touche est tapée sur le composant, on regarde si elle a pour but d'écrire
+     * (donc pas des touches comme Entrée ou Suppr) et on change la couleur de la saisie.
+     * Si la touche tapée est Entrée ou Echap, on controle la validité de la saisie
+     * et on sort du composant.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.KeyEvent
+     */
     private void textFieldIntituleKeyTyped(KeyEvent e) {
         if (textFieldIntitule.getText().equals("Saisir le nom de l'événement") && !((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1 || (int)e.getKeyChar() == 10)){
             textFieldIntitule.setText("");
@@ -447,6 +610,16 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldDate.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar, on rend invisible les composants scrollPaneTextAreaDescription
+     * et labelDescription, et on rend visible le composant panelCalendrierDate.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldDateFocusGained(FocusEvent e) {
         avanceStyleSaisieDate();
         labelDescription.setVisible(false);
@@ -454,6 +627,16 @@ public class PanelFormulaireEvenement extends JPanel {
         panelCalendrierDate.setVisible(true);
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldDate.
+     * Quand le composant pert le focus, on fait un effet de style avec la ProgressBar,
+     * on rend visible les composants scrollPaneTextAreaDescription et labelDescription,
+     * et on rend invisible le composant panelCalendrierDate.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldDateFocusLost(FocusEvent e) {
         reculeStyleSaisieDate();
         panelCalendrierDate.setVisible(false);
@@ -462,11 +645,30 @@ public class PanelFormulaireEvenement extends JPanel {
         textFieldDate.setText(panelCalendrierDate.getDateSelectionnee().toStringJourMoisAnnee());
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldDate.
+     * Quand la souris est appuyée sur le composant, on surligne le texte.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldDateMousePressed(MouseEvent e) {
         textFieldDate.setSelectionStart(0);
         textFieldDate.setSelectionEnd(textFieldDate.getText().length());
     }
 
+    /**
+     * Methode permettant de gérer les événements du clavier du textFieldDate.
+     * Quand une touche est tapée sur le composant, on change la couleur de la saisie,
+     * et on analyse la saisie pour la transformer en date.
+     * Si la touche tapée est Entrée ou Echap, on controle la validité de la saisie,
+     * et on sort du composant.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.KeyEvent
+     */
     private void textFieldDateKeyTyped(KeyEvent e) {
         textFieldDate.setForeground(Color.BLACK);
 
@@ -494,10 +696,27 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du comboBoxPoids.
+     * Quand le composant gagne le focus, on fait un effet de style avec la ProgressBar.
+     *
+     * @param e l'événement en question
+     *
+     * @see FocusEvent
+     */
     private void comboBoxPoidsFocusGained(FocusEvent e) {
         avanceStyleSaisiePoids();
     }
 
+    /**
+     * Methode permettant de gérer le focus du comboBoxPoids.
+     * Quand le composant perd le focus, on regarde la validité de la saisie,
+     * et on fait un effet de style avec la ProgressBar.
+     *
+     * @param e l'événement en question
+     *
+     * @see FocusEvent
+     */
     private void comboBoxPoidsFocusLost(FocusEvent e) {
         if (comboBoxPoids.getSelectedIndex() == 0){
             comboBoxPoids.setForeground(Color.RED);
@@ -507,6 +726,15 @@ public class PanelFormulaireEvenement extends JPanel {
         reculeStyleSaisiePoids();
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldImage.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar et on met le cusreur au début du composant.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldImageFocusGained(FocusEvent e) {
         avanceStyleSaisieImage();
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
@@ -514,10 +742,27 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldImage.
+     * Quand le composant pert le focus, on fait un effet de style avec la ProgressBar.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldImageFocusLost(FocusEvent e) {
         reculeStyleSaisieImage();
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldImage.
+     * Quand la souris est appuyée sur le composant, on regarde si la saisie est "vide"
+     * et on colorie le composant d'une certaine couleur.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldImageMousePressed(MouseEvent e) {
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
@@ -529,12 +774,32 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldImage.
+     * Quand la souris est relachée sur le composant, on regarde si la saisie est "vide"
+     * et on met le curseur au debut du composant.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldImageMouseReleased(MouseEvent e) {
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du clavier du textFieldImage.
+     * Quand une touche est tapée sur le composant, on regarde si elle a pour but d'écrire
+     * (donc pas des touches comme Entrée ou Suppr) et on change la couleur de la saisie.
+     * Si la touche tapée est Entrée ou Echap, on controle la validité de la saisie
+     * et on sort du composant.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.KeyEvent
+     */
     private void textFieldImageKeyTyped(KeyEvent e) {
 
         if (!((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1 || (int)e.getKeyChar() == 10)){
@@ -591,6 +856,17 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du boutonParcourirImage.
+     * Quand le bouton est appuyé, on affiche le sélectionneur de fichier
+     * et on attend de récupérer le fichier sélectionné. Si le fichier
+     * n'est pas null et est une image, on l'affiche dans le textFieldImage
+     * et on modifie le labelAffichageImage en lui mettant l'image sélectionné.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.ActionEvent
+     */
     private void buttonParcourirImageActionPerformed(ActionEvent e) {
         JFileChooser fileChooser = new JFileChooser();
         fileChooser.showOpenDialog(this);
@@ -605,16 +881,40 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textAreaDescription.
+     * Quand le composant gagne le focus, on met une nouvelle bordure
+     * au scrollPaneTextAreaDescription pour avoir un effet de style.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textAreaDescriptionFocusGained(FocusEvent e) {
         scrollPaneTextAreaDescription.setBorder(new TitledBorder(new LineBorder(new Color(0,120,215), 4, true), "Description", TitledBorder.LEADING, TitledBorder.TOP,
                 new Font("Open Sans", Font.PLAIN, 18), new Color(0,120,215)));
     }
 
+    /**
+     * Methode permettant de gérer le focus du textAreaDescription.
+     * Quand le composant perd le focus, on met une nouvelle bordure
+     * au scrollPaneTextAreaDescription pour avoir un effet de style.
+     *
+     * @param e l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textAreaDescriptionFocusLost(FocusEvent e) {
         scrollPaneTextAreaDescription.setBorder(new TitledBorder(new LineBorder(Color.lightGray, 2, true), "Description", TitledBorder.LEADING, TitledBorder.TOP,
                 new Font("Open Sans", Font.PLAIN, 18), Color.lightGray));
     }
 
+    /**
+     * Methode permettant de mettre à jour le modele de la comboBoxSelectionFrise
+     * en reprenant la listes des chronologies sauvegardées sur le PC.
+     *
+     * @param savesChronologie la liste des chronologies sauvegardées sur le PC
+     */
     public void updateModelComboBoxSelectionFrise(SavesChronologie savesChronologie){
         String[] intituleFrises = new String[savesChronologie.size()+1];
         intituleFrises[0]="--Sélectionner une frise--";
@@ -626,6 +926,14 @@ public class PanelFormulaireEvenement extends JPanel {
         comboBoxSelectionFrise.setModel(new DefaultComboBoxModel<>(intituleFrises));
     }
 
+    /**
+     * Cette methode fait tous les tests necessaires pour regarder si
+     * l'événement saisie est valide ou non.
+     * Si des éléments saisie par l'utilisateur ne sont pas valides,
+     * un message d'erreur apparait en listant les champs à corriger.
+     *
+     * @return Si l'événement saisie est valide ou non.
+     */
     public boolean estValide(){
         String erreur = "";
         boolean valide = true;
@@ -747,6 +1055,9 @@ public class PanelFormulaireEvenement extends JPanel {
         return valide;
     }
 
+    /**
+     * Cette methode remet à 0 tous les champs du panel.
+     */
     public void reset(){
         textFieldIntitule.setText("Saisir le nom de l'événement");
         textFieldIntitule.setForeground(Color.LIGHT_GRAY);
@@ -775,10 +1086,23 @@ public class PanelFormulaireEvenement extends JPanel {
         textAreaDescription.setText("");
     }
 
+    /**
+     * Cette methode permet d'enregistrer un événement avec les champs
+     * que l'utilisateur a saisie.
+     *
+     * @return un événement qui comporte tous les champs
+     * que l'utilisateur a renseigné
+     */
     public Evenement enregistrerEvenement(){
         return new Evenement(panelCalendrierDate.getDateSelectionnee(), textFieldIntitule.getText(), comboBoxPoids.getSelectedIndex()-1, textAreaDescription.getText(), textFieldImage.getText());
     }
 
+    /**
+     * Cette methode permet de dire si un fichier est une image ou non.
+     *
+     * @param file le fichier que l'on souhaite tester
+     * @return Si oui ou non le fichier donné en parametre est une image ou pas.
+     */
     private static boolean estUneImage(File file){
         String chemin = file.toString();
         String extension = chemin.split("\\.")[chemin.split("\\.").length-1];
@@ -786,6 +1110,14 @@ public class PanelFormulaireEvenement extends JPanel {
         return file.exists() && (extension.equals("jpg") || extension.equals("jpeg") || extension.equals("png") || extension.equals("bmp") || extension.equals("tiff"));
     }
 
+    /**
+     * Cette methode permet de redimensionner une image qu'on donne en paramettre.
+     *
+     * @param icon l'icon a redimensionner
+     * @param largeur la largeur souhaité
+     * @param hauteur la hauteur souhaité
+     * @return l'icon redimensionnée
+     */
     private ImageIcon resizeImage(ImageIcon icon, int largeur, int hauteur){
         int largeurOrigine = icon.getImage().getWidth(labelAffichageImage);
         int hauteurOrigine = icon.getImage().getHeight(labelAffichageImage);
@@ -798,6 +1130,12 @@ public class PanelFormulaireEvenement extends JPanel {
         return new ImageIcon(icon.getImage().getScaledInstance((int)(largeurOrigine * ratio),(int)(hauteurOrigine * ratio), Image.SCALE_REPLICATE));
     }
 
+    /**
+     * Cette methode permet de dire si un texte (en String) est un entier ou non.
+     *
+     * @param texte le texte que l'on souhaite tester
+     * @return si oui ou non un texte est un entier ou pas
+     */
     private static boolean estUnEntier(String texte){
         if (texte == null || texte.length() == 0){
             return false;
@@ -810,6 +1148,10 @@ public class PanelFormulaireEvenement extends JPanel {
         return true;
     }
 
+    /**
+     * Cette methode analyse le contenu du textFieldDate
+     * pour comprendre quelle date est saisie par l'utilisateur.
+     */
     private void analyseTextFieldDate(){
         String[] texte = textFieldDate.getText().split(" ");
 
@@ -847,6 +1189,10 @@ public class PanelFormulaireEvenement extends JPanel {
         }
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant textFieldIntitule.
+     */
     private void avanceStyleSaisieIntitule(){
         timerStyleSaisieIntitule.cancel();
         timerStyleSaisieIntitule.purge();
@@ -864,6 +1210,10 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisieIntitule.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant textFieldIntitule.
+     */
     private void reculeStyleSaisieIntitule(){
         timerStyleSaisieIntitule.cancel();
         timerStyleSaisieIntitule.purge();
@@ -881,6 +1231,10 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisieIntitule.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant textFieldDate.
+     */
     private void avanceStyleSaisieDate(){
         timerStyleSaisieDate.cancel();
         timerStyleSaisieDate.purge();
@@ -898,6 +1252,10 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisieDate.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant textFieldDate.
+     */
     private void reculeStyleSaisieDate(){
         timerStyleSaisieDate.cancel();
         timerStyleSaisieDate.purge();
@@ -915,6 +1273,10 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisieDate.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant comboBoxPoids.
+     */
     private void avanceStyleSaisiePoids(){
         timerStyleSaisiePoids.cancel();
         timerStyleSaisiePoids.purge();
@@ -932,6 +1294,10 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisiePoids.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant comboBoxPoids.
+     */
     private void reculeStyleSaisiePoids(){
         timerStyleSaisiePoids.cancel();
         timerStyleSaisiePoids.purge();
@@ -949,6 +1315,10 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisiePoids.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant textFieldImage.
+     */
     private void avanceStyleSaisieImage(){
         timerStyleSaisieImage.cancel();
         timerStyleSaisieImage.purge();
@@ -966,6 +1336,10 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisieImage.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant textFieldImage.
+     */
     private void reculeStyleSaisieImage(){
         timerStyleSaisieImage.cancel();
         timerStyleSaisieImage.purge();
@@ -983,18 +1357,38 @@ public class PanelFormulaireEvenement extends JPanel {
         timerStyleSaisieImage.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Getter de panelCalendrierDate.
+     *
+     * @return le panelCalendrierDate
+     */
     public PanelCalendrierDate getPanelCalendrierDate() {
         return panelCalendrierDate;
     }
 
+    /**
+     * Getter de textFieldDate.
+     *
+     * @return le textFieldDate
+     */
     public JTextField getTextFieldDate() {
         return textFieldDate;
     }
 
+    /**
+     * Getter de buttonAjouter.
+     *
+     * @return le buttonAjouter
+     */
     public JButton getButtonAjouter() {
         return buttonAjouter;
     }
 
+    /**
+     * Getter de comboBoxSelectionFrise.
+     *
+     * @return le comboBoxSelectionFrise
+     */
     public JComboBox<String> getComboBoxSelectionFrise() {
         return comboBoxSelectionFrise;
     }
