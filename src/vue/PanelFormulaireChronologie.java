@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package vue;
 
 import controleur.ControleurPanelFormulaireChronologie;
@@ -16,17 +11,50 @@ import java.io.File;
 import javax.swing.*;
 
 /**
+ * Cette classe permet d'afficher un formulaire permettant de créer une frise chronologique
+ * @author Pablo RICAN
  *
- * @author miste
+ * @version 1.0
  */
 public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
+    /**
+     * Bouton permettant d'ouvrir le sélectionneur de fichier
+     * pour choisir le chemin d'enregistrement de la frise
+     */
     private javax.swing.JButton boutonParcourirDossier;
+
+    /**
+     * Bouton permettant d'ouvrir le sélectionneur de fichier
+     * pour choisir le chemin de l'image
+     */
     private javax.swing.JButton boutonParcourirImage;
+
+    /**
+     * Bouton permettant d'enregistrer une nouvelle frise
+     */
     private javax.swing.JButton buttonAjouter;
+
+    /**
+     * ComboBox permettant de sélectionner la période de la frise
+     */
     private javax.swing.JComboBox<String> comboBoxPeriode;
+
+    /**
+     * Sélectionneur de fichier permettant
+     * de choisir le chemin d'enregistrement de la frise
+     */
     private javax.swing.JFileChooser fileChooserDossier;
+
+    /**
+     * Sélectionneur de fichier permettant
+     * de choisir le chemin de l'image
+     */
     private javax.swing.JFileChooser fileChooserImage;
+
+    /**
+     * Label permettant d'afficher l'icon
+     */
     private javax.swing.JLabel labelDateDebut;
     private javax.swing.JLabel labelDateFin;
     private javax.swing.JLabel labelDossier;
