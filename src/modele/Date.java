@@ -340,7 +340,6 @@ public class Date implements Comparable<Date>, Serializable {
 	 * @return String correspondant au format JourDeLaSemaine NuméroDuJour Mois.
 	 * 
 	 * @author Antoine Limerutti / Pablo Rican
-	 * 
 	 */
 	  public String toString () {
 		String chaine;
@@ -364,14 +363,35 @@ public class Date implements Comparable<Date>, Serializable {
 		return chaine + " " + annee;
 	  }
 
+	/**
+	 * Crée une chaine de charactère précisant certains champs de l'objet appellant.
+	 *
+	 * @return String correspondant au format jour moisDeLAnnee Annee.
+	 *
+	 * @author Pablo Rican
+	 */
   public String toStringJourMoisAnnee(){
   	return jour + " " + MOIS_DE_L_ANNEE[mois-1] + " " + annee;
   }
 
+	/**
+	 * Crée une chaine de charactère précisant certains champs de l'objet appellant.
+	 *
+	 * @return String correspondant au format moisDeLAnnee Annee.
+	 *
+	 * @author Pablo Rican
+	 */
   public String toStringMoisAnnee(){
   	return MOIS_DE_L_ANNEE[mois-1] + " " + annee;
   }
 
+	/**
+	 * Crée une chaine de charactère précisant certains champs de l'objet appellant.
+	 *
+	 * @return String correspondant au format jour.
+	 *
+	 * @author Pablo Rican
+	 */
   public String toStringJour(){
   	return Integer.toString(jour);
   }
@@ -464,16 +484,5 @@ public class Date implements Comparable<Date>, Serializable {
 	 */
 	public int getJourSemaine () {
 		return jourSemaine;
-	}
-
-	/**
-	 * Retourne le numéro de semaine à la date de l'objet appellant pour l'année.
-	 *
-	 * @return Entier correspondant au numéro de semaine dans l'année.
-	 *
-	 * @author Antoine Limerutti / Pablo Rican
-	 */
-	public int getNumeroSemaine() {
-		return (new GregorianCalendar(annee, mois-1, jour)).get(Calendar.WEEK_OF_YEAR);
 	}
 }  // class Date
