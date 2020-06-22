@@ -132,7 +132,7 @@ public class PanelAffichage extends JPanel {
      *
      * @see Controleur
      *
-     * @Author ANtoine Limerutti
+     * @Author Antoine Limerutti
      */
     public void enregistreEcouteur(Controleur controleur){
         boutonSupr.setActionCommand("suprimmerFrise>"+frise.getAdresseFichierSauvegarde());
