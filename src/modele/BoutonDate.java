@@ -6,7 +6,7 @@ import javax.swing.JButton;
  * <b>Abstraction d'un bouton auquel on associe un objet de type Date.<br>
  * Appartient au package modeles.</b>
  *
- * @author Antoine Limerutti
+ * @author Antoine Limerutti / Pablo Rican
  *
  * @see modele.Date
  * @see javax.swing.JButton
@@ -28,7 +28,7 @@ public class BoutonDate extends JButton {
      *
      * @see modele.Date
      *
-     * @author Antoine Limerutti
+     * @author Antoine Limerutti / Pablo Rican
      */
     public BoutonDate(Date parDate) {
         super (Integer.toString (parDate.getJour()));
@@ -40,7 +40,7 @@ public class BoutonDate extends JButton {
      *
      * @return String précisant la valeur du champ date.
      *
-     * @author Antoine Limerutti
+     * @author Antoine Limerutti / Pablo Rican
      *
      */
     public String toString() {
@@ -52,7 +52,7 @@ public class BoutonDate extends JButton {
      *
      * @param parDate Date ayant la valeur que l'on veut donner au champ date.
      *
-     * @author Antoine Limerutti
+     * @author Antoine Limerutti / Pablo Rican
      *
      */
     public void setDate(Date parDate) {
@@ -64,7 +64,7 @@ public class BoutonDate extends JButton {
      *
      * @return Date qui correspond à la valeur du champ date.
      *
-     * @author Antoine Limerutti
+     * @author Antoine Limerutti / Pablo Rican
      *
      */
     public Date getDate() {
