@@ -8,39 +8,33 @@ public class ModeleTableFrise extends DefaultTableModel {
         int nbColonne = nbCol(frise.getDateDebut(), frise.getDateFin(), frise.getPeriode());
         setColumnCount(nbColonne);
 
-        int indiceEvent = 0, i=0;
-
-        Evenement event = frise.get(indiceEvent);
+        Evenement event = frise.get(0);
         Date dateTemp = new Date(frise.getDateDebut().getJour(), frise.getDateDebut().getMois(), frise.getDateDebut().getAnnee());
 
-        while(i<nbColonne && event!=null){
+        for(int i = 1; event!=null; i++){
+            if(frise.getPeriode()==0)
+                setValueAt(event, event.getPoids(), frise.getDateDebut().nbJourEntre(event.getDate()));
 
-            if((frise.getPeriode()==0 || frise.getPeriode()==1) && dateTemp.compareTo(event.getDate())==0
-                    || frise.getPeriode()==2 && event.getDate().getAnnee()==dateTemp.getAnnee() && event.getDate().getMois()==dateTemp.getMois()
-                    || frise.getPeriode()==3 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+i) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(i+1))-1
-                    || frise.getPeriode()==4 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(5*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(5*(i+1)))-1
-                    || frise.getPeriode()==5 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(10*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(10*(i+1)))-1
-                    || frise.getPeriode()==6 && event.getDate().getAnnee()>(frise.getDateDebut().getAnnee()+(100*i)) && event.getDate().getAnnee()<(frise.getDateDebut().getAnnee()+(100*(i+1)))-1){
-                setValueAt(event, event.getPoids(), i);
-                indiceEvent++;
-                event = frise.get(indiceEvent);
+            else if(frise.getPeriode()==1) {
+                setValueAt(event, event.getPoids(), frise.getDateDebut().nbSemaineEntre(event.getDate()) - 2);
+                System.out.println(i);
             }
+            else if(frise.getPeriode()==2)
+                setValueAt(event, event.getPoids(), frise.getDateDebut().nbMoisEntre(event.getDate()));
 
-            else{
-                if(frise.getPeriode()==0)
-                    dateTemp = dateTemp.dateDuLendemain();
+            else if (frise.getPeriode()==3)
+                setValueAt(event, event.getPoids(), event.getDate().getAnnee()-frise.getDateDebut().getAnnee());
 
-                else if(frise.getPeriode()==1) {
-                    for (int j = 0; j < 7; j++)
-                        dateTemp = dateTemp.dateDuLendemain();
-                }
+            else if(frise.getPeriode()==4)
+                setValueAt(event, event.getPoids(), frise.getDateDebut().nbAnneeEntre(event.getDate())/5);
 
-                else if(frise.getPeriode()==2){
-                    dateTemp.setJour(Date.dernierJourDuMois(dateTemp.getMois(), dateTemp.getAnnee()));
-                    dateTemp = dateTemp.dateDuLendemain();
-                }
-                i++;
-            }
+            else if(frise.getPeriode()==5)
+                setValueAt(event, event.getPoids(), frise.getDateDebut().nbAnneeEntre(event.getDate())/10);
+
+            else if(frise.getPeriode()==6)
+                setValueAt(event, event.getPoids(), frise.getDateDebut().nbAnneeEntre(event.getDate())/100);
+
+            event = frise.get(i);
         }
 
         setColumnIdentifiers(getIdentifieur(frise.getPeriode(), nbColonne, frise.getDateDebut()));
@@ -50,7 +44,7 @@ public class ModeleTableFrise extends DefaultTableModel {
         if(periode==0)
             return debut.nbJourEntre(fin)+1;
         else if(periode==1)
-            return debut.nbSemaineEntre(fin);
+            return debut.nbSemaineEntre(fin)-1;
         else if(periode==2)
             return debut.nbMoisEntre(fin)+1;
         else if(periode==3)
