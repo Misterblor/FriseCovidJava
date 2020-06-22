@@ -12,7 +12,7 @@ import java.awt.*;
  *
  * @see JPanel
  *
- * @Author Antoine Limerutti
+ * @author Antoine Limerutti
  *
  * @version 1.0
  */
@@ -34,7 +34,7 @@ public class PanelAffichage extends JPanel {
     /**
      * Constructeur du PanelAffichage lorsqu'aucune Chronologie n'est sélectionnée pour visionnage.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public PanelAffichage(){
         setLayout(new BorderLayout());
@@ -51,7 +51,7 @@ public class PanelAffichage extends JPanel {
      *
      * @see Chronologie
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public PanelAffichage(Chronologie parFrise) {
         setLayout(new GridBagLayout());
@@ -132,7 +132,7 @@ public class PanelAffichage extends JPanel {
      *
      * @see Controleur
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public void enregistreEcouteur(Controleur controleur){
         boutonSupr.setActionCommand("suprimmerFrise>"+frise.getAdresseFichierSauvegarde());

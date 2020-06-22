@@ -65,7 +65,7 @@ public class RendererTableFrise extends JLabel implements TableCellRenderer {
      *
      * @return ImageIcon ayant une taille correcte.
      *
-     * @Author Pablo Rican
+     * @author Pablo Rican
      *
      * @see ImageIcon
      */

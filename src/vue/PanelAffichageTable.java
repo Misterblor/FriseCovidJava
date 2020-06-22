@@ -14,7 +14,7 @@ import java.awt.event.MouseEvent;
  *
  * @see JPanel
  *
- * @Author Antoine Limerutti
+ * @author Antoine Limerutti
  *
  * @version 1.0
  */
@@ -42,7 +42,7 @@ public class PanelAffichageTable extends JPanel {
      * @see Chronologie
      * @see PanelAffichageEvenement
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public PanelAffichageTable(Chronologie frise, PanelAffichageEvenement affichageEvent) {
         tableFrise = new JTable();
@@ -78,7 +78,7 @@ public class PanelAffichageTable extends JPanel {
     /**
      * Permet de faire scroller la table à l'évènement en cours de visionnage dans le panel PanelAffichageEvenement.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public void setCol(Date dateDebut, Date dateEvent, int periode){
         tableFrise.scrollRectToVisible(tableFrise.getCellRect(1, modele.nbCol(dateDebut, dateEvent, periode),false));

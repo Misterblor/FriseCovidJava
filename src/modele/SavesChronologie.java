@@ -35,7 +35,7 @@ public class SavesChronologie implements Serializable {
     /**
      * Constructeur de la classe SaveChronologie.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public SavesChronologie(){
         listeSave = new ArrayList<String>();
@@ -46,7 +46,7 @@ public class SavesChronologie implements Serializable {
      *
      * @param save String du chemin de sauvegarde à ajouter dans la liste des sauvegardes.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public void add(String save){
         if(!listeSave.contains(save)) {
@@ -60,7 +60,7 @@ public class SavesChronologie implements Serializable {
      *
      * @param save String du chemin de sauvegarde à retirer de la liste des sauvegardes.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public void remove(String save){
         Iterator<String> iterator = listeSave.iterator();
@@ -85,7 +85,7 @@ public class SavesChronologie implements Serializable {
      *
      * @return String du chemin de sauvegarde à l'indice i.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public String get(int i){
         return listeSave.get(i);
@@ -96,7 +96,7 @@ public class SavesChronologie implements Serializable {
      *
      * @return Entier correspondant à la taille du champ listeSave.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public int size() {
         return listeSave.size();
@@ -107,7 +107,7 @@ public class SavesChronologie implements Serializable {
      *
      * @return Iterator du champ listeSave.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      *
      * @see Iterator
      */
@@ -118,7 +118,7 @@ public class SavesChronologie implements Serializable {
     /**
      * Percours les chemins de sauvegarde et recherche les chemins qui ne pointent plus vers un fichier de sauvegarde afin de les retirer de la liste.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public void verification(){
         ArrayList<String> supr = new ArrayList<>();

@@ -202,7 +202,7 @@ public class Chronologie implements Serializable {
     /**
      * Accesseur du champ image.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      *
      * @see javax.swing.ImageIcon
      *

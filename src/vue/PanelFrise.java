@@ -17,7 +17,7 @@ import java.awt.event.ActionListener;
  *
  * @version 1.0
  *
- * @Author
+ * @author Antoine Limerutti / Pablo Rican
  */
 public class PanelFrise extends JPanel implements ActionListener {
     /**
@@ -83,7 +83,7 @@ public class PanelFrise extends JPanel implements ActionListener {
      *
      * @version 1.0
      *
-     * @Author Antoine Limerutti / Pablo Rican
+     * @author Antoine Limerutti / Pablo Rican
      */
     public PanelFrise(FenetreAccueil parFenetreMere){
         card = new CardLayout();
@@ -165,7 +165,7 @@ public class PanelFrise extends JPanel implements ActionListener {
      *
      * @param affichage PanelAffichage à mettre à la place du précédent.
      *
-     * @Author Antoine Limerutti / Pablo Rican
+     * @author Antoine Limerutti / Pablo Rican
      *
      * @see PanelAffichage
      */
@@ -185,7 +185,7 @@ public class PanelFrise extends JPanel implements ActionListener {
      *
      * @see PanelAffichage
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public void updatePanelAffichage(PanelAffichage affichage){
         remove(panelAffichage);
@@ -199,7 +199,7 @@ public class PanelFrise extends JPanel implements ActionListener {
      *
      * @see PanelAffichage
      *
-     * @Author Pablo Rican
+     * @author Pablo Rican
      */
     public void resetPanelAffichage(){
         remove(panelAffichage);
@@ -217,7 +217,7 @@ public class PanelFrise extends JPanel implements ActionListener {
     /**
      * Affiche le PanelFormulaireChronologie.
      *
-     * @Author Antoie Limerutti
+     * @author Antoie Limerutti
      */
     public void enableFormulaireChronologie() {
         panelFormulaireChronologie.reset();
@@ -229,7 +229,7 @@ public class PanelFrise extends JPanel implements ActionListener {
     /**
      * Sortie du PanelFormulaireChronologie, retour au PanelChoixFrise.
      *
-     * @Author Antoie Limerutti
+     * @author Antoie Limerutti
      */
     public void disableFormulaireChronologie() {
         panelFormulaireChronologie.reset();
@@ -245,7 +245,7 @@ public class PanelFrise extends JPanel implements ActionListener {
      *
      * @see CardLayout
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public CardLayout getCard() {
         return card;
@@ -258,7 +258,7 @@ public class PanelFrise extends JPanel implements ActionListener {
      *
      * @see FenetreAccueil
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public FenetreAccueil getFenetreMere() {
         return fenetreMere;
@@ -269,7 +269,7 @@ public class PanelFrise extends JPanel implements ActionListener {
      *
      * @param panelChoixFrise PanelChoixFrise à mettre à la place du panelChoixFrise actuel.
      *
-     * @Author Pablo Rican
+     * @author Pablo Rican
      *
      * @see PanelChoixFrise
      */

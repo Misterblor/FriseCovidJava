@@ -34,7 +34,7 @@ public class PanelChoixFrise extends JPanel {
     /**
      * Constructeur de la classe PanelChoixFrise. Crée les boutons correspondant à chaque Chronologie et les ajoute.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      */
     public PanelChoixFrise() {
         setLayout(new GridLayout(7, 7, 20, 20));
@@ -104,7 +104,7 @@ public class PanelChoixFrise extends JPanel {
      *
      * @return ImageIcon ayant une taille correcte.
      *
-     * @Author Pablo Rican
+     * @author Pablo Rican
      *
      * @see ImageIcon
      */

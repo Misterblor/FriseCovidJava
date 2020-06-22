@@ -17,7 +17,7 @@ import java.util.StringTokenizer;
  *
  * @see JPanel
  *
- * @Author Antoine Limerutti
+ * @author Antoine Limerutti
  *
  * @version 1.0
  */
@@ -82,6 +82,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         labelIntituleDate = new JLabel();
         labelDesc = new JLabel();
         reinitEvent(0);
+        indiceEventUtil=0;
 
         GridBagConstraints contrainte = new GridBagConstraints();
         contrainte.insets = new Insets(6,6,6,6);
@@ -107,6 +108,8 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         contrainte.gridx=1;
         contrainte.gridy=1;
         add(scrollPane, contrainte);
+
+        affichageTable.setCol(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode());
     }
 
     /**
@@ -120,13 +123,13 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
      */
     public void actionPerformed(ActionEvent event) {
         if (frise.getNbEvent() != 0) {
-            if (event.getActionCommand() == "precedent") {
+            if (event.getActionCommand().equals("precedent")) {
                 if (indiceEventUtil == 0) {
                     reinitEvent(frise.getNbEvent() - 1);
                 } else {
                     reinitEvent(indiceEventUtil - 1);
                 }
-            } else if (event.getActionCommand() == "suivant")
+            } else if (event.getActionCommand().equals("suivant"))
                 reinitEvent((indiceEventUtil + 1) % frise.getNbEvent());
             affichageTable.setCol(frise.getDateDebut(), frise.get(indiceEventUtil).getDate(), frise.getPeriode());
         }
@@ -187,7 +190,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
      *
      * @return ImageIcon ayant une taille correcte.
      *
-     * @Author Pablo Rican
+     * @author Pablo Rican
      *
      * @see ImageIcon
      */
@@ -208,7 +211,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
      *
      * @param affichageTable PanelAffichageTable à affecter au champ PanelAffichageTable.
      *
-     * @Author Antoine Limerutti
+     * @author Antoine Limerutti
      *
      * @see PanelAffichageTable
      */
