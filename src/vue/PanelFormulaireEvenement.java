@@ -10,7 +10,6 @@ import modele.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.Timer;
 import javax.swing.*;
@@ -18,7 +17,7 @@ import javax.swing.GroupLayout;
 import javax.swing.border.*;
 
 /**
- * @author Blor
+ * @author Pablo RICAN
  */
 public class PanelFormulaireEvenement extends JPanel {
     // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
@@ -281,6 +280,12 @@ public class PanelFormulaireEvenement extends JPanel {
         //---- comboBoxSelectionFrise ----
         comboBoxSelectionFrise.setBackground(Color.white);
         comboBoxSelectionFrise.setFont(new Font("Open Sans", Font.PLAIN, 14));
+        comboBoxSelectionFrise.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                comboBoxSelectionFriseActionListener(e);
+            }
+        });
 
         SavesChronologie frises = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
         frises.verification();
@@ -448,6 +453,21 @@ public class PanelFormulaireEvenement extends JPanel {
         }
         if ((int)e.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
+        }
+    }
+
+    public void comboBoxSelectionFriseActionListener(ActionEvent e){
+        if (comboBoxSelectionFrise.getSelectedIndex() > 0){
+            comboBoxSelectionFrise.setForeground(Color.BLACK);
+            SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
+            listeChronologie.verification();
+            Chronologie[] chronologies = new Chronologie[listeChronologie.size()];
+            for (int i = 0; i < listeChronologie.size(); i++) {
+                chronologies[i] = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
+            }
+            Chronologie chronologieSelectionnee = chronologies[comboBoxSelectionFrise.getSelectedIndex()-1];
+            panelCalendrierDate.setDate(chronologieSelectionnee.getDateDebut());
+            textFieldDate.setText(panelCalendrierDate.getDateSelectionnee().toStringJourMoisAnnee());
         }
     }
 
@@ -792,7 +812,7 @@ public class PanelFormulaireEvenement extends JPanel {
         int largeurOrigine = icon.getImage().getWidth(labelAffichageImage);
         int hauteurOrigine = icon.getImage().getHeight(labelAffichageImage);
         float ratio;
-        if (largeurOrigine - largeur > hauteurOrigine - hauteur){
+        if ((float)largeur / largeurOrigine < (float)hauteur / hauteurOrigine){
             ratio = (float) largeur / largeurOrigine;
         } else {
             ratio = (float) hauteur / hauteurOrigine;

@@ -32,7 +32,7 @@ public class RendererTableFrise extends JLabel implements TableCellRenderer {
         int largeurOrigine = icon.getIconWidth();
         int hauteurOrigine = icon.getIconHeight();
         float ratio;
-        if (largeurOrigine - 100 > hauteurOrigine - 100){
+        if ((float)100 / largeurOrigine < (float)100 / hauteurOrigine){
             ratio = (float) 100 / largeurOrigine;
         } else {
             ratio = (float) 100 / hauteurOrigine;

@@ -88,7 +88,7 @@ public class PanelChoixFrise extends javax.swing.JPanel {
         int largeurOrigine = icon.getIconWidth();
         int hauteurOrigine = icon.getIconHeight();
         float ratio;
-        if (largeurOrigine - 80 > hauteurOrigine - 80){
+        if ((float)80 / largeurOrigine < (float)80 / hauteurOrigine){
             ratio = (float) 80 / largeurOrigine;
         } else {
             ratio = (float) 80 / hauteurOrigine;

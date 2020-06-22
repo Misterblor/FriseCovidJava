@@ -115,7 +115,7 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         int largeurOrigine = icon.getImage().getWidth(labelImage);
         int hauteurOrigine = icon.getImage().getHeight(labelImage);
         float ratio;
-        if (largeurOrigine - largeur > hauteurOrigine - hauteur){
+        if ((float)largeur / largeurOrigine < (float)hauteur / hauteurOrigine){
             ratio = (float) largeur / largeurOrigine;
         } else {
             ratio = (float) hauteur / hauteurOrigine;
