@@ -5,13 +5,31 @@ import vue.*;
 import modele.*;
 
 /**
+ * <b>
+ *     Cette classe permet de gérer la synchronisation entre la classe PanelFormulaireChronologie et PanelCalendrier<br>
+ *     Appartient au package controleur.
+ * </b>
  *
- * @author miste
+ * @author Pablo Rican
+ *
+ * @see ActionListener
+ *
+ * @version 1.0
  */
 public class ControleurPanelFormulaireChronologie implements ActionListener{
 
+    /**
+     * PanelFormulaireChronologie que l'on a besoin de synchroniser.
+     * @see PanelFormulaireEvenement
+     */
     private PanelFormulaireChronologie panelFormulaireChronologie;
 
+    /**
+     * Constructeur de la classe ControleurPanelFormulaireChronologie.
+     * Ajoute un écouteur aux PanelCalendrierDate.
+     *
+     * @param panelFormulaireChronologie PanelFormulaireChronologie que l'on a besoin de synchroniser
+     */
     public ControleurPanelFormulaireChronologie(PanelFormulaireChronologie panelFormulaireChronologie){
         this.panelFormulaireChronologie = panelFormulaireChronologie;
         this.panelFormulaireChronologie.getPanelCalendrierDateDebut().enregistreEcouteurChronologie(this);

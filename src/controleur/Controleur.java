@@ -10,6 +10,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ *
+ */
 public class Controleur implements ActionListener {
     PanelFrise panelFrise;
     PanelChoixFrise panelChoixFrise;
