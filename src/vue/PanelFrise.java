@@ -16,17 +16,75 @@ import java.awt.event.ActionListener;
  * @see JPanel
  *
  * @version 1.0
+ *
+ * @Author
  */
 public class PanelFrise extends JPanel implements ActionListener {
+    /**
+     * CardLayout utilisé pour passer d'un panel à l'autre.
+     *
+     * @see CardLayout
+     */
     CardLayout card;
+
+    /**
+     * Dernier JMenuItem utilisé pour changer de panel (Utilisé à des fins graphiques).
+     *
+     * @see JMenuItem
+     */
     JMenuItem selectedMenuItem;
+
+    /**
+     * FenetreAcceuil du PanelFrise.
+     *
+     * @see FenetreAccueil
+     */
     FenetreAccueil fenetreMere;
+
+    /**
+     * PanelChoixFrise qui vas permettre de sélectionner des frises et d'accéder au PanelFormulaireChronologie.
+     *
+     * @see PanelChoixFrise
+     */
     PanelChoixFrise panelChoixFrise;
+
+    /**
+     * PanelAffichage qui vas s'occuper de l'affichage de la frise et de ses évènements.
+     *
+     * @see PanelAffichage
+     */
     PanelAffichage panelAffichage;
+
+    /**
+     * PanelFormulaireChronologie qui vas permettre de renseigner des Chronologies.
+     *
+     * @see PanelFormulaireChronologie
+     */
     PanelFormulaireChronologie panelFormulaireChronologie;
+
+    /**
+     * PanelFormulaireEvenement qui vas permettre de renseigner des Evenements
+     *
+     * @see PanelFormulaireEvenement
+     */
     PanelFormulaireEvenement panelFormulaireEvenement;
+
+    /**
+     * Controleur qui vas gérer les actions globales sur le programme.
+     *
+     * @see Controleur
+     */
     Controleur controleur;
 
+    /**
+     * Constructeur de la classe PanelFrise. Il vas instancier les différents panels ainsi que le controleur.
+     *
+     * @param parFenetreMere FenetreAcceuil correspondant à la fenêtre mère.
+     *
+     * @version 1.0
+     *
+     * @Author Antoine Limerutti / Pablo Rican
+     */
     public PanelFrise(FenetreAccueil parFenetreMere){
         card = new CardLayout();
         setLayout(card);
@@ -53,6 +111,8 @@ public class PanelFrise extends JPanel implements ActionListener {
      * Traite les actions provenants des JMenuItem de la barre de menue JMenu.
      *
      * @param event ActionEvent correspondant à une action sur l'un des JMenuItem.
+     *
+     * @see ActionEvent
      *
      * @author Antoine Limerutti
      */
@@ -100,6 +160,15 @@ public class PanelFrise extends JPanel implements ActionListener {
 
     }
 
+    /**
+     * Modifieur du champ affichage. Définit un nouveau PanelAffichage.
+     *
+     * @param affichage PanelAffichage à mettre à la place du précédent.
+     *
+     * @Author Antoine Limerutti / Pablo Rican
+     *
+     * @see PanelAffichage
+     */
     public void setAffichage(PanelAffichage affichage){
         updatePanelAffichage(affichage);
         card.show(this, "Panel Affichage");
@@ -109,6 +178,15 @@ public class PanelFrise extends JPanel implements ActionListener {
         selectedMenuItem.setForeground(Color.GRAY);
     }
 
+    /**
+     * Actualise le PanelAffichage dans le CardLayout.
+     *
+     * @param affichage PanelAffichage à mettre à la place du précédent.
+     *
+     * @see PanelAffichage
+     *
+     * @Author Antoine Limerutti
+     */
     public void updatePanelAffichage(PanelAffichage affichage){
         remove(panelAffichage);
         panelAffichage = affichage;
@@ -116,6 +194,13 @@ public class PanelFrise extends JPanel implements ActionListener {
         add(affichage, "Panel Affichage");
     }
 
+    /**
+     * Définit un nouveau PanelAffichage sans frise associée.
+     *
+     * @see PanelAffichage
+     *
+     * @Author Pablo Rican
+     */
     public void resetPanelAffichage(){
         remove(panelAffichage);
         panelAffichage = new PanelAffichage();
@@ -129,6 +214,11 @@ public class PanelFrise extends JPanel implements ActionListener {
         card.show(this, "Panel Choix Frise");
     }
 
+    /**
+     * Affiche le PanelFormulaireChronologie.
+     *
+     * @Author Antoie Limerutti
+     */
     public void enableFormulaireChronologie() {
         panelFormulaireChronologie.reset();
         fenetreMere.setSize(new Dimension(1280,740));
@@ -136,6 +226,11 @@ public class PanelFrise extends JPanel implements ActionListener {
         fenetreMere.setLocationRelativeTo(null);
     }
 
+    /**
+     * Sortie du PanelFormulaireChronologie, retour au PanelChoixFrise.
+     *
+     * @Author Antoie Limerutti
+     */
     public void disableFormulaireChronologie() {
         panelFormulaireChronologie.reset();
         fenetreMere.setSize(new Dimension(700,700));
@@ -143,14 +238,41 @@ public class PanelFrise extends JPanel implements ActionListener {
         fenetreMere.setLocationRelativeTo(null);
     }
 
+    /**
+     * Accesseur du champ card.
+     *
+     * @return CardLayout correspondant au champ card.
+     *
+     * @see CardLayout
+     *
+     * @Author Antoine Limerutti
+     */
     public CardLayout getCard() {
         return card;
     }
 
+    /**
+     * Accesseur du champ fenetreMere.
+     *
+     * @return FenetreAccueil correspondant au champ fenetreMere.
+     *
+     * @see FenetreAccueil
+     *
+     * @Author Antoine Limerutti
+     */
     public FenetreAccueil getFenetreMere() {
         return fenetreMere;
     }
 
+    /**
+     * Modifieur du champ panelChoixFrise. Remplace et actualise le panelChoixFrise.
+     *
+     * @param panelChoixFrise PanelChoixFrise à mettre à la place du panelChoixFrise actuel.
+     *
+     * @Author Pablo Rican
+     *
+     * @see PanelChoixFrise
+     */
     public void setPanelChoixFrise(PanelChoixFrise panelChoixFrise) {
         remove(panelChoixFrise);
         this.panelChoixFrise = panelChoixFrise;
