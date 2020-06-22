@@ -194,4 +194,15 @@ public class ModeleTableFrise extends DefaultTableModel {
     public Class<Evenement> getColumnClass(int col) {
         return Evenement.class;
     }
+
+    /**
+     * Accesseur du nombre de colonnes du modèle.
+     *
+     * @return Entier correspondant au nombre de colonnes dans le modèle.
+     *
+     * @Author Antoine Limerutti
+     */
+    public int getNbCol() {
+        return getColumnCount();
+    }
 }
