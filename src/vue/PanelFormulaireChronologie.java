@@ -246,7 +246,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     /**
      * Cette methode a été généré par le logiciel NetBeans et permet de placer tous les composants
      * graphiques sur le panel de manière précise. Elle permet aussi de déclarer les methodes
-     * gérant les événements pour les composant s'ils en ont besoin.
+     * gérant les événements pour les composants s'ils en ont besoin.
      *
      * @see GroupLayout
      */

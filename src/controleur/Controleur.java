@@ -1,13 +1,11 @@
 package controleur;
 
 import modele.Chronologie;
-import modele.Date;
 import modele.LectureEcriture;
 import modele.SavesChronologie;
 import vue.*;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;

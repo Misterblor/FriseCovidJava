@@ -162,7 +162,7 @@ public class PanelFormulaireEvenement extends JPanel {
     /**
      * Cette methode a été généré par le logiciel IntelliJ IDEA grâce au plugin JFormDesigner
      * et permet de placer tous les composants graphiques sur le panel de manière précise.
-     * Elle permet aussi de déclarer les methodes gérant les événements pour les composant s'ils en ont besoin.
+     * Elle permet aussi de déclarer les methodes gérant les événements pour les composants s'ils en ont besoin.
      *
      * @see GroupLayout
      */
@@ -1387,7 +1387,7 @@ public class PanelFormulaireEvenement extends JPanel {
     /**
      * Getter de comboBoxSelectionFrise.
      *
-     * @return le comboBoxSelectionFrise
+     * @return la comboBoxSelectionFrise
      */
     public JComboBox<String> getComboBoxSelectionFrise() {
         return comboBoxSelectionFrise;
