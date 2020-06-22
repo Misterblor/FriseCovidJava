@@ -6,7 +6,7 @@ import java.util.GregorianCalendar;
 
 /**
  * <b>Abstraction d'un date ayant un jour, un mois et une année.<br>
- * Appartient au package <br>
+ * Appartient au package modele.<br>
  * Cette classe est serialisable.</b>
  * 
  * @author Antoine Limerutti / Pablo Rican

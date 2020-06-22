@@ -6,7 +6,7 @@ import java.awt.*;
 
 /**
  * <b>Classe qui vas définir les données à mettre dans la JTable de la classe PanelAffichage.<br>
- * Appartient au package modeles.</b>
+ * Appartient au package modele.</b>
  *
  * @author Antoine Limerutti
  *

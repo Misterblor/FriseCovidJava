@@ -8,7 +8,7 @@ import java.util.TreeSet;
 
 /**
  * <b>Abstraction d'une chronologie contenant une liste d'évènements, un intitulé, une date de début et de fin, une periode, une image et une adresse pour son fichier de sauvegarde.<br>
- * Appartient au package modeles.</b>
+ * Appartient au package modele.</b>
  *
  * @author Antoine Limerutti
  *

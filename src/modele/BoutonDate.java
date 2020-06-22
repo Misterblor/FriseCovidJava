@@ -4,7 +4,7 @@ import javax.swing.JButton;
 
 /**
  * <b>Abstraction d'un bouton auquel on associe un objet de type Date.<br>
- * Appartient au package modeles.</b>
+ * Appartient au package modele.</b>
  *
  * @author Antoine Limerutti / Pablo Rican
  *

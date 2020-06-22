@@ -5,7 +5,7 @@ import java.io.Serializable;
 
 /**
  * <b>Abstraction d'un Evenement ayant une date, un titre, un poids, un texte descriptif et une image.<br>
- * Appartient au package modeles.<br>
+ * Appartient au package modele.<br>
  * Cette classe est serializable.</b>
  *
  * @author Antoine Limerutti

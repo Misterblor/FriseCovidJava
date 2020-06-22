@@ -4,7 +4,7 @@ import java.io.*;
 
 /**
  * <b>Classe qui vas permettre de sauvegarder et de charger des objets dans ou depuis des fichiers.<br>
- * Appartient au package modeles</b>
+ * Appartient au package modele.</b>
  *
  * @author Isabelle Robba
  *

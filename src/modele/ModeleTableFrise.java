@@ -4,7 +4,7 @@ import javax.swing.table.DefaultTableModel;
 
 /**
  * <b>Modèle de la JTable du panel PanelAffichageTable.<br>
- * Appartient au package modeles.</b>
+ * Appartient au package modele.</b>
  *
  * @see javax.swing.table.DefaultTableModel
  * @see vue.PanelAffichageTable
