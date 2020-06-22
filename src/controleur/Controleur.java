@@ -11,24 +11,94 @@ import java.awt.event.ActionListener;
 import java.io.File;
 
 /**
+ * <b>
+ *     Cette classe permet de gérer la synchronisation entre les différents Panels avec lesquels l'utilisateur intéragit<br>
+ *     Appartient au package controleur.
+ * </b>
  *
+ * @author Antoine Limerutti / Pablo Rican
+ *
+ * @see ActionListener
+ *
+ * @version 1.0
  */
 public class Controleur implements ActionListener {
+
+    /**
+     * Panel contenant le CardLayout pour naviguer entre les différents panels
+     * @see PanelFrise
+     */
     PanelFrise panelFrise;
+
+    /**
+     * Panel affichant les firses pouvant être lu
+     * et le bouton permettant d'ajouter une nouvelle frise
+     * @see PanelChoixFrise
+     */
     PanelChoixFrise panelChoixFrise;
+
+    /**
+     * Panel permettant à l'utilisateur de renseigner les différents champs
+     * d'une chronologie afin de l'ajouter.
+     * @see PanelFormulaireChronologie
+     */
     PanelFormulaireChronologie panelFormulaireChronologie;
+
+    /**
+     * Panel permettant à l'utilisateur de renseigner les différents champs
+     * d'un événement afin de l'ajouter à une chronologie.
+     * @see PanelFormulaireEvenement
+     */
     PanelFormulaireEvenement panelFormulaireEvenement;
 
+    /**
+     * Constructeur de la classe Controleur.
+     * Ajoute un écouteur aux boutons Ajout des panels
+     * PanelFormulaireChronologie et PanelFormulaireEvenement.
+     *
+     * @param parPanelFrise PanelFrise que l'on a besoin de synchroniser
+     * @param parPanelChoixFrise PanelChoixFrise que l'on a besoin de synchroniser
+     * @param parPanelFormulaireChronologie PanelFormulaireChronologie que l'on a besoin de synchroniser
+     * @param parPanelFormulaireEvenement PanelFormulaireEvenement que l'on a besoin de synchroniser
+     */
     public Controleur(PanelFrise parPanelFrise, PanelChoixFrise parPanelChoixFrise, PanelFormulaireChronologie parPanelFormulaireChronologie, PanelFormulaireEvenement parPanelFormulaireEvenement){
         panelFrise = parPanelFrise;
+
         panelChoixFrise = parPanelChoixFrise;
         panelChoixFrise.enregistreEcouteur(this);
+
         panelFormulaireChronologie = parPanelFormulaireChronologie;
         panelFormulaireChronologie.getButtonAjouter().addActionListener(this);
+
         panelFormulaireEvenement = parPanelFormulaireEvenement;
         panelFormulaireEvenement.getButtonAjouter().addActionListener(this);
     }
 
+    /**
+     * Methode permettant de gérer les événements.
+     *
+     * Quand l'utilisateur clique sur le bouton pour créer une frise,
+     * le panelFormulaireChronologie s'active.
+     *
+     * Quand l'utilisateur clique sur une des frises affichées,
+     * le panelAffichage s'active et affiche la frise sélectionnée.
+     *
+     * Quand l'utilisateur clique sur le bouton Ajouter du panelFormulaireChronologie,
+     * le controleur vérifie la validité des champs entrés et ajoute la chronologie sur
+     * le disque dur de l'utilisateur à l'endroit souhaité.
+     *
+     * Quand l'utilisateur clique sur le bouton Ajouter du panelFormulaireEvenement,
+     * le controleur vérifie la validité des champs entrés et ajoute l'événement
+     * à la frise sélectionnée.
+     *
+     * Quand l'utilisateur clique sur le bouton Supprimer (-) du panelAffichage,
+     * le controleur supprime la chronologie du disque dur de l'utilisateur
+     * et se remet sur le panelChoixFrise.
+     *
+     * @param event l'évenement en question
+     *
+     * @see ActionEvent
+     */
     public void actionPerformed(ActionEvent event) {
         if(event.getActionCommand().compareTo("Créer")==0){
             panelFrise.enableFormulaireChronologie();

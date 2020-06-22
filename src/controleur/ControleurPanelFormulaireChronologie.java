@@ -36,6 +36,15 @@ public class ControleurPanelFormulaireChronologie implements ActionListener{
         this.panelFormulaireChronologie.getPanelCalendrierDateFin().enregistreEcouteurChronologie(this);
     }
 
+    /**
+     * Methode permettant de gérer les événements.
+     * Quand l'utilisateur clique sur un des jours du PanelCalendrierDate,
+     * synchronise la date entre le PanelCalendrierDate et le PanelFormulaireChronologie.
+     *
+     * @param e l'événement en question
+     *
+     * @see ActionEvent
+     */
     @Override
     public void actionPerformed(ActionEvent e) {
         BoutonDate boutonSelectionnee = null;
