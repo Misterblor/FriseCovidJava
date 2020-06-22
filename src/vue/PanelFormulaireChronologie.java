@@ -11,8 +11,14 @@ import java.io.File;
 import javax.swing.*;
 
 /**
- * Cette classe permet d'afficher un formulaire permettant de créer une frise chronologique
+ * <b>
+ *     Cette classe permet d'afficher un formulaire permettant de créer une frise chronologique.<br>
+ *     Appartient au package vue.
+ * </b>
+ *
  * @author Pablo RICAN
+ *
+ * @see JPanel
  *
  * @version 1.0
  */
@@ -21,71 +27,215 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     /**
      * Bouton permettant d'ouvrir le sélectionneur de fichier
      * pour choisir le chemin d'enregistrement de la frise
+     * @see JButton
      */
     private javax.swing.JButton boutonParcourirDossier;
 
     /**
      * Bouton permettant d'ouvrir le sélectionneur de fichier
      * pour choisir le chemin de l'image
+     * @see JButton
      */
     private javax.swing.JButton boutonParcourirImage;
 
     /**
      * Bouton permettant d'enregistrer une nouvelle frise
+     * @see JButton
      */
     private javax.swing.JButton buttonAjouter;
 
     /**
      * ComboBox permettant de sélectionner la période de la frise
+     * @see JComboBox
      */
     private javax.swing.JComboBox<String> comboBoxPeriode;
 
     /**
      * Sélectionneur de fichier permettant
      * de choisir le chemin d'enregistrement de la frise
+     * @see JFileChooser
      */
     private javax.swing.JFileChooser fileChooserDossier;
 
     /**
      * Sélectionneur de fichier permettant
      * de choisir le chemin de l'image
+     * @see JFileChooser
      */
     private javax.swing.JFileChooser fileChooserImage;
 
     /**
-     * Label permettant d'afficher l'icon
+     * Label permettant d'afficher l'icon de la Date
+     * @see JLabel
      */
     private javax.swing.JLabel labelDateDebut;
+
+    /**
+     * Label permettant d'afficher l'icon de la flèche
+     * ou de la flèche barré suivant la validité des dates
+     * @see JLabel
+     */
     private javax.swing.JLabel labelDateFin;
+
+    /**
+     * Label permettant d'afficher l'icon du dossier
+     * @see JLabel
+     */
     private javax.swing.JLabel labelDossier;
+
+    /**
+     * Label permettant d'afficher l'icon de l'image
+     * @see JLabel
+     */
     private javax.swing.JLabel labelImage;
+
+    /**
+     * Label permettant d'afficher l'image choisie par l'utilisateur
+     * @see JLabel
+     */
     private javax.swing.JLabel labelImageAffiche;
+
+    /**
+     * Label permettant d'afficher l'icon de l'intitulé
+     * @see JLabel
+     */
     private javax.swing.JLabel labelIntitule;
+
+    /**
+     * Label permettant d'afficher l'icon de la periode
+     * @see JLabel
+     */
     private javax.swing.JLabel labelPeriode;
+
+    /**
+     * PanelCalendrierDate permettant de saisir la date de début
+     * de la frise
+     * @see PanelCalendrierDate
+     */
     private vue.PanelCalendrierDate panelCalendrierDateDebut;
+
+    /**
+     * PanelCalendrierDate permettant de saisir la date de fin
+     * de la frise
+     * @see PanelCalendrierDate
+     */
     private vue.PanelCalendrierDate panelCalendrierDateFin;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie de la date du début a le focus
+     * @see JProgressBar
+     */
     private javax.swing.JProgressBar styleSaisieDateDebut;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie de la date de fin a le focus
+     * @see JProgressBar
+     */
     private javax.swing.JProgressBar styleSaisieDateFin;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie du dossier de sauvegarde a le focus
+     * @see JProgressBar
+     */
     private javax.swing.JProgressBar styleSaisieDossier;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie de l'image a le focus
+     * @see JProgressBar
+     */
     private javax.swing.JProgressBar styleSaisieImage;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie de l'intitule a le focus
+     * @see JProgressBar
+     */
     private javax.swing.JProgressBar styleSaisieIntitule;
+
+    /**
+     * ProgressBar permettant de créer un effet de style
+     * quand le champ de saisie de la periode a le focus
+     * @see JProgressBar
+     */
     private javax.swing.JProgressBar styleSaisiePeriode;
+
+    /**
+     * Champ de saisie de la date de debut
+     * @see JTextField
+     */
     private javax.swing.JTextField textFieldDateDebut;
+
+    /**
+     * Champ de saisie de la date de fin
+     * @see JTextField
+     */
     private javax.swing.JTextField textFieldDateFin;
+
+    /**
+     * Champ de saisie du dossier de sauvegarde de la frise
+     * @see JTextField
+     */
     private javax.swing.JTextField textFieldDossier;
+
+    /**
+     * Champ de saisie de l'image de la frise
+     * @see JTextField
+     */
     private javax.swing.JTextField textFieldImage;
+
+    /**
+     * Champ de saisie de l'intitule de la frise
+     * @see JTextField
+     */
     private javax.swing.JTextField textFieldIntitule;
 
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisieIntitule
+     * @see java.util.Timer
+     */
     private java.util.Timer timerStyleSaisieIntitule = new java.util.Timer();
+
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisieDateDebut
+     * @see java.util.Timer
+     */
     private java.util.Timer timerStyleSaisieDateDebut = new java.util.Timer();
+
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisieDateFin
+     * @see java.util.Timer
+     */
     private java.util.Timer timerStyleSaisieDateFin = new java.util.Timer();
+
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisiePeriode
+     * @see java.util.Timer
+     */
     private java.util.Timer timerStyleSaisiePeriode = new java.util.Timer();
+
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisieDossier
+     * @see java.util.Timer
+     */
     private java.util.Timer timerStyleSaisieDossier = new java.util.Timer();
+
+    /**
+     * Timer permettant d'utiliser la ProgressBar styleSaisieImage
+     * @see java.util.Timer
+     */
     private java.util.Timer timerStyleSaisieImage = new java.util.Timer();
 
     /**
      * Constructeur de la classe PanelFormulaireChronologie,
-     * permet d'initialiser et de placer tout les composants graphiques
+     * permet d'initialiser et de placer tout les composants graphiques.
+     * Instancie un controleur permettant de gérer les dates avec les PanelCalendrierDate
+     * et les textFieldDate
+     *
+     * @see ControleurPanelFormulaireChronologie
      */
     public PanelFormulaireChronologie() {
         initComponents();
@@ -96,7 +246,9 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     /**
      * Cette methode a été généré par le logiciel NetBeans et permet de placer tous les composants
      * graphiques sur le panel de manière précise. Elle permet aussi de déclarer les methodes
-     * gérant les événements pour les composant si ils en ont besoin.
+     * gérant les événements pour les composant s'ils en ont besoin.
+     *
+     * @see GroupLayout
      */
     @SuppressWarnings("unchecked")
     private void initComponents() {
@@ -435,8 +587,17 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
         textFieldDateDebut.setText(new Date().toStringJourMoisAnnee());
         textFieldDateFin.setText(new Date().toStringJourMoisAnnee());
-    }// </editor-fold>
+    }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldIntitule.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar et on met le cusreur au début du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldIntituleFocusGained(java.awt.event.FocusEvent evt) {
         avanceStyleSaisieIntitule();
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
@@ -444,6 +605,15 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldIntitule.
+     * Quand le composant pert le focus, on regarde la validité de la saisie,
+     * et on fait un effet de style avec la ProgressBar.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldIntituleFocusLost(java.awt.event.FocusEvent evt) {
         SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
         listeChronologie.verification();
@@ -471,6 +641,15 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         reculeStyleSaisieIntitule();
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldIntitule.
+     * Quand la souris est appuyée sur le composant, on regarde si la saisie est "vide"
+     * et on colorie le composant d'une certaine couleur.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldIntituleMousePressed(java.awt.event.MouseEvent evt) {
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
             textFieldIntitule.setCaretPosition(0);
@@ -482,12 +661,32 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldIntitule.
+     * Quand la souris est relachée sur le composant, on regarde si la saisie est "vide"
+     * et on met le curseur au debut du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldIntituleMouseReleased(java.awt.event.MouseEvent evt) {
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
             textFieldIntitule.setCaretPosition(0);
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du clavier du textFieldIntitule.
+     * Quand une touche est tapée sur le composant, on regarde si elle a pour but d'écrire
+     * (donc pas des touches comme Entrée ou Suppr) et on change la couleur de la saisie.
+     * Si la touche tapée est Entrée ou Echap, on controle la validité de la saisie
+     * et on sort du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.KeyEvent
+     */
     private void textFieldIntituleKeyTyped(java.awt.event.KeyEvent evt) {
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldIntitule.setText("");
@@ -530,12 +729,32 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldDateDebut.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar et on rend visible le composant panelCalendrierDateDebut.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldDateDebutFocusGained(java.awt.event.FocusEvent evt) {
         avanceStyleSaisieDateDebut();
         panelCalendrierDateDebut.setVisible(true);
 
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldDateDebut.
+     * Quand le composant pert le focus, on regarde la validité de la saisie,
+     * on met à jour la comboBoxPeriode (suivant l'ecart entre les deux dates),
+     * on fait un effet de style avec la ProgressBar et on rend invisible
+     * le composant panelCalendrierDateDebut.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldDateDebutFocusLost(java.awt.event.FocusEvent evt) {
         reculeStyleSaisieDateDebut();
         panelCalendrierDateDebut.setVisible(false);
@@ -571,11 +790,31 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldDateDebut.
+     * Quand la souris est appuyée sur le composant, on surligne le texte.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldDateDebutMousePressed(java.awt.event.MouseEvent evt) {
         textFieldDateDebut.setSelectionStart(0);
         textFieldDateDebut.setSelectionEnd(textFieldDateDebut.getText().length());
     }
 
+    /**
+     * Methode permettant de gérer les événements du clavier du textFieldDateDebut.
+     * Quand une touche est tapée sur le composant, on change la couleur de la saisie,
+     * et on analyse la saisie pour la transformer en date.
+     * Si la touche tapée est Entrée ou Echap, on controle la validité de la saisie,
+     * on met à jour la comboBoxPeriode (suivant l'ecart entre les deux dates),
+     * et on sort du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.KeyEvent
+     */
     private void textFieldDateDebutKeyTyped(java.awt.event.KeyEvent evt) {
         textFieldDateDebut.setForeground(Color.BLACK);
 
@@ -616,11 +855,31 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldDateFin.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar et on rend visible le composant panelCalendrierDateFin.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldDateFinFocusGained(java.awt.event.FocusEvent evt) {
         avanceStyleSaisieDateFin();
         panelCalendrierDateFin.setVisible(true);
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldDateFin.
+     * Quand le composant pert le focus, on regarde la validité de la saisie,
+     * on met à jour la comboBoxPeriode (suivant l'ecart entre les deux dates),
+     * on fait un effet de style avec la ProgressBar et on rend invisible
+     * le composant panelCalendrierDateFin.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldDateFinFocusLost(java.awt.event.FocusEvent evt) {
         reculeStyleSaisieDateFin();
         panelCalendrierDateFin.setVisible(false);
@@ -656,11 +915,31 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldDateFin.
+     * Quand la souris est appuyée sur le composant, on surligne le texte.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldDateFinMousePressed(java.awt.event.MouseEvent evt) {
         textFieldDateFin.setSelectionStart(0);
         textFieldDateFin.setSelectionEnd(textFieldDateFin.getText().length());
     }
 
+    /**
+     * Methode permettant de gérer les événements du clavier du textFieldDateFin.
+     * Quand une touche est tapée sur le composant, on change la couleur de la saisie,
+     * et on analyse la saisie pour la transformer en date.
+     * Si la touche tapée est Entrée ou Echap, on controle la validité de la saisie,
+     * on met à jour la comboBoxPeriode (suivant l'ecart entre les deux dates),
+     * et on sort du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.KeyEvent
+     */
     private void textFieldDateFinKeyTyped(java.awt.event.KeyEvent evt) {
         textFieldDateFin.setForeground(Color.BLACK);
 
@@ -701,10 +980,28 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus de la comboBoxPeriode.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void comboBoxPeriodeFocusGained(java.awt.event.FocusEvent evt) {
         avanceStyleSaisiePeriode();
     }
 
+    /**
+     * Methode permettant de gérer le focus de la comboBoxPeriode.
+     * Quand le composant pert le focus, on regarde la validité de la saisie,
+     * et on fait un effet de style avec la ProgressBar.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void comboBoxPeriodeFocusLost(java.awt.event.FocusEvent evt) {
         if (comboBoxPeriode.getSelectedIndex() == 0){
             comboBoxPeriode.setForeground(Color.RED);
@@ -716,6 +1013,15 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         reculeStyleSaisiePeriode();
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldDossier.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar et on met le cusreur au début du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldDossierFocusGained(java.awt.event.FocusEvent evt) {
         avanceStyleSaisieDossier();
         if (textFieldDossier.getText().equals("Saisir chemin de sauvegarde")){
@@ -723,6 +1029,15 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldDossier.
+     * Quand le composant pert le focus, on regarde la validité de la saisie,
+     * et on fait un effet de style avec la ProgressBar.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldDossierFocusLost(java.awt.event.FocusEvent evt) {
         File fileDossier = new File(textFieldDossier.getText());
         if ((!(fileDossier.exists()) || !(fileDossier.isDirectory())) && !(textFieldDossier.getText().equals("Saisir le chemin de sauvegarde"))) {
@@ -739,6 +1054,15 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         reculeStyleSaisieDossier();
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldDossier.
+     * Quand la souris est appuyée sur le composant, on regarde si la saisie est "vide"
+     * et on colorie le composant d'une certaine couleur.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldDossierMousePressed(java.awt.event.MouseEvent evt) {
         if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde")){
             textFieldDossier.setCaretPosition(0);
@@ -750,12 +1074,32 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldDossier.
+     * Quand la souris est relachée sur le composant, on regarde si la saisie est "vide"
+     * et on met le curseur au debut du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldDossierMouseReleased(java.awt.event.MouseEvent evt) {
         if (textFieldDossier.getText().equals("Saisir le chemin de sauvegarde")){
             textFieldDossier.setCaretPosition(0);
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du clavier du textFieldDossier.
+     * Quand une touche est tapée sur le composant, on regarde si elle a pour but d'écrire
+     * (donc pas des touches comme Entrée ou Suppr) et on change la couleur de la saisie.
+     * Si la touche tapée est Entrée ou Echap, on controle la validité de la saisie
+     * et on sort du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.KeyEvent
+     */
     private void textFieldDossierKeyTyped(java.awt.event.KeyEvent evt) {
         if (!((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldDossier.setFont(new Font("Open Sans", Font.PLAIN, 14));
@@ -794,6 +1138,16 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du boutonParcourirDossier.
+     * Quand le bouton est appuyé, on affiche le sélectionneur de fichier
+     * et on attend de récupérer le dossier sélectionné. Si le dossier
+     * n'est pas null, on l'affiche dans le textFieldDossier.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.ActionEvent
+     */
     private void boutonParcourirDossierActionPerformed(java.awt.event.ActionEvent evt) {
         fileChooserDossier.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
         fileChooserDossier.setAcceptAllFileFilterUsed(false);
@@ -808,6 +1162,15 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldImage.
+     * Quand le composant gagne le focus, on fait un effet de style
+     * avec la ProgressBar et on met le cusreur au début du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldImageFocusGained(java.awt.event.FocusEvent evt) {
         avanceStyleSaisieImage();
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
@@ -815,6 +1178,15 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer le focus du textFieldImage.
+     * Quand le composant pert le focus, on regarde la validité de la saisie,
+     * et on fait un effet de style avec la ProgressBar.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.FocusEvent
+     */
     private void textFieldImageFocusLost(java.awt.event.FocusEvent evt) {
         File fileImage = new File(textFieldImage.getText());
         if (!(estUneImage(fileImage)) && !(textFieldImage.getText().equals("Saisir le chemin de l'image"))) {
@@ -831,6 +1203,15 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         reculeStyleSaisieImage();
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldImage.
+     * Quand la souris est appuyée sur le composant, on regarde si la saisie est "vide"
+     * et on colorie le composant d'une certaine couleur.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldImageMousePressed(java.awt.event.MouseEvent evt) {
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
@@ -842,12 +1223,32 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements de la souris du textFieldImage.
+     * Quand la souris est relachée sur le composant, on regarde si la saisie est "vide"
+     * et on met le curseur au debut du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.MouseEvent
+     */
     private void textFieldImageMouseReleased(java.awt.event.MouseEvent evt) {
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du clavier du textFieldImage.
+     * Quand une touche est tapée sur le composant, on regarde si elle a pour but d'écrire
+     * (donc pas des touches comme Entrée ou Suppr) et on change la couleur de la saisie.
+     * Si la touche tapée est Entrée ou Echap, on controle la validité de la saisie
+     * et on sort du composant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.KeyEvent
+     */
     private void textFieldImageKeyTyped(java.awt.event.KeyEvent evt) {
         if (!((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 14));
@@ -903,6 +1304,17 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du boutonParcourirImage.
+     * Quand le bouton est appuyé, on affiche le sélectionneur de fichier
+     * et on attend de récupérer le fichier sélectionné. Si le fichier
+     * n'est pas null et est une image, on l'affiche dans le textFieldImage
+     * et on modifie le labelImageAffiche en lui mettant l'image sélectionné.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.ActionEvent
+     */
     private void boutonParcourirImageActionPerformed(java.awt.event.ActionEvent evt) {
         fileChooserImage.showOpenDialog(this);
         File file = fileChooserImage.getSelectedFile();
@@ -917,6 +1329,14 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Cette methode fait tous les tests necessaires pour regarder si
+     * la chronologie saisie est valide ou non.
+     * Si des éléments saisie par l'utilisateur ne sont pas valides,
+     * un message d'erreur apparait en listant les champs à corriger.
+     *
+     * @return Si l'événement saisie est valide ou non.
+     */
     public boolean estValide(){
         String erreur = "";
         boolean valide = true;
@@ -975,6 +1395,9 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         return valide;
     }
 
+    /**
+     * Cette methode remet à 0 tous les champs du panel.
+     */
     public void reset(){
         textFieldIntitule.setText("Saisir le nom de la frise");
         textFieldIntitule.setForeground(Color.LIGHT_GRAY);
@@ -1010,6 +1433,13 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         labelImageAffiche.setIcon(new ImageIcon("ressources\\iconImageAffiche.png"));
     }
 
+    /**
+     * Cette methode permet d'enregistrer une chronologie avec les champs
+     * que l'utilisateur à saisie.
+     *
+     * @return une chronologie qui comporte tous les champs
+     * que l'utilisateur a renseigné
+     */
     public Chronologie enregistreChronologie(){
         if (textFieldImage.getText().equals("Saisir le chemin de l'image")){
             return new Chronologie(textFieldIntitule.getText(), panelCalendrierDateDebut.getDateSelectionnee(), panelCalendrierDateFin.getDateSelectionnee(), comboBoxPeriode.getSelectedIndex()-1, textFieldDossier.getText());
@@ -1019,12 +1449,26 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Cette methode permet de dire si un fichier est une image ou non.
+     *
+     * @param file le fichier que l'on souhaite tester
+     * @return Si oui ou non le fichier donné en parametre est une image ou pas.
+     */
     private static boolean estUneImage(File file){
         String chemin = file.toString();
         String extension = chemin.split("\\.")[chemin.split("\\.").length-1];
         return file.exists() && (extension.equalsIgnoreCase("jpg") || extension.equalsIgnoreCase("jpeg") || extension.equalsIgnoreCase("png") || extension.equalsIgnoreCase("bmp") || extension.equalsIgnoreCase("tiff"));
     }
 
+    /**
+     * Cette methode permet de redimensionner une image qu'on donne en paramettre.
+     *
+     * @param icon l'icon a redimensionner
+     * @param largeur la largeur souhaité
+     * @param hauteur la hauteur souhaité
+     * @return l'icon redimensionnée
+     */
     private ImageIcon resizeImage(ImageIcon icon, int largeur, int hauteur){
         int largeurOrigine = icon.getImage().getWidth(labelImageAffiche);
         int hauteurOrigine = icon.getImage().getHeight(labelImageAffiche);
@@ -1037,6 +1481,12 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         return new ImageIcon(icon.getImage().getScaledInstance((int)(largeurOrigine * ratio),(int)(hauteurOrigine * ratio), Image.SCALE_REPLICATE));
     }
 
+    /**
+     * Cette methode permet de dire si un texte (en String) est un entier ou non.
+     *
+     * @param texte le texte que l'on souhaite tester
+     * @return si oui ou non un texte est un entier ou pas
+     */
     private static boolean estUnEntier(String texte){
         if (texte == null || texte.length() == 0){
             return false;
@@ -1049,6 +1499,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         return true;
     }
 
+    /**
+     * Cette methode analyse le contenu du textFieldDateDebut
+     * pour comprendre quelle date est saisie par l'utilisateur.
+     */
     private void analyseTextFieldDateDebut(){
         String[] texte = textFieldDateDebut.getText().split(" ");
 
@@ -1086,6 +1540,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Cette methode analyse le contenu du textFieldDateFin
+     * pour comprendre quelle date est saisie par l'utilisateur.
+     */
     private void analyseTextFieldDateFin(){
         String[] texte = textFieldDateFin.getText().split(" ");
 
@@ -1123,6 +1581,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant textFieldIntitule.
+     */
     private void avanceStyleSaisieIntitule(){
         timerStyleSaisieIntitule.cancel();
         timerStyleSaisieIntitule.purge();
@@ -1140,6 +1602,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieIntitule.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant textFieldIntitule.
+     */
     private void reculeStyleSaisieIntitule(){
         timerStyleSaisieIntitule.cancel();
         timerStyleSaisieIntitule.purge();
@@ -1157,6 +1623,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieIntitule.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant textFieldDateDebut.
+     */
     private void avanceStyleSaisieDateDebut(){
         timerStyleSaisieDateDebut.cancel();
         timerStyleSaisieDateDebut.purge();
@@ -1174,6 +1644,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieDateDebut.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant textFieldDateDebut.
+     */
     private void reculeStyleSaisieDateDebut(){
         timerStyleSaisieDateDebut.cancel();
         timerStyleSaisieDateDebut.purge();
@@ -1191,6 +1665,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieDateDebut.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant textFieldDateFin.
+     */
     private void avanceStyleSaisieDateFin(){
         timerStyleSaisieDateFin.cancel();
         timerStyleSaisieDateFin.purge();
@@ -1208,6 +1686,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieDateFin.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant textFieldDateFin.
+     */
     private void reculeStyleSaisieDateFin(){
         timerStyleSaisieDateFin.cancel();
         timerStyleSaisieDateFin.purge();
@@ -1225,6 +1707,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieDateFin.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant comboBoxPeriode.
+     */
     private void avanceStyleSaisiePeriode(){
         timerStyleSaisiePeriode.cancel();
         timerStyleSaisiePeriode.purge();
@@ -1242,6 +1728,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisiePeriode.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant comboBoxPeriode.
+     */
     private void reculeStyleSaisiePeriode(){
         timerStyleSaisiePeriode.cancel();
         timerStyleSaisiePeriode.purge();
@@ -1259,6 +1749,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisiePeriode.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant textFieldDossier.
+     */
     private void avanceStyleSaisieDossier(){
         timerStyleSaisieDossier.cancel();
         timerStyleSaisieDossier.purge();
@@ -1276,6 +1770,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieDossier.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant textFieldDossier.
+     */
     private void reculeStyleSaisieDossier(){
         timerStyleSaisieDossier.cancel();
         timerStyleSaisieDossier.purge();
@@ -1293,6 +1791,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieDossier.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (l'avancement) pour le composant textFieldImage.
+     */
     private void avanceStyleSaisieImage(){
         timerStyleSaisieImage.cancel();
         timerStyleSaisieImage.purge();
@@ -1310,6 +1812,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieImage.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Cette methode permet de faire l'effet de style avec la ProgressBar
+     * (le reculement) pour le composant textFieldImage.
+     */
     private void reculeStyleSaisieImage(){
         timerStyleSaisieImage.cancel();
         timerStyleSaisieImage.purge();
@@ -1327,31 +1833,48 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         timerStyleSaisieImage.scheduleAtFixedRate(timerTask, 0, 2);
     }
 
+    /**
+     * Getter de panelCalendrierDateDebut.
+     *
+     * @return le panelCalendrierDateDebut
+     */
     public PanelCalendrierDate getPanelCalendrierDateDebut(){
         return panelCalendrierDateDebut;
     }
 
+    /**
+     * Getter de panelCalendrierDateFin.
+     *
+     * @return le panelCalendrierDateFin
+     */
     public PanelCalendrierDate getPanelCalendrierDateFin(){
         return panelCalendrierDateFin;
     }
 
+    /**
+     * Getter de textFieldDateDebut.
+     *
+     * @return le textFieldDateDebut
+     */
     public JTextField getTextFieldDateDebut(){
         return textFieldDateDebut;
     }
 
+    /**
+     * Getter de textFieldDateFin.
+     *
+     * @return le textFieldDateFin
+     */
     public JTextField getTextFieldDateFin(){
         return textFieldDateFin;
     }
 
-    public JTextField getTextFieldIntitule() {
-        return textFieldIntitule;
-    }
-
+    /**
+     * Getter de buttonAjouter.
+     *
+     * @return le buttonAjouter
+     */
     public JButton getButtonAjouter() {
         return buttonAjouter;
-    }
-
-    public JTextField getTextFieldDossier() {
-        return textFieldDossier;
     }
 }
