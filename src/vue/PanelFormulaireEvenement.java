@@ -1387,7 +1387,7 @@ public class PanelFormulaireEvenement extends JPanel {
     /**
      * Getter de comboBoxSelectionFrise.
      *
-     * @return le comboBoxSelectionFrise
+     * @return la comboBoxSelectionFrise
      */
     public JComboBox<String> getComboBoxSelectionFrise() {
         return comboBoxSelectionFrise;

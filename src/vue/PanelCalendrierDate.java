@@ -188,9 +188,12 @@ public class PanelCalendrierDate extends javax.swing.JPanel {
 
     /**
      * Cette methode permet d'initialiser et de rafraichir le PanelCalendrierDate.
-     *
+     * Elle colorie les bouton de différentes manière pour une meilleur compréhension
+     * de la part de l'utilisateur.
      *
      * @param date Date à laquelle on initialise le PanelCalendrierDate
+     *
+     * @see Date
      */
     private void initPanelCalendrier(Date date){
         Date dateTemp = date;
@@ -226,31 +229,77 @@ public class PanelCalendrierDate extends javax.swing.JPanel {
         }
     }
 
+    /**
+     * Methode permettant de gérer les événements du boutonMoisPrecedent.
+     * Quand le bouton est appuyé, le PanelCalendrierDate se rafraîchit
+     * pour afficher le PanelCalendrierDate au mois précédent.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.ActionEvent
+     */
     private void boutonMoisPrecedentActionPerformed(java.awt.event.ActionEvent evt) {
         initPanelCalendrier(dateReperage.moisPrecedent());
     }
 
+    /**
+     * Methode permettant de gérer les événements du boutonMoisSuivant.
+     * Quand le bouton est appuyé, le PanelCalendrierDate se rafraîchit
+     * pour afficher le PanelCalendrierDate au mois suivant.
+     *
+     * @param evt l'événement en question
+     *
+     * @see java.awt.event.ActionEvent
+     */
     private void boutonMoisSuivantActionPerformed(java.awt.event.ActionEvent evt) {
         initPanelCalendrier(dateReperage.moisSuivant());
     }
 
+    /**
+     * Methode permettant d'enregistrer les écouteurs pour pouvoir utiliser
+     * les boutons dans un controleur.
+     *
+     * @param controleurPanelFormulaireChronologie le controleur dans lequel vont être utilisés les boutons
+     *
+     * @see ControleurPanelFormulaireChronologie
+     */
     public void enregistreEcouteurChronologie(ControleurPanelFormulaireChronologie controleurPanelFormulaireChronologie){
         for (int i = 0; i < listeBoutonDate.length; i++){
             listeBoutonDate[i].addActionListener(controleurPanelFormulaireChronologie);
         }
     }
 
+    /**
+     * Methode permettant d'enregistrer les écouteurs pour pouvoir utiliser
+     * les boutons dans un controleur.
+     *
+     * @param controleurPanelFormulaireEvenement le controleur dans lequel vont être utilisés les boutons
+     *
+     * @see ControleurPanelFormulaireEvenement
+     */
     public void enregistreEcouteurEvenement(ControleurPanelFormulaireEvenement controleurPanelFormulaireEvenement){
         for (int i = 0; i < listeBoutonDate.length; i++){
             listeBoutonDate[i].addActionListener(controleurPanelFormulaireEvenement);
         }
     }
 
+    /**
+     * Methode permettant d'enregistrer une date quand on la sélectionne.
+     * Rafraîchit le PanelCalendrierDate pour changer la couleur des boutons.
+     *
+     * @param date la date à laquelle on rafraîchit et
+     * on enregistre la date dans le PanelCalendrierDate.
+     */
     public void setDate(Date date){
         dateSelectionnee = date;
         initPanelCalendrier(date);
     }
 
+    /**
+     * Getter de dateSelectionnee.
+     *
+     * @return la dateSelectionnee
+     */
     public Date getDateSelectionnee(){
         return dateSelectionnee;
     }
