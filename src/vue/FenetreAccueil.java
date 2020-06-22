@@ -5,9 +5,27 @@ import controleur.Controleur;
 import javax.swing.*;
 import java.awt.Color;
 
+/**
+ * <b>Fenetre qui vas contenir les différents panels.<br>
+ * Appartiens au package vue.</b>
+ *
+ * @Author Antoine Limerutti / Pablo Rican
+ *
+ * @see JFrame
+ */
 public class FenetreAccueil extends JFrame {
+    /**
+     * Barre de menu de la fenetre.
+     *
+     * @see JMenuBar
+     */
     JMenuBar menu;
 
+    /**
+     * Constructeur de la classe Fenetre Acceuil
+     *
+     * @Author Antoine Limerutti / Pablo Rican
+     */
     public FenetreAccueil(){
         super("Frise Creator");
 
@@ -43,6 +61,15 @@ public class FenetreAccueil extends JFrame {
         repaint();
     }
 
+    /**
+     * Accesseur du champ menu.
+     *
+     * @return JMenuBat correspondant au champ menu.
+     *
+     * @Author Antoine Limerutti
+     *
+     * @see JMenuBar
+     */
     public JMenuBar getMenuItem() {
         return menu;
     }
