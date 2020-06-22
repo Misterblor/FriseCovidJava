@@ -22,8 +22,12 @@ import javax.swing.*;
  * Appartiens au package vue.</b>
  *
  * @author Antoine Limerutti
+ *
+ * @see JPanel
+ *
+ * @version 1.0
  */
-public class PanelChoixFrise extends javax.swing.JPanel {
+public class PanelChoixFrise extends JPanel {
 
     JButton[] tableauFrise;
 

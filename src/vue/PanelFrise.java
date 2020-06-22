@@ -9,6 +9,14 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/**
+ * <b>Panel qui vas contenir et coordonner les différents panels de ce programme.<br>
+ * Appartiens au package vue.</b>
+ *
+ * @see JPanel
+ *
+ * @version 1.0
+ */
 public class PanelFrise extends JPanel implements ActionListener {
     CardLayout card;
     JMenuItem selectedMenuItem;
