@@ -61,7 +61,7 @@ public class RendererTableFrise extends JLabel implements TableCellRenderer {
     /**
      * Retaille l'objet ImageIcon fournis en paramètre et la retourne.
      *
-     * @param icon ImageIcon à retailler
+     * @param icon ImageIcon à retailler.
      *
      * @return ImageIcon ayant une taille correcte.
      *

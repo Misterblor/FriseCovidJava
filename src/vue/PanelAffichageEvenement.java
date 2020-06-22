@@ -10,14 +10,67 @@ import java.awt.event.ActionListener;
 import java.util.Iterator;
 import java.util.StringTokenizer;
 
+/**
+ * <b>Panel s'occupant de l'affichage des Evenements.<br>
+ * Panel fils de PanelAffichage.<br>
+ * Appartiens au package vue.</b>
+ *
+ * @see JPanel
+ *
+ * @Author Antoine Limerutti
+ *
+ * @version 1.0
+ */
 public class PanelAffichageEvenement extends JPanel implements ActionListener {
+    /**
+     * Entier correspondant à l'indice de l'évènement affiché.
+     */
     private int indiceEventUtil;
+
+    /**
+     * Chronologie dont on tire les évènements  à afficher.
+     *
+     * @see Chronologie
+     */
     private Chronologie frise;
+
+    /**
+     * JLabel contenant le titre et la date de l'évènement.
+     *
+     * @see JLabel
+     */
     private JLabel labelIntituleDate;
+
+    /**
+     * JLabel contenant l'image de l'évènement.
+     *
+     * @see JLabel
+     */
     private JLabel labelImage;
+
+    /**
+     * JLabel contenant le texte descriptif de l'évènement.
+     *
+     * @see JLabel
+     */
     private JLabel labelDesc;
+
+    /**
+     * Panel contenant la table synchronisée avec le PanelAffichageEvenement.
+     *
+     * @see PanelAffichageTable
+     */
     private PanelAffichageTable affichageTable;
 
+    /**
+     * Constructeur du PanelAffichageEvenement.
+     *
+     * @param parFrise Chronologie dont on veut afficher les évènements.
+     *
+     * @author Antoine Limerutti
+     *
+     * @see Chronologie
+     */
     public PanelAffichageEvenement(Chronologie parFrise) {
         setLayout(new GridBagLayout());
 
@@ -56,6 +109,15 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         add(scrollPane, contrainte);
     }
 
+    /**
+     * Traite les actions internes à la classe PanelAffichageEvenement (changer l'évènement affiché).
+     *
+     * @param event Evenement à traiter.
+     *
+     * @see ActionEvent
+     *
+     * @author Antoine Limerutti
+     */
     public void actionPerformed(ActionEvent event) {
         if (frise.getNbEvent() != 0) {
             if (event.getActionCommand() == "precedent") {
@@ -70,6 +132,11 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Réinitialise les labels pour afficher l'évènement courant
+     *
+     * @param indice indice de l'évènement à afficher (depuis la TreeSet d'évènement de la classe Chronologie).
+     */
     public void reinitEvent(int indice){
         if(indice != -1 && indice<frise.getNbEvent()) {
             indiceEventUtil = indice;
@@ -111,6 +178,19 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         }
     }
 
+    /**
+     * Retaille l'objet ImageIcon fournis en paramètre et la retourne.
+     *
+     * @param icon ImageIcon à retailler.
+     * @param largeur taille max en largeur.
+     * @param hauteur taille max en heuteur.
+     *
+     * @return ImageIcon ayant une taille correcte.
+     *
+     * @Author Pablo Rican
+     *
+     * @see ImageIcon
+     */
     private ImageIcon resizeImage(ImageIcon icon, int largeur, int hauteur){
         int largeurOrigine = icon.getImage().getWidth(labelImage);
         int hauteurOrigine = icon.getImage().getHeight(labelImage);
@@ -123,6 +203,15 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         return new ImageIcon(icon.getImage().getScaledInstance((int)(largeurOrigine * ratio),(int)(hauteurOrigine * ratio), Image.SCALE_REPLICATE));
     }
 
+    /**
+     * Modifieur du champ affichageTable.
+     *
+     * @param affichageTable PanelAffichageTable à affecter au champ PanelAffichageTable.
+     *
+     * @Author Antoine Limerutti
+     *
+     * @see PanelAffichageTable
+     */
     public void setAffichageTable(PanelAffichageTable affichageTable) {
         this.affichageTable = affichageTable;
     }
