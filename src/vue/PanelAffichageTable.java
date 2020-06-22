@@ -80,7 +80,7 @@ public class PanelAffichageTable extends JPanel {
      *
      * @Author Antoine Limerutti
      */
-    public void setCol(){
-        tableFrise.scrollRectToVisible(tableFrise.getCellRect(1, modele.getNbCol(),false));
+    public void setCol(Date dateDebut, Date dateEvent, int periode){
+        tableFrise.scrollRectToVisible(tableFrise.getCellRect(1, modele.nbCol(dateDebut, dateEvent, periode),false));
     }
 }

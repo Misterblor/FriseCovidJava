@@ -26,7 +26,7 @@ public class ModeleTableFrise extends DefaultTableModel {
      */
     public ModeleTableFrise(Chronologie frise) {
         setRowCount(4);
-        nbCol(frise.getDateDebut(), frise.getDateFin(), frise.getPeriode());
+        setColumnCount(nbCol(frise.getDateDebut(), frise.getDateFin(), frise.getPeriode()));
 
         Evenement event = frise.get(0);
 
@@ -64,11 +64,13 @@ public class ModeleTableFrise extends DefaultTableModel {
      * @param fin Date de fin de la chronologie.
      * @param periode Entier correspondant à la periode de la chronologie
      *
+     * @return Nombre de colonne dans la table.
+     *
      * @see Date
      *
      * @author Antoine Limerutti
      */
-    public void nbCol(Date debut, Date fin, int periode){
+    public int nbCol(Date debut, Date fin, int periode){
         int nbColonne=0;
 
         if(periode==0)
@@ -86,7 +88,7 @@ public class ModeleTableFrise extends DefaultTableModel {
         else if(periode==6)
             nbColonne = debut.nbAnneeEntre(fin)%100==0 ? (debut.nbAnneeEntre(fin)+1)/100 : ((debut.nbAnneeEntre(fin)+1)/100)+1;
 
-        setColumnCount(nbColonne);
+        return nbColonne;
     }
 
     /**
@@ -194,16 +196,5 @@ public class ModeleTableFrise extends DefaultTableModel {
      */
     public Class<Evenement> getColumnClass(int col) {
         return Evenement.class;
-    }
-
-    /**
-     * Accesseur du nombre de colonnes du modèle.
-     *
-     * @return Entier correspondant au nombre de colonnes dans le modèle.
-     *
-     * @Author Antoine Limerutti
-     */
-    public int getNbCol() {
-        return getColumnCount();
     }
 }
