@@ -20,8 +20,7 @@ import javax.swing.border.*;
  * @author Pablo RICAN
  */
 public class PanelFormulaireEvenement extends JPanel {
-    // JFormDesigner - Variables declaration - DO NOT MODIFY  //GEN-BEGIN:variables
-    // Generated using JFormDesigner Evaluation license - Blor
+
     private JTextField textFieldIntitule;
     private JProgressBar styleSaisieIntitule;
     private JTextField textFieldDate;
@@ -37,7 +36,7 @@ public class PanelFormulaireEvenement extends JPanel {
     private JLabel labelAffichageImage;
     private JButton buttonAjouter;
     private JComboBox<String> comboBoxSelectionFrise;
-    // JFormDesigner - End of variables declaration  //GEN-END:variables
+
 
     private Timer timerStyleSaisieIntitule = new Timer();
     private Timer timerStyleSaisieDate = new Timer();
@@ -51,8 +50,6 @@ public class PanelFormulaireEvenement extends JPanel {
     }
 
     private void initComponents() {
-        // JFormDesigner - Component initialization - DO NOT MODIFY  //GEN-BEGIN:initComponents
-        // Generated using JFormDesigner Evaluation license - Blor
         JLabel labelIntitule = new JLabel();
         textFieldIntitule = new JTextField();
         styleSaisieIntitule = new JProgressBar();
@@ -280,12 +277,6 @@ public class PanelFormulaireEvenement extends JPanel {
         //---- comboBoxSelectionFrise ----
         comboBoxSelectionFrise.setBackground(Color.white);
         comboBoxSelectionFrise.setFont(new Font("Open Sans", Font.PLAIN, 14));
-        comboBoxSelectionFrise.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                comboBoxSelectionFriseActionListener(e);
-            }
-        });
 
         SavesChronologie frises = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
         frises.verification();
@@ -453,21 +444,6 @@ public class PanelFormulaireEvenement extends JPanel {
         }
         if ((int)e.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
-        }
-    }
-
-    public void comboBoxSelectionFriseActionListener(ActionEvent e){
-        if (comboBoxSelectionFrise.getSelectedIndex() > 0){
-            comboBoxSelectionFrise.setForeground(Color.BLACK);
-            SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
-            listeChronologie.verification();
-            Chronologie[] chronologies = new Chronologie[listeChronologie.size()];
-            for (int i = 0; i < listeChronologie.size(); i++) {
-                chronologies[i] = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
-            }
-            Chronologie chronologieSelectionnee = chronologies[comboBoxSelectionFrise.getSelectedIndex()-1];
-            panelCalendrierDate.setDate(chronologieSelectionnee.getDateDebut());
-            textFieldDate.setText(panelCalendrierDate.getDateSelectionnee().toStringJourMoisAnnee());
         }
     }
 
@@ -672,7 +648,9 @@ public class PanelFormulaireEvenement extends JPanel {
                     && panelCalendrierDate.getDateSelectionnee().compareTo(chronologieSelectionnee.getDateFin()) <= 0)){
                 textFieldDate.setForeground(Color.RED);
                 styleSaisieDate.setForeground(Color.RED);
-                erreur += "- La date saisie n'est pas dans les bornes de la frise choisie\n";
+                erreur += "- La date saisie n'est pas dans les bornes de la frise choisie :\n" +
+                        "Date Debut : " + chronologieSelectionnee.getDateDebut().toStringJourMoisAnnee() +
+                        "\nDate Fin : " + chronologieSelectionnee.getDateFin().toStringJourMoisAnnee() + "\n";
                 valide = false;
             }
             if (chronologieSelectionnee.getPeriode() == 0){

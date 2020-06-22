@@ -61,20 +61,20 @@ public class PanelFrise extends JPanel implements ActionListener {
         }
 
         else if(event.getActionCommand().compareTo("Choix Frise")==0){
-            fenetreMere.setSize(new Dimension(700,700));
-            fenetreMere.setLocationRelativeTo(null);
             setPanelChoixFrise(new PanelChoixFrise());
+            fenetreMere.setSize(new Dimension(700,700));
             card.show(this, "Panel Choix Frise");
+            fenetreMere.setLocationRelativeTo(null);
         }
 
         else if(event.getActionCommand().compareTo("Création")==0){
-            fenetreMere.setSize(new Dimension(1280,740));
-            fenetreMere.setLocationRelativeTo(null);
             panelFormulaireEvenement.reset();
             SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
             listeChronologie.verification();
             panelFormulaireEvenement.updateModelComboBoxSelectionFrise(listeChronologie);
+            fenetreMere.setSize(new Dimension(1280,740));
             card.show(this, "Panel Formulaire Evenement");
+            fenetreMere.setLocationRelativeTo(null);
         }
 
         else if(event.getActionCommand().compareTo("Fermer")==0) {
@@ -122,17 +122,17 @@ public class PanelFrise extends JPanel implements ActionListener {
     }
 
     public void enableFormulaireChronologie() {
-        fenetreMere.setSize(new Dimension(1280,740));
-        fenetreMere.setLocationRelativeTo(null);
         panelFormulaireChronologie.reset();
+        fenetreMere.setSize(new Dimension(1280,740));
         card.show(this, "Panel Formulaire Chronologie");
+        fenetreMere.setLocationRelativeTo(null);
     }
 
     public void disableFormulaireChronologie() {
-        fenetreMere.setSize(new Dimension(700,700));
-        fenetreMere.setLocationRelativeTo(null);
         panelFormulaireChronologie.reset();
+        fenetreMere.setSize(new Dimension(700,700));
         card.show(this, "Panel Choix Frise");
+        fenetreMere.setLocationRelativeTo(null);
     }
 
     public CardLayout getCard() {
