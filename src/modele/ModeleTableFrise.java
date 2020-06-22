@@ -26,6 +26,7 @@ public class ModeleTableFrise extends DefaultTableModel {
      */
     public ModeleTableFrise(Chronologie frise) {
         setRowCount(4);
+        nbCol(frise.getDateDebut(), frise.getDateFin(), frise.getPeriode());
 
         Evenement event = frise.get(0);
 
@@ -71,7 +72,7 @@ public class ModeleTableFrise extends DefaultTableModel {
         int nbColonne=0;
 
         if(periode==0)
-            nbColonne = debut.nbJourEntre(fin)+1;
+            nbColonne = debut.nbJourEntre(fin) + 1;
         else if(periode==1)
             nbColonne = debut.nbSemaineEntre(fin)-1;
         else if(periode==2)
