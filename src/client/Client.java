@@ -8,7 +8,7 @@ import vue.FenetreAccueil;
  *     Appartient au package client.
  * </b>
  *
- * @author Antoine Limerutti /  Pablo Rican
+ * @author Antoine Limerutti / Pablo Rican
  *
  * @version 1.0
  */
