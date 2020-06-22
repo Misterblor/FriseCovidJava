@@ -4,15 +4,38 @@ import controleur.Controleur;
 import modele.Chronologie;
 
 import javax.swing.*;
-import javax.swing.border.LineBorder;
-import javax.swing.plaf.basic.BasicBorders;
 import java.awt.*;
-import java.math.RoundingMode;
 
+/**
+ * <b>Panel s'occupant de l'affichage des Evenements et de la table.<br>
+ * Appartiens au package vue.</b>
+ *
+ * @see JPanel
+ *
+ * @Author Antoine Limerutti
+ *
+ * @version 1.0
+ */
 public class PanelAffichage extends JPanel {
+    /**
+     * JButton qui vas permettre de supprimer la Chronologie en cours de visionnage.
+     *
+     * @see JButton
+     */
     JButton boutonSupr;
+
+    /**
+     * Chronologie que l'on souhaite visionner.
+     *
+     * @see Chronologie
+     */
     Chronologie frise;
 
+    /**
+     * Constructeur du PanelAffichage lorsqu'aucune Chronologie n'est sélectionnée pour visionnage.
+     *
+     * @Author Antoine Limerutti
+     */
     public PanelAffichage(){
         setLayout(new BorderLayout());
 
@@ -21,6 +44,15 @@ public class PanelAffichage extends JPanel {
         add(label, BorderLayout.CENTER);
     }
 
+    /**
+     * Constructeur de la classe PanelAffichage lorsqu'une frise est sélectionnée.
+     *
+     * @param parFrise Chronologie que l'on souhaite visionner.
+     *
+     * @see Chronologie
+     *
+     * @Author Antoine Limerutti
+     */
     public PanelAffichage(Chronologie parFrise) {
         setLayout(new GridBagLayout());
         GridBagConstraints contrainte = new GridBagConstraints();
@@ -93,6 +125,15 @@ public class PanelAffichage extends JPanel {
         affichageEvent.setAffichageTable(affichageTable);
     }
 
+    /**
+     * Met le controleur passé en paramètre à l'écoute de champ boutonSupr.
+     *
+     * @param controleur Controleur qui vas être mis à l'écoute du champ boutonSupr.
+     *
+     * @see Controleur
+     *
+     * @Author ANtoine Limerutti
+     */
     public void enregistreEcouteur(Controleur controleur){
         boutonSupr.setActionCommand("suprimmerFrise>"+frise.getAdresseFichierSauvegarde());
         boutonSupr.addActionListener(controleur);
