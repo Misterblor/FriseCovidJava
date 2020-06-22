@@ -9,16 +9,14 @@ public class ModeleTableFrise extends DefaultTableModel {
         setColumnCount(nbColonne);
 
         Evenement event = frise.get(0);
-        Date dateTemp = new Date(frise.getDateDebut().getJour(), frise.getDateDebut().getMois(), frise.getDateDebut().getAnnee());
 
         for(int i = 1; event!=null; i++){
             if(frise.getPeriode()==0)
                 setValueAt(event, event.getPoids(), frise.getDateDebut().nbJourEntre(event.getDate()));
 
-            else if(frise.getPeriode()==1) {
+            else if(frise.getPeriode()==1)
                 setValueAt(event, event.getPoids(), frise.getDateDebut().nbSemaineEntre(event.getDate()) - 2);
-                System.out.println(i);
-            }
+
             else if(frise.getPeriode()==2)
                 setValueAt(event, event.getPoids(), frise.getDateDebut().nbMoisEntre(event.getDate()));
 
