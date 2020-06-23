@@ -45,7 +45,7 @@ public class FenetreAccueil extends JFrame {
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-        setSize(700,700);
+        setSize(800,700);
         setLocationRelativeTo(null);
         setResizable(false);
         setVisible(true);

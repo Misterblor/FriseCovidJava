@@ -123,14 +123,14 @@ public class PanelFrise extends JPanel implements ActionListener {
         selectedMenuItem.setForeground(Color.GRAY);
 
         if(event.getActionCommand().compareTo("Affichage Frise")==0){
-            fenetreMere.setSize(new Dimension(700,700));
+            fenetreMere.setSize(800,700);
             fenetreMere.setLocationRelativeTo(null);
             card.show(this, "Panel Affichage");
         }
 
         else if(event.getActionCommand().compareTo("Choix Frise")==0){
             setPanelChoixFrise(new PanelChoixFrise());
-            fenetreMere.setSize(new Dimension(700,700));
+            fenetreMere.setSize(800,700);
             card.show(this, "Panel Choix Frise");
             fenetreMere.setLocationRelativeTo(null);
         }
@@ -233,7 +233,7 @@ public class PanelFrise extends JPanel implements ActionListener {
      */
     public void disableFormulaireChronologie() {
         panelFormulaireChronologie.reset();
-        fenetreMere.setSize(new Dimension(700,700));
+        fenetreMere.setSize(800,700);
         card.show(this, "Panel Choix Frise");
         fenetreMere.setLocationRelativeTo(null);
     }

@@ -264,29 +264,26 @@ public class Date implements Comparable<Date>, Serializable {
 	public int nbJourEntre(Date date) {
 		int nbJour = 0;
 		int[] nbJourMois = new int[12];
-		int moisTemp = mois;
+		int moisTemp = mois-1;
 
-		for (int indice = 0; indice < 12; indice++) {
+		for (int indice = 0; indice < 12; indice++)
 			nbJourMois[indice] = dernierJourDuMois(indice + 1, 2019);
-		}
-
-		if(jour<=date.getJour())
-			nbJour+=date.getJour()-jour;
-		else
-			nbJour+=(dernierJourDuMois(date.getMois()-1,date.getAnnee())-jour) + date.getJour()-1;
 
 		int moisEntre = nbMoisEntre(date);
 
-		if(jour>date.getJour()) {
-			moisTemp++;
+		if(jour>date.getJour())
 			moisEntre--;
-		}
 
 		for (int indice = 0; indice<moisEntre; indice++) {
 			nbJour += nbJourMois[(indice + moisTemp) % 12];
-			if((indice + moisTemp) % 12==1 && estBissextile(annee+(indice + moisTemp) / 12))
+			if((indice + moisTemp) % 12==1 && estBissextile(annee+((indice + moisTemp) / 12)))
 				nbJour++;
 		}
+
+		if(jour<date.getJour())
+			nbJour+=date.getJour()-jour;
+		else if(jour>date.getJour())
+			nbJour += (dernierJourDuMois(date.getMois() - 1, date.getAnnee()) - jour) + date.getJour();
 
 		return nbJour;
 	}
@@ -339,9 +336,7 @@ public class Date implements Comparable<Date>, Serializable {
 	 * @return Entier correspondant au nombre de semaine entre les deux dates.
 	 */
 	public int nbSemaineEntre(Date date){
-		double nbSemaine;
-		nbSemaine=((double)nbJourEntre(date))/7.0;
-		return (int)nbSemaine+2;
+		return nbJourEntre(date)/7;
 	}
 
 	/**

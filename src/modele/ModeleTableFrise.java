@@ -35,7 +35,7 @@ public class ModeleTableFrise extends DefaultTableModel {
                 setValueAt(event, event.getPoids(), frise.getDateDebut().nbJourEntre(event.getDate()));
 
             else if(frise.getPeriode()==1)
-                setValueAt(event, event.getPoids(), frise.getDateDebut().nbSemaineEntre(event.getDate()) - 2);
+                setValueAt(event, event.getPoids(), frise.getDateDebut().datePremierJourSemaine().nbSemaineEntre(event.getDate()));
 
             else if(frise.getPeriode()==2)
                 setValueAt(event, event.getPoids(), frise.getDateDebut().nbMoisEntre(event.getDate()));
@@ -72,18 +72,16 @@ public class ModeleTableFrise extends DefaultTableModel {
      */
     public int nbCol(Date debut, Date fin, int periode){
         int nbColonne=0;
-
         if(periode==0)
             nbColonne = debut.nbJourEntre(fin)+1;
         else if(periode==1)
-            nbColonne = debut.nbSemaineEntre(fin)-1;
+            nbColonne = debut.datePremierJourSemaine().nbSemaineEntre(fin)+1;
         else if(periode==2)
             nbColonne = debut.nbMoisEntre(fin)+1;
         else if(periode==3)
             nbColonne = fin.getAnnee()-debut.getAnnee()+1;
         else if(periode==4)
             nbColonne = ((fin.getAnnee()/5)*5-(debut.getAnnee()/5)*5)/5+1;
-            //nbColonne = debut.nbAnneeEntre(fin)%5==0 ? (debut.nbAnneeEntre(fin)+1)/5 : ((debut.nbAnneeEntre(fin)+1)/5)+1;
         else if(periode==5)
             nbColonne = ((fin.getAnnee()/10)*10-(debut.getAnnee()/10)*10)/10+1;
         else if(periode==6)

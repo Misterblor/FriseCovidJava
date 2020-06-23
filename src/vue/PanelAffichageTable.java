@@ -71,7 +71,7 @@ public class PanelAffichageTable extends JPanel {
         });
 
         JScrollPane scrollPane = new JScrollPane(tableFrise,ScrollPaneConstants.VERTICAL_SCROLLBAR_NEVER,ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setPreferredSize(new Dimension(650,440));
+        scrollPane.setPreferredSize(new Dimension(750,440));
         add(scrollPane);
     }
 

@@ -37,7 +37,7 @@ public class PanelChoixFrise extends JPanel {
      * @author Antoine Limerutti
      */
     public PanelChoixFrise() {
-        setLayout(new GridLayout(7, 7, 20, 20));
+        setLayout(new GridLayout(7, 8, 20, 20));
 
         SavesChronologie listeSave;
         if(SavesChronologie.FILE.exists()) {
@@ -76,7 +76,7 @@ public class PanelChoixFrise extends JPanel {
             add(tableauFrise[indice]);
         }
 
-        for(;indice<7*7; indice++){
+        for(;indice<7*8; indice++){
             add((new JLabel()));
         }
 

@@ -35,11 +35,18 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
     private Chronologie frise;
 
     /**
-     * JLabel contenant le titre et la date de l'évènement.
+     * JLabel contenant le titre de l'évènement.
      *
      * @see JLabel
      */
-    private JLabel labelIntituleDate;
+    private JLabel labelIntitule;
+
+    /**
+     * JLabel contenant la date de l'évènement.
+     *
+     * @see JLabel
+     */
+    private JLabel labelDate;
 
     /**
      * JLabel contenant l'image de l'évènement.
@@ -79,34 +86,42 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
         Iterator<Evenement> iterateur = frise.getListeEvt().iterator();
 
         labelImage = new JLabel();
-        labelIntituleDate = new JLabel();
+        labelIntitule = new JLabel();
+        labelDate = new JLabel();
         labelDesc = new JLabel();
         reinitEvent(0);
 
         GridBagConstraints contrainte = new GridBagConstraints();
-        contrainte.insets = new Insets(6,6,6,6);
+        contrainte.insets = new Insets(0,6,0,6);
 
         contrainte.anchor=GridBagConstraints.CENTER;
         contrainte.gridx=0;
         contrainte.gridy=0;
-        contrainte.gridheight=2;
+        contrainte.gridheight=3;
         add(labelImage, contrainte);
 
-        contrainte.insets = new Insets(6,6,0,6);
+        JScrollPane scrollPaneIntitule = new JScrollPane(labelIntitule, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneIntitule.setPreferredSize(new Dimension(560,40));
+        scrollPaneIntitule.setBorder(null);
+
         contrainte.anchor=GridBagConstraints.LINE_START;
         contrainte.gridx=1;
         contrainte.gridy=0;
         contrainte.gridheight=1;
-        add(labelIntituleDate, contrainte);
+        add(scrollPaneIntitule, contrainte);
 
-        JScrollPane scrollPane = new JScrollPane(labelDesc, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-        scrollPane.setPreferredSize(new Dimension(460,70));
-        scrollPane.setBorder(null);
-
-        contrainte.insets = new Insets(0,6,6,6);
+        labelDate.setPreferredSize(new Dimension(560,40));
         contrainte.gridx=1;
         contrainte.gridy=1;
-        add(scrollPane, contrainte);
+        add(labelDate, contrainte);
+
+        JScrollPane scrollPaneDesc = new JScrollPane(labelDesc, JScrollPane.VERTICAL_SCROLLBAR_AS_NEEDED, JScrollPane.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+        scrollPaneDesc.setPreferredSize(new Dimension(560,70));
+        scrollPaneDesc.setBorder(null);
+
+        contrainte.gridx=1;
+        contrainte.gridy=2;
+        add(scrollPaneDesc, contrainte);
     }
 
     /**
@@ -144,7 +159,8 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
 
             labelImage.setIcon(resizeImage(event.getImage(), 120, 120));
 
-            String intituleDate = "<html><h3>" + event.getTitre() + "<br>" + event.getDate().toString() + "</h3></html>";
+            String intitule = "<html><h3>" + event.getTitre() + "</h3></html>";
+            String date = "<html><h3>" + event.getDate() + "</h3></html>";
 
             String description = "<html>";
 
@@ -159,7 +175,8 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
                     description+=token + "<br>";
                 else if(token.contains("\n")){
                     stRetourChariot = new StringTokenizer(token, "\n");
-                    description+=stRetourChariot.nextToken() + "<br>" + stRetourChariot.nextToken() + " ";
+                    if(stRetourChariot.countTokens()==2)
+                        description+=stRetourChariot.nextToken() + "<br>" + stRetourChariot.nextToken() + " ";
                     i=0;
                 }
                 else
@@ -168,8 +185,10 @@ public class PanelAffichageEvenement extends JPanel implements ActionListener {
 
             description += "</html>";
 
-            labelIntituleDate.setText(intituleDate);
-            labelIntituleDate.setFont(new Font("Open Sans", 0, 14));
+            labelIntitule.setText(intitule);
+            labelIntitule.setFont(new Font("Open Sans", 0, 14));
+            labelDate.setText(date);
+            labelDate.setFont(new Font("Open Sans", 0, 14));
             labelDesc.setText(description);
             labelDesc.setFont(new Font("Open Sans", 0, 14));
 
