@@ -31,7 +31,7 @@ public class FenetreAccueil extends JFrame {
 
         com.formdev.flatlaf.FlatLightLaf.install();
 
-        JMenuItem[] itemsMenu = new JMenuItem[]{new JMenuItem("Choix Frise", 'C'), new JMenuItem("Affichage Frise", 'A'), new JMenuItem("Création", 'R') , new JMenuItem("Fermer",'F'), new JMenuItem("?",'I')};
+        JMenuItem[] itemsMenu = new JMenuItem[]{new JMenuItem("Choix Frise", 'C'), new JMenuItem("Affichage Frise", 'A'), new JMenuItem("Création Evenement", 'R') , new JMenuItem("Fermer",'F'), new JMenuItem("?",'I')};
         menu = new JMenuBar();
 
         for(int i=0; i<itemsMenu.length; i++) {

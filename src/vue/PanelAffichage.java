@@ -5,6 +5,7 @@ import modele.Chronologie;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 /**
  * <b>Panel s'occupant de l'affichage des Evenements et de la table.<br>
@@ -139,7 +140,7 @@ public class PanelAffichage extends JPanel {
      * @author Antoine Limerutti
      */
     public void enregistreEcouteur(Controleur controleur){
-        boutonSupr.setActionCommand("suprimmerFrise>"+frise.getAdresseFichierSauvegarde());
+        boutonSupr.setActionCommand("suprimmerFrise>"+frise.getAdresseFichierSauvegarde() + File.separator + frise.getIntitule() + ".ser");
         boutonSupr.addActionListener(controleur);
     }
 }

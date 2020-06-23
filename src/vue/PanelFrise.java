@@ -135,7 +135,7 @@ public class PanelFrise extends JPanel implements ActionListener {
             fenetreMere.setLocationRelativeTo(null);
         }
 
-        else if(event.getActionCommand().compareTo("Création")==0){
+        else if(event.getActionCommand().compareTo("Création Evenement")==0){
             panelFormulaireEvenement.reset();
             SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
             listeChronologie.verification();
@@ -153,7 +153,7 @@ public class PanelFrise extends JPanel implements ActionListener {
 
         else if(event.getActionCommand().compareTo("?")==0){
             JOptionPane.showMessageDialog(this,
-                    "<html>Utilité des différents onglets :<ul><li>Choix frise : Permet de séléctionner une frise à visionner ou d'en créer une nouvelle frise.</li><li>Affichage Frise : Affiche la frise précédemment sélectionnée dans l'onglet \"Choix Frise\".</li><li>Création : Permet d'ajouter un évènement à une frise.</li></ul><br>Assistance par e-mail : antoine.limerug@gmail.com / ricanpablo@gmail.com</html>",
+                    "<html>Utilité des différents onglets :<ul><li>Choix frise : Permet de séléctionner une frise à visionner ou d'en créer une nouvelle frise.</li><li>Affichage Frise : Affiche la frise précédemment sélectionnée dans l'onglet \"Choix Frise\".</li><li>Création Evenement : Permet d'ajouter un évènement à une frise.</li></ul><br>Assistance par e-mail : antoine.limerug@gmail.com / ricanpablo@gmail.com</html>",
                     "Aide",
                     JOptionPane.INFORMATION_MESSAGE);
         }

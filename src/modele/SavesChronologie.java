@@ -64,18 +64,13 @@ public class SavesChronologie implements Serializable {
      */
     public void remove(String save){
         Iterator<String> iterator = listeSave.iterator();
-        int indice=-1;
+        int indice;
 
-        for(int i=0; iterator.hasNext(); indice++) {
-            if (iterator.next().equals(save))
-                indice = i;
-        }
+        for(indice=0; iterator.hasNext() && !iterator.next().equals(save); indice++) { }
 
-        if(indice!=-1) {
-            new File(listeSave.get(indice)).delete();
-            listeSave.remove(indice);
-            LectureEcriture.ecriture(SavesChronologie.FILE, this);
-        }
+        new File(listeSave.get(indice)).delete();
+        listeSave.remove(indice);
+        LectureEcriture.ecriture(SavesChronologie.FILE, this);
     }
 
     /**
