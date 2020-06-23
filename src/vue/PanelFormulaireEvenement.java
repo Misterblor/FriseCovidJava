@@ -4,8 +4,11 @@ import controleur.ControleurPanelFormulaireEvenement;
 import modele.*;
 
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.awt.event.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.Iterator;
 import java.util.Timer;
 import javax.swing.*;
@@ -228,7 +231,11 @@ public class PanelFormulaireEvenement extends JPanel {
         textFieldIntitule.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                textFieldIntituleKeyTyped(e);
+                try {
+                    textFieldIntituleKeyTyped(e);
+                } catch (IOException | UnsupportedFlavorException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         });
 
@@ -341,7 +348,11 @@ public class PanelFormulaireEvenement extends JPanel {
         textFieldImage.addKeyListener(new KeyAdapter() {
             @Override
             public void keyTyped(KeyEvent e) {
-                textFieldImageKeyTyped(e);
+                try {
+                    textFieldImageKeyTyped(e);
+                } catch (IOException | UnsupportedFlavorException ioException) {
+                    ioException.printStackTrace();
+                }
             }
         });
 
@@ -579,7 +590,7 @@ public class PanelFormulaireEvenement extends JPanel {
      *
      * @see java.awt.event.KeyEvent
      */
-    private void textFieldIntituleKeyTyped(KeyEvent e) {
+    private void textFieldIntituleKeyTyped(KeyEvent e) throws IOException, UnsupportedFlavorException {
         if (textFieldIntitule.getText().equals("Saisir le nom de l'événement") && !((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1 || (int)e.getKeyChar() == 10)){
             textFieldIntitule.setText("");
             textFieldIntitule.setForeground(Color.BLACK);
@@ -607,6 +618,11 @@ public class PanelFormulaireEvenement extends JPanel {
         }
         if ((int)e.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setCaretPosition(0);
+        }
+        if ((int)e.getKeyChar() == 22 && textFieldIntitule.getText().equals((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor) + "Saisir le nom de l'événement")){
+            textFieldIntitule.setText("");
+            textFieldIntitule.setForeground(Color.BLACK);
+            textFieldIntitule.setText((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
         }
     }
 
@@ -800,7 +816,7 @@ public class PanelFormulaireEvenement extends JPanel {
      *
      * @see java.awt.event.KeyEvent
      */
-    private void textFieldImageKeyTyped(KeyEvent e) {
+    private void textFieldImageKeyTyped(KeyEvent e) throws IOException, UnsupportedFlavorException {
 
         if (!((int)e.getKeyChar() == 8 || (int)e.getKeyChar() == 27 || (int)e.getKeyChar() == 1 || (int)e.getKeyChar() == 10)){
             textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 14));
@@ -837,6 +853,11 @@ public class PanelFormulaireEvenement extends JPanel {
         }
         if ((int)e.getKeyChar() == 1 && textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
+        }
+        if ((int)e.getKeyChar() == 22 && textFieldImage.getText().equals((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor) + "Saisir le chemin de l'image")){
+            textFieldImage.setText("");
+            textFieldImage.setForeground(Color.BLACK);
+            textFieldImage.setText((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
         }
 
         String[] partieChemin = textFieldImage.getText().split("\\\\");

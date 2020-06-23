@@ -7,7 +7,10 @@ import modele.LectureEcriture;
 import modele.SavesChronologie;
 
 import java.awt.*;
+import java.awt.datatransfer.DataFlavor;
+import java.awt.datatransfer.UnsupportedFlavorException;
 import java.io.File;
+import java.io.IOException;
 import javax.swing.*;
 
 /**
@@ -307,7 +310,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         });
         textFieldIntitule.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                textFieldIntituleKeyTyped(evt);
+                try {
+                    textFieldIntituleKeyTyped(evt);
+                } catch (IOException | UnsupportedFlavorException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -417,7 +424,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         });
         textFieldDossier.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                textFieldDossierKeyTyped(evt);
+                try {
+                    textFieldDossierKeyTyped(evt);
+                } catch (IOException | UnsupportedFlavorException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -456,7 +467,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         });
         textFieldImage.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyTyped(java.awt.event.KeyEvent evt) {
-                textFieldImageKeyTyped(evt);
+                try {
+                    textFieldImageKeyTyped(evt);
+                } catch (IOException | UnsupportedFlavorException e) {
+                    e.printStackTrace();
+                }
             }
         });
 
@@ -615,28 +630,19 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
      * @see java.awt.event.FocusEvent
      */
     private void textFieldIntituleFocusLost(java.awt.event.FocusEvent evt) {
-        SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
-        listeChronologie.verification();
-        for (int i = 0; i < listeChronologie.size(); i++) {
-            Chronologie chronologie = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
-            if (chronologie.getIntitule().equals(textFieldIntitule.getText())) {
-                textFieldIntitule.setForeground(Color.RED);
-                styleSaisieIntitule.setForeground(Color.RED);
-            } else {
-                if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
-                    textFieldIntitule.setForeground(Color.LIGHT_GRAY);
-                } else {
-                    textFieldIntitule.setForeground(Color.BLACK);
-                }
-
-                styleSaisieIntitule.setForeground(new Color(0,120,215));
-            }
-        }
         if (textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
                 || textFieldIntitule.getText().contains("/") || textFieldIntitule.getText().contains("<") || textFieldIntitule.getText().contains(">")
                 || textFieldIntitule.getText().contains(":") || textFieldIntitule.getText().contains("?") || textFieldIntitule.getText().contains("*")) {
             textFieldIntitule.setForeground(Color.RED);
             styleSaisieIntitule.setForeground(Color.RED);
+        } else {
+            if (textFieldIntitule.getText().equals("Saisir le nom de la frise")){
+                textFieldIntitule.setForeground(Color.LIGHT_GRAY);
+            } else {
+                textFieldIntitule.setForeground(Color.BLACK);
+            }
+
+            styleSaisieIntitule.setForeground(new Color(0,120,215));
         }
         reculeStyleSaisieIntitule();
     }
@@ -687,7 +693,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
      *
      * @see java.awt.event.KeyEvent
      */
-    private void textFieldIntituleKeyTyped(java.awt.event.KeyEvent evt) {
+    private void textFieldIntituleKeyTyped(java.awt.event.KeyEvent evt) throws IOException, UnsupportedFlavorException {
         if (textFieldIntitule.getText().equals("Saisir le nom de la frise") && !((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldIntitule.setText("");
             textFieldIntitule.setForeground(Color.BLACK);
@@ -704,18 +710,6 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             textFieldIntitule.setCaretPosition(0);
         }
         if ((int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 10){
-            SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
-            listeChronologie.verification();
-            for (int i = 0; i < listeChronologie.size(); i++) {
-                Chronologie chronologie = (Chronologie) LectureEcriture.lecture(new File(listeChronologie.get(i)));
-                if (chronologie.getIntitule().equals(textFieldIntitule.getText())) {
-                    textFieldIntitule.setForeground(Color.RED);
-                    styleSaisieIntitule.setForeground(Color.RED);
-                } else {
-                    textFieldIntitule.setForeground(Color.BLACK);
-                    styleSaisieIntitule.setForeground(new Color(0,120,215));
-                }
-            }
             if (textFieldIntitule.getText().contains("\"") || textFieldIntitule.getText().contains("\\")
                     || textFieldIntitule.getText().contains("/") || textFieldIntitule.getText().contains("<") || textFieldIntitule.getText().contains(">")
                     || textFieldIntitule.getText().contains(":") || textFieldIntitule.getText().contains("?") || textFieldIntitule.getText().contains("*")) {
@@ -726,6 +720,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
         if ((int)evt.getKeyChar() == 1 && textFieldIntitule.getText().equals("Saisir le nom de la frise")){
             textFieldIntitule.setCaretPosition(0);
+        }
+        if ((int)evt.getKeyChar() == 22 && textFieldIntitule.getText().equals((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor) + "Saisir le nom de la frise")){
+            textFieldIntitule.setText("");
+            textFieldIntitule.setForeground(Color.BLACK);
+            textFieldIntitule.setText((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
         }
     }
 
@@ -1100,7 +1099,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
      *
      * @see java.awt.event.KeyEvent
      */
-    private void textFieldDossierKeyTyped(java.awt.event.KeyEvent evt) {
+    private void textFieldDossierKeyTyped(java.awt.event.KeyEvent evt) throws IOException, UnsupportedFlavorException {
         if (!((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldDossier.setFont(new Font("Open Sans", Font.PLAIN, 14));
         }
@@ -1135,6 +1134,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
         if ((int)evt.getKeyChar() == 1 && textFieldDossier.getText().equals("Saisir le chemin de sauvegarde")){
             textFieldDossier.setCaretPosition(0);
+        }
+        if ((int)evt.getKeyChar() == 22 && textFieldDossier.getText().equals((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor) + "Saisir le chemin de sauvegarde")){
+            textFieldDossier.setText("");
+            textFieldDossier.setForeground(Color.BLACK);
+            textFieldDossier.setText((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
         }
     }
 
@@ -1249,7 +1253,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
      *
      * @see java.awt.event.KeyEvent
      */
-    private void textFieldImageKeyTyped(java.awt.event.KeyEvent evt) {
+    private void textFieldImageKeyTyped(java.awt.event.KeyEvent evt) throws IOException, UnsupportedFlavorException {
         if (!((int)evt.getKeyChar() == 8 || (int)evt.getKeyChar() == 27 || (int)evt.getKeyChar() == 1 || (int)evt.getKeyChar() == 10)){
             textFieldImage.setFont(new Font("Open Sans", Font.PLAIN, 14));
         }
@@ -1285,6 +1289,11 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         }
         if ((int)evt.getKeyChar() == 1 && textFieldImage.getText().equals("Saisir le chemin de l'image")){
             textFieldImage.setCaretPosition(0);
+        }
+        if ((int)evt.getKeyChar() == 22 && textFieldImage.getText().equals((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor) + "Saisir le chemin de l'image")){
+            textFieldImage.setText("");
+            textFieldImage.setForeground(Color.BLACK);
+            textFieldImage.setText((String) Toolkit.getDefaultToolkit().getSystemClipboard().getData(DataFlavor.stringFlavor));
         }
 
         String[] partieChemin = textFieldImage.getText().split("\\\\");
