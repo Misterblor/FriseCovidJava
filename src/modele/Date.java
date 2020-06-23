@@ -206,6 +206,14 @@ public class Date implements Comparable<Date>, Serializable {
 		return  new Date(j,m,a);
 	}
 
+	/**
+	 * Methode permettant de savoir si deux dates sont dans la même semaine.
+	 *
+	 * @author Pablo Rican
+	 *
+	 * @param date Date à laquelle on souhaite savoir si elle est dans la même semaine que celle qui appelle la fonction.
+	 * @return si oui ou non la date est dans la même semaine que la date qui appelle cette methode.
+	 */
 	public boolean estDansLaSemaine(Date date){
 		Date dateTemp = new Date(jour, mois, annee);
 		while (dateTemp.dateDeLaVeille().getSemaineDeAnnee() == this.getSemaineDeAnnee()){
@@ -220,10 +228,25 @@ public class Date implements Comparable<Date>, Serializable {
 		return false;
 	}
 
+	/**
+	 * Methode permettant de savoir si deux dates sont dans le même mois.
+	 *
+	 * @author Pablo Rican
+	 *
+	 * @param date Date à laquelle on souhaite savoir si elle est dans le même mois que celle qui appelle la methode.
+	 * @return si oui ou non la date est dans le même mois que la date qui appelle cette methode.
+	 */
 	public boolean estDansLeMois(Date date){
 		return mois == date.mois && annee == date.annee;
 	}
 
+	/**
+	 * Methode permettant de renvoyer la semaine de l'année de la date.
+	 *
+	 * @author Pablo Rican
+	 *
+	 * @return la semaine de l'année de la date.
+	 */
 	public int getSemaineDeAnnee(){
 		GregorianCalendar cal = new GregorianCalendar(annee,mois-1,jour);
 		return cal.get(Calendar.WEEK_OF_YEAR);
