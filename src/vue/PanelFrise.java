@@ -129,13 +129,39 @@ public class PanelFrise extends JPanel implements ActionListener {
         }
 
         else if(event.getActionCommand().compareTo("Choix Frise")==0){
+            JOptionPane optionPane = new JOptionPane("Chargement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+            JDialog messageChargement = new JDialog();
+            messageChargement.setTitle("Chargement");
+            messageChargement.setSize(200,200);
+            messageChargement.setResizable(false);
+            messageChargement.setContentPane(optionPane);
+            messageChargement.setLocationRelativeTo(null);
+            messageChargement.pack();
+            messageChargement.validate();
+            messageChargement.repaint();
+            messageChargement.setVisible(true);
+
             setPanelChoixFrise(new PanelChoixFrise());
             fenetreMere.setSize(800,700);
             card.show(this, "Panel Choix Frise");
             fenetreMere.setLocationRelativeTo(null);
+
+            messageChargement.dispose();
         }
 
         else if(event.getActionCommand().compareTo("Création Evenement")==0){
+            JOptionPane optionPane = new JOptionPane("Chargement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+            JDialog messageChargement = new JDialog();
+            messageChargement.setTitle("Chargement");
+            messageChargement.setSize(200,200);
+            messageChargement.setResizable(false);
+            messageChargement.setContentPane(optionPane);
+            messageChargement.setLocationRelativeTo(null);
+            messageChargement.pack();
+            messageChargement.validate();
+            messageChargement.repaint();
+            messageChargement.setVisible(true);
+
             panelFormulaireEvenement.reset();
             SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
             listeChronologie.verification();
@@ -143,6 +169,8 @@ public class PanelFrise extends JPanel implements ActionListener {
             fenetreMere.setSize(new Dimension(1280,740));
             card.show(this, "Panel Formulaire Evenement");
             fenetreMere.setLocationRelativeTo(null);
+
+            messageChargement.dispose();
         }
 
         else if(event.getActionCommand().compareTo("Fermer")==0) {

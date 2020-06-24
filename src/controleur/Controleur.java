@@ -6,6 +6,7 @@ import modele.SavesChronologie;
 import vue.*;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -106,8 +107,24 @@ public class Controleur implements ActionListener {
 
         else if((event.getActionCommand().split(">"))[0].compareTo("Charger")==0){
             File fichier = new File(event.getActionCommand().split(">")[1]);
-            if(fichier.exists())
+            if(fichier.exists()){
+                JOptionPane optionPane = new JOptionPane("Chargement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                JDialog messageChargement = new JDialog();
+                messageChargement.setTitle("Chargement");
+                messageChargement.setSize(200,200);
+                messageChargement.setResizable(false);
+                messageChargement.setContentPane(optionPane);
+                messageChargement.setLocationRelativeTo(null);
+                messageChargement.pack();
+                messageChargement.validate();
+                messageChargement.repaint();
+                messageChargement.setVisible(true);
+
                 panelFrise.setAffichage(new PanelAffichage((Chronologie) LectureEcriture.lecture(fichier)));
+
+                messageChargement.dispose();
+            }
+
             else{
                 JOptionPane.showMessageDialog(panelChoixFrise, "Le fichier spécifié a été supprimé ou déplacé.", "Erreur de chargement", JOptionPane.ERROR_MESSAGE);
                 panelFrise.setPanelChoixFrise(new PanelChoixFrise());
@@ -119,8 +136,10 @@ public class Controleur implements ActionListener {
                 JOptionPane optionPane = new JOptionPane("Enregistrement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
                 JDialog messageEnregistrement = new JDialog();
                 messageEnregistrement.setTitle("Enregistrement");
+                messageEnregistrement.setSize(200,200);
+                messageEnregistrement.setResizable(false);
                 messageEnregistrement.setContentPane(optionPane);
-                messageEnregistrement.setLocationRelativeTo(panelFrise.getFenetreMere());
+                messageEnregistrement.setLocationRelativeTo(null);
                 messageEnregistrement.pack();
                 messageEnregistrement.validate();
                 messageEnregistrement.repaint();
@@ -143,11 +162,13 @@ public class Controleur implements ActionListener {
 
         else if (event.getSource() == panelFormulaireEvenement.getButtonAjouter()){
             if (panelFormulaireEvenement.estValide()){
-                JOptionPane optionPane = new JOptionPane("Enregistrement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, null, null);
-                JDialog messageEnregistrement = new JDialog();
+                JOptionPane optionPane = new JOptionPane("Enregistrement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                JDialog messageEnregistrement = new JDialog(panelFrise.getFenetreMere());
                 messageEnregistrement.setTitle("Enregistrement");
+                messageEnregistrement.setSize(200,200);
+                messageEnregistrement.setResizable(false);
                 messageEnregistrement.setContentPane(optionPane);
-                messageEnregistrement.setLocationRelativeTo(panelFrise.getFenetreMere());
+                messageEnregistrement.setLocationRelativeTo(null);
                 messageEnregistrement.pack();
                 messageEnregistrement.validate();
                 messageEnregistrement.repaint();
@@ -171,11 +192,25 @@ public class Controleur implements ActionListener {
 
         else if(event.getActionCommand().split(">")[0].equals("suprimmerFrise")){
             if(JOptionPane.showConfirmDialog(panelFrise, "Voulez-vous réellement supprimer cette frise ?", "Confirmation", JOptionPane.YES_NO_OPTION, JOptionPane.QUESTION_MESSAGE)==JOptionPane.OK_OPTION) {
+                JOptionPane optionPane = new JOptionPane("Suppression en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, null, null);
+                JDialog messageEnregistrement = new JDialog();
+                messageEnregistrement.setTitle("Suppression");
+                messageEnregistrement.setSize(200,200);
+                messageEnregistrement.setResizable(false);
+                messageEnregistrement.setContentPane(optionPane);
+                messageEnregistrement.setLocationRelativeTo(null);
+                messageEnregistrement.pack();
+                messageEnregistrement.validate();
+                messageEnregistrement.repaint();
+                messageEnregistrement.setVisible(true);
+
                 SavesChronologie listeSave = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
                 listeSave.remove(event.getActionCommand().split(">")[1]);
 
                 panelFrise.setPanelChoixFrise(new PanelChoixFrise());
                 panelFrise.resetPanelAffichage();
+
+                messageEnregistrement.dispose();
             }
         }
     }

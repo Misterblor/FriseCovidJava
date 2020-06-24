@@ -963,8 +963,9 @@ public class PanelFormulaireEvenement extends JPanel {
         JOptionPane optionPane = new JOptionPane("Vérification en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, null, null);
         JDialog messageVerification = new JDialog();
         messageVerification.setTitle("Vérification");
-        messageVerification.setLocationRelativeTo(this);
-        messageVerification.setModalityType(JDialog.ModalityType.MODELESS);
+        messageVerification.setSize(200,200);
+        messageVerification.setResizable(false);
+        messageVerification.setLocationRelativeTo(null);
         messageVerification.setContentPane(optionPane);
         messageVerification.pack();
         messageVerification.validate();

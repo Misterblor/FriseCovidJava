@@ -3,7 +3,7 @@ package vue;
 import controleur.Controleur;
 
 import javax.swing.*;
-import java.awt.Color;
+import java.awt.*;
 
 /**
  * <b>Fenetre qui vas contenir les différents panels.<br>
@@ -30,6 +30,18 @@ public class FenetreAccueil extends JFrame {
         super("Frise Creator");
 
         com.formdev.flatlaf.FlatLightLaf.install();
+
+        JOptionPane optionPane = new JOptionPane("Chargement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+        JDialog messageChargement = new JDialog();
+        messageChargement.setTitle("Chargement");
+        messageChargement.setSize(200,200);
+        messageChargement.setResizable(false);
+        messageChargement.setContentPane(optionPane);
+        messageChargement.setLocationRelativeTo(null);
+        messageChargement.pack();
+        messageChargement.validate();
+        messageChargement.repaint();
+        messageChargement.setVisible(true);
 
         JMenuItem[] itemsMenu = new JMenuItem[]{new JMenuItem("Choix Frise", 'C'), new JMenuItem("Affichage Frise", 'A'), new JMenuItem("Création Evenement", 'R') , new JMenuItem("Fermer",'F'), new JMenuItem("?",'I')};
         menu = new JMenuBar();
@@ -59,6 +71,7 @@ public class FenetreAccueil extends JFrame {
 
         validate();
         repaint();
+        messageChargement.dispose();
     }
 
     /**
