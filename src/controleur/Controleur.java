@@ -1,7 +1,7 @@
 package controleur;
 
 import modele.Chronologie;
-import modele.LectureEcriture;
+import utils.LectureEcriture;
 import modele.SavesChronologie;
 import vue.*;
 
@@ -28,28 +28,28 @@ public class Controleur implements ActionListener {
      * Panel contenant le CardLayout pour naviguer entre les différents panels
      * @see PanelFrise
      */
-    PanelFrise panelFrise;
+    private PanelFrise panelFrise;
 
     /**
      * Panel affichant les firses pouvant être lu
      * et le bouton permettant d'ajouter une nouvelle frise
      * @see PanelChoixFrise
      */
-    PanelChoixFrise panelChoixFrise;
+    private PanelChoixFrise panelChoixFrise;
 
     /**
      * Panel permettant à l'utilisateur de renseigner les différents champs
      * d'une chronologie afin de l'ajouter.
      * @see PanelFormulaireChronologie
      */
-    PanelFormulaireChronologie panelFormulaireChronologie;
+    private PanelFormulaireChronologie panelFormulaireChronologie;
 
     /**
      * Panel permettant à l'utilisateur de renseigner les différents champs
      * d'un événement afin de l'ajouter à une chronologie.
      * @see PanelFormulaireEvenement
      */
-    PanelFormulaireEvenement panelFormulaireEvenement;
+    private PanelFormulaireEvenement panelFormulaireEvenement;
 
     /**
      * Constructeur de la classe Controleur.
@@ -116,19 +116,43 @@ public class Controleur implements ActionListener {
 
         else if (event.getSource() == panelFormulaireChronologie.getButtonAjouter()){
             if (panelFormulaireChronologie.estValide()){
+                JOptionPane optionPane = new JOptionPane("Enregistrement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, new Object[]{}, null);
+                JDialog messageEnregistrement = new JDialog();
+                messageEnregistrement.setTitle("Enregistrement");
+                messageEnregistrement.setContentPane(optionPane);
+                messageEnregistrement.setLocationRelativeTo(panelFrise.getFenetreMere());
+                messageEnregistrement.pack();
+                messageEnregistrement.validate();
+                messageEnregistrement.repaint();
+                messageEnregistrement.setVisible(true);
+
                 SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
                 listeChronologie.verification();
                 Chronologie chronologie = panelFormulaireChronologie.enregistreChronologie();
                 listeChronologie.add(chronologie.getAdresseFichierSauvegarde() + File.separator + chronologie.getIntitule() + ".ser");
                 LectureEcriture.ecriture(new File(chronologie.getAdresseFichierSauvegarde() + File.separator + chronologie.getIntitule() + ".ser"), chronologie);
+
                 panelFormulaireEvenement.updateModelComboBoxSelectionFrise(listeChronologie);
                 panelFrise.setPanelChoixFrise(new PanelChoixFrise());
+
+                messageEnregistrement.dispose();
+
                 panelFrise.disableFormulaireChronologie();
             }
         }
 
         else if (event.getSource() == panelFormulaireEvenement.getButtonAjouter()){
             if (panelFormulaireEvenement.estValide()){
+                JOptionPane optionPane = new JOptionPane("Enregistrement en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, null, null);
+                JDialog messageEnregistrement = new JDialog();
+                messageEnregistrement.setTitle("Enregistrement");
+                messageEnregistrement.setContentPane(optionPane);
+                messageEnregistrement.setLocationRelativeTo(panelFrise.getFenetreMere());
+                messageEnregistrement.pack();
+                messageEnregistrement.validate();
+                messageEnregistrement.repaint();
+                messageEnregistrement.setVisible(true);
+
                 SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
                 listeChronologie.verification();
                 Chronologie[] chronologies = new Chronologie[listeChronologie.size()];
@@ -139,6 +163,8 @@ public class Controleur implements ActionListener {
                 LectureEcriture.ecriture(new File(chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1].getAdresseFichierSauvegarde() + File.separator + chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1].getIntitule() + ".ser"), chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1]);
                 panelFrise.updatePanelAffichage(new PanelAffichage(chronologies[panelFormulaireEvenement.getComboBoxSelectionFrise().getSelectedIndex()-1]));
                 panelFormulaireEvenement.reset();
+
+                messageEnregistrement.dispose();
                 JOptionPane.showMessageDialog(panelFormulaireEvenement, "Votre évènement a bien été ajouté !", "Ajout de l'évènement", JOptionPane.INFORMATION_MESSAGE);
             }
         }

@@ -3,7 +3,7 @@ package vue;
 import controleur.ControleurPanelFormulaireChronologie;
 import modele.Chronologie;
 import modele.Date;
-import modele.LectureEcriture;
+import utils.LectureEcriture;
 import modele.SavesChronologie;
 
 import java.awt.*;
@@ -68,12 +68,6 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     private javax.swing.JFileChooser fileChooserImage;
 
     /**
-     * Label permettant d'afficher l'icon de la Date
-     * @see JLabel
-     */
-    private javax.swing.JLabel labelDateDebut;
-
-    /**
      * Label permettant d'afficher l'icon de la flèche
      * ou de la flèche barré suivant la validité des dates
      * @see JLabel
@@ -81,34 +75,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     private javax.swing.JLabel labelDateFin;
 
     /**
-     * Label permettant d'afficher l'icon du dossier
-     * @see JLabel
-     */
-    private javax.swing.JLabel labelDossier;
-
-    /**
-     * Label permettant d'afficher l'icon de l'image
-     * @see JLabel
-     */
-    private javax.swing.JLabel labelImage;
-
-    /**
      * Label permettant d'afficher l'image choisie par l'utilisateur
      * @see JLabel
      */
     private javax.swing.JLabel labelImageAffiche;
-
-    /**
-     * Label permettant d'afficher l'icon de l'intitulé
-     * @see JLabel
-     */
-    private javax.swing.JLabel labelIntitule;
-
-    /**
-     * Label permettant d'afficher l'icon de la periode
-     * @see JLabel
-     */
-    private javax.swing.JLabel labelPeriode;
 
     /**
      * PanelCalendrierDate permettant de saisir la date de début
@@ -258,10 +228,10 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
 
         fileChooserDossier = new javax.swing.JFileChooser();
         fileChooserImage = new javax.swing.JFileChooser();
-        labelIntitule = new javax.swing.JLabel();
+        JLabel labelIntitule = new javax.swing.JLabel();
         textFieldIntitule = new javax.swing.JTextField();
         styleSaisieIntitule = new javax.swing.JProgressBar();
-        labelDateDebut = new javax.swing.JLabel();
+        JLabel labelDateDebut = new javax.swing.JLabel();
         textFieldDateDebut = new javax.swing.JTextField();
         styleSaisieDateDebut = new javax.swing.JProgressBar();
         panelCalendrierDateDebut = new vue.PanelCalendrierDate();
@@ -269,14 +239,14 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
         textFieldDateFin = new javax.swing.JTextField();
         styleSaisieDateFin = new javax.swing.JProgressBar();
         panelCalendrierDateFin = new vue.PanelCalendrierDate();
-        labelPeriode = new javax.swing.JLabel();
+        JLabel labelPeriode = new javax.swing.JLabel();
         comboBoxPeriode = new javax.swing.JComboBox<>();
         styleSaisiePeriode = new javax.swing.JProgressBar();
-        labelDossier = new javax.swing.JLabel();
+        JLabel labelDossier = new javax.swing.JLabel();
         textFieldDossier = new javax.swing.JTextField();
         boutonParcourirDossier = new javax.swing.JButton();
         styleSaisieDossier = new javax.swing.JProgressBar();
-        labelImage = new javax.swing.JLabel();
+        JLabel labelImage = new javax.swing.JLabel();
         textFieldImage = new javax.swing.JTextField();
         styleSaisieImage = new javax.swing.JProgressBar();
         boutonParcourirImage = new javax.swing.JButton();
@@ -1349,6 +1319,18 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
     public boolean estValide(){
         String erreur = "";
         boolean valide = true;
+
+        JOptionPane optionPane = new JOptionPane("Vérification en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, null, null);
+        JDialog messageVerification = new JDialog();
+        messageVerification.setTitle("Vérification");
+        messageVerification.setLocationRelativeTo(this);
+        messageVerification.setModalityType(JDialog.ModalityType.MODELESS);
+        messageVerification.setContentPane(optionPane);
+        messageVerification.pack();
+        messageVerification.validate();
+        messageVerification.repaint();
+        messageVerification.setVisible(true);
+
         SavesChronologie listeChronologie = (SavesChronologie) LectureEcriture.lecture(SavesChronologie.FILE);
         listeChronologie.verification();
         for (int i = 0; i < listeChronologie.size(); i++) {
@@ -1398,6 +1380,7 @@ public class PanelFormulaireChronologie extends javax.swing.JPanel {
             erreur += "- Le fichier donné n'existe pas ou n'est pas une image\n";
             valide = false;
         }
+        messageVerification.dispose();
         if (!valide){
             JOptionPane.showMessageDialog(this, erreur, "Erreur", JOptionPane.ERROR_MESSAGE);
         }

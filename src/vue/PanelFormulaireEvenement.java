@@ -2,6 +2,7 @@ package vue;
 
 import controleur.ControleurPanelFormulaireEvenement;
 import modele.*;
+import utils.LectureEcriture;
 
 import java.awt.*;
 import java.awt.datatransfer.DataFlavor;
@@ -958,6 +959,18 @@ public class PanelFormulaireEvenement extends JPanel {
     public boolean estValide(){
         String erreur = "";
         boolean valide = true;
+
+        JOptionPane optionPane = new JOptionPane("Vérification en cours...", JOptionPane.INFORMATION_MESSAGE, JOptionPane.DEFAULT_OPTION, null, null, null);
+        JDialog messageVerification = new JDialog();
+        messageVerification.setTitle("Vérification");
+        messageVerification.setLocationRelativeTo(this);
+        messageVerification.setModalityType(JDialog.ModalityType.MODELESS);
+        messageVerification.setContentPane(optionPane);
+        messageVerification.pack();
+        messageVerification.validate();
+        messageVerification.repaint();
+        messageVerification.setVisible(true);
+
         if (textFieldIntitule.getText().equals("Saisir le nom de l'événement")){
             textFieldIntitule.setForeground(Color.RED);
             styleSaisieIntitule.setForeground(Color.RED);
@@ -1070,6 +1083,7 @@ public class PanelFormulaireEvenement extends JPanel {
             erreur += "- Le chemin donné est vide, n'existe pas ou n'est pas une image\n";
             valide = false;
         }
+        messageVerification.dispose();
         if (!valide){
             JOptionPane.showMessageDialog(this, erreur, "Erreur", JOptionPane.ERROR_MESSAGE);
         }

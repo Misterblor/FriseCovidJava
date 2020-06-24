@@ -7,12 +7,11 @@ package vue;
 
 import controleur.Controleur;
 import modele.Chronologie;
-import modele.LectureEcriture;
+import utils.LectureEcriture;
 import modele.SavesChronologie;
 
 import java.awt.*;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Iterator;
 import javax.swing.*;
 
@@ -29,7 +28,7 @@ import javax.swing.*;
  */
 public class PanelChoixFrise extends JPanel {
 
-    JButton[] tableauFrise;
+    private JButton[] tableauFrise;
 
     /**
      * Constructeur de la classe PanelChoixFrise. Crée les boutons correspondant à chaque Chronologie et les ajoute.

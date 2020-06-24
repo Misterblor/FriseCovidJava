@@ -24,14 +24,14 @@ public class PanelAffichageTable extends JPanel {
      *
      * @see JTable
      */
-    JTable tableFrise;
+    private JTable tableFrise;
 
     /**
      * Modele de la table tableFrise.
      *
      * @see ModeleTableFrise
      */
-    ModeleTableFrise modele;
+    private ModeleTableFrise modele;
 
     /**
      * Constructeur de la classe PanelAffichageTable.

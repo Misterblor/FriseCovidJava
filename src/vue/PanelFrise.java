@@ -1,7 +1,7 @@
 package vue;
 
 import controleur.Controleur;
-import modele.LectureEcriture;
+import utils.LectureEcriture;
 import modele.SavesChronologie;
 
 import javax.swing.*;
@@ -25,56 +25,56 @@ public class PanelFrise extends JPanel implements ActionListener {
      *
      * @see CardLayout
      */
-    CardLayout card;
+    private CardLayout card;
 
     /**
      * Dernier JMenuItem utilisé pour changer de panel (Utilisé à des fins graphiques).
      *
      * @see JMenuItem
      */
-    JMenuItem selectedMenuItem;
+    private JMenuItem selectedMenuItem;
 
     /**
      * FenetreAcceuil du PanelFrise.
      *
      * @see FenetreAccueil
      */
-    FenetreAccueil fenetreMere;
+    private FenetreAccueil fenetreMere;
 
     /**
      * PanelChoixFrise qui vas permettre de sélectionner des frises et d'accéder au PanelFormulaireChronologie.
      *
      * @see PanelChoixFrise
      */
-    PanelChoixFrise panelChoixFrise;
+    private PanelChoixFrise panelChoixFrise;
 
     /**
      * PanelAffichage qui vas s'occuper de l'affichage de la frise et de ses évènements.
      *
      * @see PanelAffichage
      */
-    PanelAffichage panelAffichage;
+    private PanelAffichage panelAffichage;
 
     /**
      * PanelFormulaireChronologie qui vas permettre de renseigner des Chronologies.
      *
      * @see PanelFormulaireChronologie
      */
-    PanelFormulaireChronologie panelFormulaireChronologie;
+    private PanelFormulaireChronologie panelFormulaireChronologie;
 
     /**
      * PanelFormulaireEvenement qui vas permettre de renseigner des Evenements
      *
      * @see PanelFormulaireEvenement
      */
-    PanelFormulaireEvenement panelFormulaireEvenement;
+    private PanelFormulaireEvenement panelFormulaireEvenement;
 
     /**
      * Controleur qui vas gérer les actions globales sur le programme.
      *
      * @see Controleur
      */
-    Controleur controleur;
+    private Controleur controleur;
 
     /**
      * Constructeur de la classe PanelFrise. Il vas instancier les différents panels ainsi que le controleur.

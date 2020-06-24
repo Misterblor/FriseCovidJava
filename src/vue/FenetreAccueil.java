@@ -19,7 +19,7 @@ public class FenetreAccueil extends JFrame {
      *
      * @see JMenuBar
      */
-    JMenuBar menu;
+    private JMenuBar menu;
 
     /**
      * Constructeur de la classe Fenetre Acceuil

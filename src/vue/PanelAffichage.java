@@ -23,14 +23,14 @@ public class PanelAffichage extends JPanel {
      *
      * @see JButton
      */
-    JButton boutonSupr;
+    private JButton boutonSupr;
 
     /**
      * Chronologie que l'on souhaite visionner.
      *
      * @see Chronologie
      */
-    Chronologie frise;
+    private Chronologie frise;
 
     /**
      * Constructeur du PanelAffichage lorsqu'aucune Chronologie n'est sélectionnée pour visionnage.
